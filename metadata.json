@@ -1,0 +1,6 @@
+{
+  "name": "FP DROP — Student Streetwear FP VUT",
+  "description": "Moderní studentský streetwear pro studenty Fakulty podnikatelské VUT v Brně. Limitované dropy, oversized střihy, univerzitní identita a akademický e-commerce projekt.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
