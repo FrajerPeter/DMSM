@@ -34,7 +34,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'drops', label: 'DROPY' },
     { id: 'lookbook', label: 'GALÉRIA' },
     { id: 'news', label: 'MAGAZÍN' },
-    { id: 'vlog', label: 'VLOG' },
+    { id: 'vlog', label: 'BLOG' },
     { id: 'about', label: 'O ZNAČKE' }
   ] as const;
 

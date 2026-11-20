@@ -26,6 +26,16 @@ class AnalyticsManager {
     return this.clarityId || 'NENASTAVENÉ';
   }
 
+  public getClarityStatus(): string {
+    if (!this.isConfigured('clarity')) return 'nenastavené';
+    if (!this.initialized) return 'čaká na súhlas';
+    const script = document.querySelector<HTMLScriptElement>(`script[data-fp-clarity="${this.clarityId}"]`);
+    if (!script) return 'načítava sa';
+    if (script.dataset.fpClarityState === 'loaded') return 'načítané';
+    if (script.dataset.fpClarityState === 'error') return 'zablokované';
+    return 'načítava sa';
+  }
+
   public hasConfiguredProviders(): boolean {
     return this.isConfigured('ga4') || this.isConfigured('clarity');
   }
@@ -33,7 +43,7 @@ class AnalyticsManager {
   public isConfigured(provider: 'ga4' | 'clarity'): boolean {
     return provider === 'ga4'
       ? /^G-[A-Z0-9]+$/i.test(this.ga4Id)
-      : /^[a-z0-9]+$/i.test(this.clarityId);
+      : /^[a-z0-9]{10}$/i.test(this.clarityId);
   }
 
   public initialize(consentGranted: boolean): void {
@@ -64,13 +74,23 @@ class AnalyticsManager {
         (clarity as any).q = [];
         win.clarity = clarity;
       }
+      // Queue consent before the async Clarity script can start collecting.
       win.clarity('consentv2', { analytics_Storage: 'granted', ad_Storage: 'denied' });
       if (!document.querySelector(`script[data-fp-clarity="${this.clarityId}"]`)) {
         const script = document.createElement('script');
         script.async = true;
+        script.type = 'text/javascript';
         script.src = `https://www.clarity.ms/tag/${encodeURIComponent(this.clarityId)}`;
         script.dataset.fpClarity = this.clarityId;
-        document.head.appendChild(script);
+        script.dataset.fpClarityState = 'loading';
+        script.addEventListener('load', () => { script.dataset.fpClarityState = 'loaded'; }, { once: true });
+        script.addEventListener('error', () => {
+          script.dataset.fpClarityState = 'error';
+          console.error('[FP DROP] Microsoft Clarity did not load. Check the project ID and browser tracker blocking.');
+        }, { once: true });
+        const firstScript = document.getElementsByTagName('script')[0];
+        if (firstScript?.parentNode) firstScript.parentNode.insertBefore(script, firstScript);
+        else document.head.appendChild(script);
       }
     }
 
@@ -129,6 +149,12 @@ class AnalyticsManager {
     const win = window as any;
     if (this.isConfigured('ga4') && typeof win.gtag === 'function') {
       win.gtag('event', eventName, { ...params, send_to: this.ga4Id });
+    }
+    if (this.isConfigured('clarity') && typeof win.clarity === 'function') {
+      // Clarity records sessions automatically; custom events make SPA actions
+      // such as switching views and opening articles searchable in its dashboard.
+      const clarityEvent = eventName.replace(/[^a-z0-9_-]/gi, '_').slice(0, 50);
+      if (clarityEvent) win.clarity('event', clarityEvent);
     }
   }
 

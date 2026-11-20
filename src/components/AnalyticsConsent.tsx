@@ -44,7 +44,12 @@ export const AnalyticsConsent: React.FC = () => {
         </button>
         {settingsOpen && (
           <div className="mt-2 w-72 border border-neutral-700 bg-neutral-950 p-4 text-sm text-white shadow-2xl">
-            <p className="text-neutral-300">GA4: {analytics.isConfigured('ga4') ? 'nastavené' : 'nenastavené'} · Clarity: {analytics.isConfigured('clarity') ? 'nastavené' : 'nenastavené'}</p>
+            <p className="text-neutral-300">GA4: {analytics.isConfigured('ga4') ? 'nastavené' : 'nenastavené'} · Microsoft Clarity: {analytics.getClarityStatus()}</p>
+            {analytics.getClarityStatus() === 'zablokované' && (
+              <p className="mt-2 text-xs leading-relaxed text-amber-200">
+                Prehliadač zablokoval Clarity. V Opere GX povoľ sledovacie prvky pre túto stránku, potom ju obnov.
+              </p>
+            )}
             <div className="mt-3 flex flex-wrap gap-2">
               <button onClick={() => saveChoice('granted')} className="bg-white px-3 py-2 text-xs font-bold text-black">Povoliť</button>
               <button onClick={() => saveChoice('denied')} className="border border-neutral-600 px-3 py-2 text-xs">Odmietnuť / odvolať</button>

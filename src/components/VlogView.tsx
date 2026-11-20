@@ -33,12 +33,12 @@ export const VlogView: React.FC = () => (
     <section className="border-b border-neutral-800 bg-[#090909] px-4 py-14 sm:px-6 md:py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-4 flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-400">
-          <span className="bg-white px-2 py-1 font-bold text-black">VLOG</span>
-          <span>·</span><span>HLAS KOMUNITY FP</span>
+          <span className="bg-white px-2 py-1 font-bold text-black">BLOG</span>
+          <span>·</span><span>PRÍBEHY A NÁZORY KOMUNITY FP</span>
         </div>
-        <h1 className="font-display text-4xl font-black uppercase tracking-tight text-white sm:text-6xl">Z kampusu. Od študentov.</h1>
+        <h1 className="font-display text-4xl font-black uppercase tracking-tight text-white sm:text-6xl">FP DROP z pohľadu študentov.</h1>
         <p className="mt-5 max-w-2xl text-sm leading-relaxed text-neutral-400 sm:text-base">
-          Krátke príbehy o študentskom živote, nápadoch na oblečenie a tvorbe FP DROP. Cieľom je dať priestor skutočným hlasom komunity.
+          Články o značke FP DROP, jej oblečení a tom, ako vzniká študentský streetwear. Nájdeš tu aj témy a nápady, ktoré môžu ovplyvniť ďalšie kolekcie.
         </p>
         <div className="mt-6 max-w-3xl border border-amber-900/70 bg-amber-950/30 p-4 text-xs leading-relaxed text-amber-200">
           Ukážkový obsah pre školský prototyp. Texty nižšie sú redakčné koncepty, nie autentické výpovede konkrétnych študentov. Pred publikovaním ich nahraďte rozhovormi a príspevkami so súhlasom autorov.
