@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CartItem, CustomerInfo, Order } from '../types';
 import { X, CheckCircle, Package, CreditCard, Smartphone, Building2, ShieldCheck, ArrowRight, ArrowLeft } from 'lucide-react';
 import { analytics } from '../utils/analytics';
@@ -21,24 +21,35 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   discount,
   onOrderSuccess
 }) => {
-  if (!isOpen) return null;
-
   const [step, setStep] = useState<1 | 2 | 3 | 'success'>(1);
   const [customer, setCustomer] = useState<CustomerInfo>({
-    firstName: 'Tereza',
-    lastName: 'Nováková',
-    email: 'tereza.novakova@vut.cz',
-    phone: '+420 777 123 456',
-    street: 'Kolejní 2',
-    city: 'Brno',
-    postalCode: '612 00',
-    deliveryMethod: 'zasilkovna',
-    pickupBranch: 'Z-BOX Kolejní 2 (Koleje VUT Pod Palackého vrchem)',
-    paymentMethod: 'applepay',
-    note: 'Doručit do Z-BOXu u bloku A03'
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    street: '',
+    city: '',
+    postalCode: '',
+    deliveryMethod: 'pickup',
+    pickupBranch: '',
+    paymentMethod: 'transfer',
+    note: ''
   });
 
   const [confirmedOrder, setConfirmedOrder] = useState<Order | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setStep(1);
+      setCustomer({
+        firstName: '', lastName: '', email: '', phone: '', street: '', city: '', postalCode: '',
+        deliveryMethod: 'pickup', pickupBranch: '', paymentMethod: 'transfer', note: ''
+      });
+      setConfirmedOrder(null);
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
 
   // Delivery costs
   const FREE_SHIPPING_THRESHOLD = 1000;
@@ -64,8 +75,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       status: 'CONFIRMED'
     };
 
-    // Track GA4 Purchase Event
-    analytics.trackEvent('purchase', {
+    // This frontend-only checkout is a demonstration, not a completed payment.
+    analytics.trackEvent('demo_order_completed', {
       transaction_id: orderId,
       value: finalTotal,
       currency: 'CZK',
@@ -130,6 +141,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
         {/* Content Body */}
         <div className="p-6 md:p-8 flex-1 overflow-y-auto">
+          <div className="mb-6 border border-amber-700/60 bg-amber-950/30 px-4 py-3 text-xs font-mono text-amber-100" role="note">
+            <strong className="block mb-1">DEMO PROTOTYP — NEZADÁVAJTE SKUTOČNÉ ÚDAJE</strong>
+            Objednávka ani platba sa nespracujú. Tento formulár slúži iba na ukážku používateľského toku.
+          </div>
           {step === 1 && (
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               {/* Form Left */}
@@ -141,24 +156,21 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       STUDUJEŠ NA FP NEBO BYDLÍŠ NA KOLEJÍCH?
                     </span>
-                    <span className="text-[11px] text-neutral-400">1-klikem předvyplň doručení do Z-BOXu na Kolejní 2 (Pod Palackého vrchem)</span>
+                    <span className="text-[11px] text-neutral-400">Ukázková volba osobního odběru; prototyp není napojen na výdejní místo.</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => {
                       setCustomer(prev => ({
                         ...prev,
-                        street: 'Kolejní 2',
-                        city: 'Brno',
-                        postalCode: '612 00',
-                        deliveryMethod: 'zasilkovna',
-                        pickupBranch: 'Z-BOX Kolejní 2 (Koleje VUT Pod Palackého vrchem, blok A03)',
-                        note: 'Doručit do Z-BOXu u bloku A03 (areál Pod Palackého vrchem)'
+                        deliveryMethod: 'pickup',
+                        pickupBranch: '',
+                        note: ''
                       }));
                     }}
                     className="px-3 py-1.5 bg-white text-black font-bold uppercase hover:bg-neutral-200 transition-colors text-[10px] shrink-0 self-start sm:self-auto"
                   >
-                    ⚡ PŘEDVYPLNIT KOLEJE
+                    ⚡ VYBRAT OSOBNÍ ODBĚR
                   </button>
                 </div>
 
@@ -226,7 +238,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                           <span>ZÁSILKOVNA (VÝDEJNÍ MÍSTO / Z-BOX)</span>
                           <span className="tabular-nums">{isFreeShipping ? 'ZDARMA' : '69 Kč'}</span>
                         </div>
-                        <p className="text-[11px] text-neutral-400 mt-1">Doručení do 24 hodin do kteréhokoliv ze 7 000 Z-BOXů v ČR a na kolejích VUT.</p>
+                        <p className="text-[11px] text-neutral-400 mt-1">Modelová možnost dopravy; napojení na dopravce není součástí prototypu.</p>
                         {customer.deliveryMethod === 'zasilkovna' && (
                           <div className="mt-2.5 pt-2 border-t border-neutral-800">
                             <span className="text-[10px] font-mono text-neutral-400 block mb-1">VYBRANÁ POBOČKA:</span>
@@ -254,7 +266,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                           <span>OSOBNÍ ODBĚR NA FP VUT (KOLEJNÍ 29)</span>
                           <span className="text-emerald-400 font-bold">ZDARMA VŽDY</span>
                         </div>
-                        <p className="text-[11px] text-neutral-400 mt-1">Vyzvednutí přímo na Fakultě podnikatelské v Králově Poli (Kolejní 29) po přednáškách.</p>
+                        <p className="text-[11px] text-neutral-400 mt-1">Modelová možnost převzetí; skutečné místo a termín zatím nejsou stanoveny.</p>
                       </div>
                     </label>
 
@@ -271,7 +283,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                           <span>PPL KURÝR NA ADRESU</span>
                           <span className="tabular-nums">{isFreeShipping ? 'ZDARMA' : '89 Kč'}</span>
                         </div>
-                        <p className="text-[11px] text-neutral-400 mt-1">Doručení až k vašim dveřím kdekoliv v České republice.</p>
+                        <p className="text-[11px] text-neutral-400 mt-1">Modelová možnost dopravy; napojení na dopravce není součástí prototypu.</p>
                       </div>
                     </label>
                   </div>
@@ -387,7 +399,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 VYBER ZPŮSOB PLATBY
               </h3>
               <p className="text-xs font-mono text-neutral-400 mb-4">
-                Platba probíhá v testovacím módu prototypu. Žádné reálné finance nebudou strženy.
+                Způsoby platby jsou pouze modelové prvky rozhraní. Nezadávejte údaje ke kartě; žádná platební brána není připojena.
               </p>
 
               <div className="space-y-3">
@@ -407,7 +419,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       </span>
                       <span className="text-[10px] font-mono px-2 py-0.5 bg-neutral-800 text-neutral-300">EXPRESNÍ</span>
                     </div>
-                    <p className="text-[11px] text-neutral-400 mt-1">1-click bezpečná autorizace otiskem prstu nebo Face ID.</p>
+                    <p className="text-[11px] text-neutral-400 mt-1">Pouze návrh rozhraní; Apple Pay ani Google Pay nejsou připojeny.</p>
                   </div>
                 </label>
 
@@ -426,29 +438,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                         PLATEBNÍ KARTA (VISA / MASTERCARD)
                       </span>
                     </div>
-                    <p className="text-[11px] text-neutral-400 mt-1">Platba přes zabezpečenou 3D Secure platební bránu.</p>
+                    <p className="text-[11px] text-neutral-400 mt-1">Pouze návrh rozhraní; platební brána není připojena.</p>
                     {customer.paymentMethod === 'card' && (
-                      <div className="mt-3 pt-3 border-t border-neutral-800 space-y-2">
-                        <input
-                          type="text"
-                          placeholder="4111 •••• •••• 1111"
-                          defaultValue="4111 2222 3333 4444"
-                          className="w-full bg-black border border-neutral-700 px-3 py-1.5 text-xs font-mono text-white"
-                        />
-                        <div className="grid grid-cols-2 gap-2">
-                          <input
-                            type="text"
-                            placeholder="MM/RR"
-                            defaultValue="12/28"
-                            className="w-full bg-black border border-neutral-700 px-3 py-1.5 text-xs font-mono text-white"
-                          />
-                          <input
-                            type="text"
-                            placeholder="CVC"
-                            defaultValue="888"
-                            className="w-full bg-black border border-neutral-700 px-3 py-1.5 text-xs font-mono text-white"
-                          />
-                        </div>
+                      <div className="mt-3 border-t border-neutral-800 pt-3 text-[11px] text-amber-200">
+                        Pole platební karty nejsou v prototypu dostupná. Pro pokračování použijte pouze demo volbu.
                       </div>
                     )}
                   </div>
@@ -469,7 +462,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                         BANKOVNÍ PŘEVOD / OKAMŽITÁ QR PLATBA
                       </span>
                     </div>
-                    <p className="text-[11px] text-neutral-400 mt-1">Vygenerujeme QR kód pro mobilní bankovnictví (Česká spořitelna, KB, Air Bank, ČSOB).</p>
+                    <p className="text-[11px] text-neutral-400 mt-1">Pouze návrh rozhraní; QR platba ani bankovní převod nejsou připojeny.</p>
                   </div>
                 </label>
               </div>
@@ -593,7 +586,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
                 <div className="flex justify-between border-b border-neutral-900 pb-2">
                   <span className="text-neutral-500">E-mailové potvrzení:</span>
-                  <span className="text-white">{confirmedOrder.customer.email}</span>
+                  <span className="text-white" data-clarity-mask="True">{confirmedOrder.customer.email}</span>
                 </div>
                 <div className="flex justify-between font-bold text-white pt-1">
                   <span>Celková částka:</span>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Product, CartItem, Order, ProductCategory } from './types';
 import { PRODUCTS } from './data/products';
 import { Header, MainNavView } from './components/Header';
@@ -8,29 +8,58 @@ import { ShopView } from './components/ShopView';
 import { DropsView } from './components/DropsView';
 import { LookbookView } from './components/LookbookView';
 import { NewsView } from './components/NewsView';
+import { VlogView } from './components/VlogView';
 import { AboutView } from './components/AboutView';
-import { CaseStudyHub } from './components/CaseStudyHub';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { CartDrawer } from './components/CartDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { SearchModal } from './components/SearchModal';
 import { AccountModal } from './components/AccountModal';
-import { MobileAppSimulator } from './components/MobileAppSimulator';
-import { InstagramStoryModal } from './components/InstagramStoryModal';
+import { AnalyticsConsent } from './components/AnalyticsConsent';
 import { analytics } from './utils/analytics';
 import { Home, Grid, Zap, BookOpen, ShoppingBag, CheckCircle2 } from 'lucide-react';
 
+const CaseStudyHub = lazy(() => import('./components/CaseStudyHub').then(module => ({ default: module.CaseStudyHub })));
+const MobileAppSimulator = lazy(() => import('./components/MobileAppSimulator').then(module => ({ default: module.MobileAppSimulator })));
+const InstagramStoryModal = lazy(() => import('./components/InstagramStoryModal').then(module => ({ default: module.InstagramStoryModal })));
+
+const CART_STORAGE_KEY = 'fp-drop-cart-v1';
+const WISHLIST_STORAGE_KEY = 'fp-drop-wishlist-v1';
+
+function loadSavedCart(): CartItem[] {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) ?? '[]');
+    if (!Array.isArray(saved)) return [];
+
+    return saved.flatMap((item): CartItem[] => {
+      const product = PRODUCTS.find(candidate => candidate.id === item?.productId);
+      const size = typeof item?.size === 'string' ? item.size : '';
+      const quantity = Number(item?.quantity);
+      if (!product || !product.sizes.includes(size) || !Number.isInteger(quantity) || quantity < 1) return [];
+
+      return [{ id: `${product.id}-${size}`, product, size, quantity }];
+    });
+  } catch {
+    return [];
+  }
+}
+
+function loadSavedWishlist(): string[] {
+  try {
+    const saved = JSON.parse(localStorage.getItem(WISHLIST_STORAGE_KEY) ?? '[]');
+    return Array.isArray(saved)
+      ? saved.filter((id): id is string => typeof id === 'string' && PRODUCTS.some(product => product.id === id))
+      : [];
+  } catch {
+    return [];
+  }
+}
+
 export default function App() {
   const [activeView, setActiveView] = useState<MainNavView>('home');
-  const [cart, setCart] = useState<CartItem[]>([
-    {
-      id: 'cart-init-1',
-      product: PRODUCTS[0], // HOT GIRLS GO TO FP TEE
-      size: 'M',
-      quantity: 1
-    }
-  ]);
-  const [wishlistIds, setWishlistIds] = useState<string[]>(['prod-01', 'prod-03']);
+  const previousView = useRef(activeView);
+  const [cart, setCart] = useState<CartItem[]>(loadSavedCart);
+  const [wishlistIds, setWishlistIds] = useState<string[]>(loadSavedWishlist);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState<boolean>(false);
@@ -41,6 +70,37 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [initialShopCategory, setInitialShopCategory] = useState<ProductCategory>('ALL');
   const [initialShopDropId, setInitialShopDropId] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart.map(({ product, size, quantity }) => ({
+        productId: product.id,
+        size,
+        quantity
+      }))));
+    } catch {
+      // The cart still works for this session when browser storage is unavailable.
+    }
+  }, [cart]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlistIds));
+    } catch {
+      // The wishlist still works for this session when browser storage is unavailable.
+    }
+  }, [wishlistIds]);
+
+  useEffect(() => {
+    if (previousView.current === activeView) return;
+    previousView.current = activeView;
+    analytics.trackEvent('page_view', {
+      page_title: `FP DROP — ${activeView}`,
+      page_location: `${window.location.origin}${window.location.pathname}#${activeView}`,
+      page_path: `${window.location.pathname}#${activeView}`,
+      page_view_name: activeView
+    });
+  }, [activeView]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -226,6 +286,8 @@ export default function App() {
           />
         )}
 
+        {activeView === 'vlog' && <VlogView />}
+
         {activeView === 'about' && (
           <AboutView
             onNavigateToShop={() => {
@@ -240,14 +302,16 @@ export default function App() {
         )}
 
         {activeView === 'case-study' && (
-          <CaseStudyHub
-            onBackToShop={() => {
-              setActiveView('shop');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            onOpenMobileApp={() => setIsMobileAppOpen(true)}
-            onOpenInstagramStories={() => setIsStoriesOpen(true)}
-          />
+          <Suspense fallback={<div className="min-h-screen bg-[#070707] text-neutral-400 p-8 font-mono text-xs">Načítám případovou studii…</div>}>
+            <CaseStudyHub
+              onBackToShop={() => {
+                setActiveView('shop');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onOpenMobileApp={() => setIsMobileAppOpen(true)}
+              onOpenInstagramStories={() => setIsStoriesOpen(true)}
+            />
+          </Suspense>
         )}
       </main>
 
@@ -370,20 +434,30 @@ export default function App() {
         wishlistCount={wishlistIds.length}
       />
 
-      <MobileAppSimulator
-        isOpen={isMobileAppOpen}
-        onClose={() => setIsMobileAppOpen(false)}
-        onSelectProduct={setSelectedProduct}
-        wishlistIds={wishlistIds}
-        cartCount={totalCartCount}
-      />
+      {isMobileAppOpen && (
+        <Suspense fallback={null}>
+          <MobileAppSimulator
+            isOpen={isMobileAppOpen}
+            onClose={() => setIsMobileAppOpen(false)}
+            onSelectProduct={setSelectedProduct}
+            wishlistIds={wishlistIds}
+            cartCount={totalCartCount}
+          />
+        </Suspense>
+      )}
 
-      <InstagramStoryModal
-        isOpen={isStoriesOpen}
-        onClose={() => setIsStoriesOpen(false)}
-        onSelectProduct={setSelectedProduct}
-        onQuickAdd={handleQuickAdd}
-      />
+      {isStoriesOpen && (
+        <Suspense fallback={null}>
+          <InstagramStoryModal
+            isOpen={isStoriesOpen}
+            onClose={() => setIsStoriesOpen(false)}
+            onSelectProduct={setSelectedProduct}
+            onQuickAdd={handleQuickAdd}
+          />
+        </Suspense>
+      )}
+
+      <AnalyticsConsent />
     </div>
   );
 }

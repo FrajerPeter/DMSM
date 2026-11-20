@@ -13,11 +13,11 @@ interface NewsViewProps {
 
 export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateToShop }) => {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string>('VŠECHNO');
+  const [activeCategory, setActiveCategory] = useState<string>('VŠETKO');
 
-  const categories = ['VŠECHNO', 'STYL & KULTURA', 'KOMUNITA', 'STUDENTSKÝ ŽIVOT', 'BRNO GUIDE', 'ZÁKULISÍ BRANDU', 'AKADEMICKÝ PROJEKT'];
+  const categories = ['VŠETKO', 'ŠTÝL A KULTÚRA', 'KOMUNITA', 'ŠTUDENTSKÝ ŽIVOT', 'SPRIEVODCA BRNOM', 'ZO ZÁKULISIA ZNAČKY', 'AKADEMICKÝ PROJEKT'];
 
-  const filteredArticles = activeCategory === 'VŠECHNO'
+  const filteredArticles = activeCategory === 'VŠETKO'
     ? ARTICLES
     : ARTICLES.filter(a => a.category.toUpperCase().includes(activeCategory));
 
@@ -42,7 +42,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
           className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white mb-8 transition-colors"
         >
           <ArrowLeft size={14} />
-          <span>ZPĚT NA VŠECHNY ČLÁNKY</span>
+          <span>SPÄŤ NA VŠETKY ČLÁNKY</span>
         </button>
 
         <article className="border-b border-neutral-800 pb-12">
@@ -54,6 +54,10 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
             <span aria-hidden="true">·</span>
             <span className="flex items-center gap-1"><Clock size={12} /> {selectedArticle.readTime}</span>
           </div>
+
+          <p className="mb-4 border border-amber-900/70 bg-amber-950/30 px-3 py-2 text-xs font-mono text-amber-200">
+            Ukážkový článok: autor, profil aj citácie sú fiktívne.
+          </p>
 
           <h1 className="font-display font-extrabold text-2xl md:text-4xl text-white tracking-tight uppercase leading-tight mb-4">
             {selectedArticle.title}
@@ -67,13 +71,13 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
           <div className="flex items-center justify-between py-4 border-y border-neutral-800 text-xs font-mono text-neutral-400 mb-8">
             <div className="flex items-center gap-2">
               <User size={14} className="text-white" />
-              <span>Autor: <strong className="text-white">{selectedArticle.author}</strong> ({selectedArticle.authorRole})</span>
+            <span>Ukážkový autor: <strong className="text-white">{selectedArticle.author}</strong> ({selectedArticle.authorRole})</span>
             </div>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => {
                   navigator.clipboard?.writeText(window.location.href);
-                  alert('Odkaz zkopírován do schránky');
+                  alert('Odkaz bol skopírovaný do schránky');
                 }}
                 className="hover:text-white flex items-center gap-1"
               >
@@ -102,10 +106,10 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
-                    SHOP THE ARTICLE
+                    PRODUKTY Z ČLÁNKU
                   </span>
                   <h3 className="font-display font-bold text-lg uppercase text-white">
-                    PRODUKTY SPOJENÉ S TÍMTO TÉMATEM
+                    PRODUKTY SÚVISIACE S TÉMOU
                   </h3>
                 </div>
 
@@ -113,7 +117,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
                   onClick={onNavigateToShop}
                   className="text-xs font-mono text-neutral-400 hover:text-white flex items-center gap-1 underline underline-offset-4"
                 >
-                  <span>Celý shop</span>
+                  <span>Celý obchod</span>
                   <ArrowRight size={13} />
                 </button>
               </div>
@@ -155,19 +159,22 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
       {/* Magazine Header */}
       <div className="border-b border-neutral-800 pb-8 mb-8">
         <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-400 mb-2">
-          <span>EDITORIAL MAGAZINE</span>
+          <span>REDAKČNÝ MAGAZÍN</span>
           <span aria-hidden="true">·</span>
           <span>FP VUT BRNO</span>
           <span aria-hidden="true">·</span>
-          <span>STUDENT DISCOURSE</span>
+          <span>ŠTUDENTSKÉ TÉMY</span>
         </div>
 
         <h1 className="font-display font-extrabold text-3xl md:text-5xl uppercase tracking-tight text-white">
-          NEWS & CULTURE
+          MAGAZÍN A KULTÚRA
         </h1>
 
         <p className="mt-4 text-sm md:text-base text-neutral-400 max-w-2xl leading-relaxed">
-          Články, rozbory materiálů, průvodce brněnským studentským životem a příběhy za limitovanými dropy. Propojujeme obsahový marketing s univerzitní identitou.
+          Články o materiáloch, študentskom živote v Brne a príbehoch za limitovanými kolekciami. Obsah prepájame s identitou fakulty.
+        </p>
+        <p className="mt-4 max-w-2xl border border-amber-900/70 bg-amber-950/30 px-3 py-2 text-xs font-mono text-amber-200">
+          Ukážkový obsah: mená autorov, ich profily a citácie sú fiktívne.
         </p>
 
         {/* Category filters */}
@@ -195,7 +202,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
           className="mb-12 p-6 md:p-8 bg-neutral-950 border border-neutral-800 hover:border-neutral-600 transition-colors cursor-pointer group"
         >
           <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 uppercase tracking-widest mb-3">
-            <span className="text-white font-bold">HLAVNÍ TÉMA</span>
+            <span className="text-white font-bold">HLAVNÁ TÉMA</span>
             <span aria-hidden="true">·</span>
             <span>{filteredArticles[0].category}</span>
             <span aria-hidden="true">·</span>
@@ -211,9 +218,9 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
           </p>
 
           <div className="mt-6 flex items-center justify-between text-xs font-mono text-neutral-400 pt-4 border-t border-neutral-900">
-            <span>Autor: {filteredArticles[0].author}</span>
+            <span>Ukážkový autor: {filteredArticles[0].author}</span>
             <span className="text-white font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              PŘEČÍST ČLÁNEK <ArrowRight size={13} />
+              ČÍTAŤ ČLÁNOK <ArrowRight size={13} />
             </span>
           </div>
         </div>
@@ -244,7 +251,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
               {/* Connected Products Pill */}
               {art.relatedProductIds.length > 0 && (
                 <div className="mt-4 pt-3 border-t border-neutral-900/80 flex items-center gap-2 text-[10px] font-mono text-neutral-400">
-                  <span className="uppercase text-neutral-400">MERCH:</span>
+                <span className="uppercase text-neutral-400">PRODUKT:</span>
                   <span className="text-white truncate">
                     {PRODUCTS.find(p => p.id === art.relatedProductIds[0])?.name || 'Kolekce FP'}
                   </span>
@@ -255,7 +262,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
             <div className="mt-4 pt-3 border-t border-neutral-900 flex items-center justify-between text-xs font-mono text-neutral-400">
               <span>{art.date}</span>
               <span className="text-white font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                Číst esej <ArrowRight size={12} />
+                Čítať článok <ArrowRight size={12} />
               </span>
             </div>
           </article>

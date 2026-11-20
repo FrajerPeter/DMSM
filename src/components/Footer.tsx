@@ -21,10 +21,7 @@ export const Footer: React.FC<FooterProps> = ({
     e.preventDefault();
     if (!email || !email.includes('@')) return;
 
-    analytics.trackEvent('newsletter_signup', {
-      email,
-      source: 'footer'
-    });
+    analytics.trackEvent('newsletter_form_submit_demo', { source: 'footer' });
     setSubscribed(true);
   };
 
@@ -38,13 +35,13 @@ export const Footer: React.FC<FooterProps> = ({
               FP DROP
             </span>
             <p className="text-xs font-mono text-neutral-400 leading-relaxed">
-              Moderní studentský streetwear pro studenty Fakulty podnikatelské VUT v Brně.
-              Limitované dropy, těžká 240g bio bavlna, univerzitní identita a brněnská komunita.
+              Moderný študentský streetwear pre študentov Fakulty podnikateľskej VUT v Brne.
+              Limitované kolekcie, univerzitná identita a brnianska komunita.
             </p>
 
             <div className="p-3 bg-neutral-950 border border-neutral-800 text-[11px] font-mono text-neutral-400 leading-snug">
               <strong className="text-white block mb-0.5 uppercase">AKADEMICKÝ PROJEKT FP VUT:</strong>
-              Tento web je fiktivní studentský koncept vytvořený pro účely akademického projektu na VUT. Nejedná se o oficiální e-shop VUT.
+              Ide o študentský koncept vytvorený na akademické účely. Nie je to oficiálny e-shop VUT; produkty, ceny, sklad a objednávky sú ukážkové.
             </div>
           </div>
 
@@ -59,7 +56,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigate('shop')}
                   className="text-neutral-300 hover:text-white transition-colors"
                 >
-                  Shop (Katalog)
+                  Obchod (katalóg)
                 </button>
               </li>
               <li>
@@ -67,7 +64,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigate('drops')}
                   className="text-neutral-300 hover:text-white transition-colors"
                 >
-                  Dropy & Harmonogram
+                  Dropy a harmonogram
                 </button>
               </li>
               <li>
@@ -75,7 +72,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigate('lookbook')}
                   className="text-neutral-300 hover:text-white transition-colors"
                 >
-                  Lookbook 2026
+                  Galéria 2026
                 </button>
               </li>
               <li>
@@ -83,7 +80,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigate('news')}
                   className="text-neutral-300 hover:text-white transition-colors"
                 >
-                  News & Magazín
+                  Novinky a magazín
                 </button>
               </li>
               <li>
@@ -91,7 +88,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigate('about')}
                   className="text-neutral-300 hover:text-white transition-colors"
                 >
-                  O značce (About)
+                  O značke
                 </button>
               </li>
             </ul>
@@ -100,7 +97,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Secondary Academic Section (Project / Case Study) */}
           <div className="md:col-span-3 space-y-3 font-mono text-xs">
             <span className="text-white font-bold uppercase tracking-wider block flex items-center gap-1.5">
-              <span>PROJECT / CASE STUDY</span>
+              <span>PROJEKT / PRÍPADOVÁ ŠTÚDIA</span>
               <ArrowUpRight size={13} className="text-neutral-400" />
             </span>
             <ul className="space-y-2 text-neutral-400">
@@ -109,7 +106,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigate('case-study')}
                   className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
-                  📄 Akademická dokumentace (Dossier)
+                  📄 Akademická dokumentácia (11 kapitol)
                 </button>
               </li>
               <li>
@@ -117,16 +114,16 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onNavigate('case-study')}
                   className="text-neutral-300 hover:text-white transition-colors text-left"
                 >
-                  📊 KPI Dashboard & Analytika
+                  📊 Prehľad ukazovateľov a analytika
                 </button>
               </li>
               {onOpenMobileApp && (
                 <li>
                   <button
                     onClick={onOpenMobileApp}
-                    className="text-neutral-300 hover:text-white transition-colors text-left"
+                    className="text-neutral-300 hover:text-white transition-colors text-left flex items-center gap-1.5"
                   >
-                    📱 App prototyp (Simulátor)
+                    <span>📱 Prototyp aplikácie (simulátor a Python vo VS Code)</span>
                   </button>
                 </li>
               )}
@@ -149,19 +146,19 @@ export const Footer: React.FC<FooterProps> = ({
               STUDENTSKÁ SLEVA 10 %
             </span>
             <p className="text-xs text-neutral-400 font-mono">
-              Zadej studentský e-mail pro slevový kód a přednostní přístup k novým dropům.
+              Zadaj študentský e-mail pre zľavový kód a prednostný prístup k novým kolekciám.
             </p>
 
             {subscribed ? (
               <div className="p-3 bg-neutral-950 border border-emerald-800 text-xs font-mono text-emerald-300 flex items-center gap-2">
                 <Check size={14} />
-                <span>Kód: <strong className="text-white font-bold">PRVAK10</strong></span>
+                <span>Ukážkový kód: <strong className="text-white font-bold">PRVAK10</strong></span>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="flex gap-2">
                 <input
                   type="email"
-                  placeholder="tvuj.email@vut.cz"
+                  placeholder="tvoj.email@vut.sk"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   className="flex-1 bg-neutral-950 border border-neutral-800 px-3 py-2 text-xs font-mono text-white placeholder:text-neutral-600 focus:outline-none focus:border-white"
@@ -171,10 +168,13 @@ export const Footer: React.FC<FooterProps> = ({
                   type="submit"
                   className="px-3 py-2 bg-white text-black font-mono font-bold text-xs uppercase hover:bg-neutral-200 transition-colors shrink-0"
                 >
-                  ODESLAT
+                  ODOSLAŤ
                 </button>
               </form>
             )}
+            <div className="text-[10px] font-mono text-neutral-500">
+              Ukážkový formulár: e-mail sa neukladá ani neposiela.
+            </div>
             <div className="text-[10px] font-mono text-neutral-500">
               Kolejní 29, Fakulta podnikatelská VUT v Brně
             </div>
@@ -187,11 +187,11 @@ export const Footer: React.FC<FooterProps> = ({
             © 2026 FP DROP. Nezávislý studentský projekt vytvořený pro FP VUT v Brně.
           </div>
           <div className="flex gap-6">
-            <span>240 GSM BIO BAVLNA</span>
+            <span>ŠTUDENTSKÝ KONCEPT</span>
             <span>·</span>
-            <span>SÍTOTISK BRNO</span>
+            <span>BRNIANSKA IDENTITA</span>
             <span>·</span>
-            <span>Z-BOX KOLEJNÍ 29</span>
+            <span>UKÁŽKOVÝ OBCHOD</span>
           </div>
         </div>
       </div>

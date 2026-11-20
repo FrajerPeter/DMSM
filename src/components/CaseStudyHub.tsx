@@ -72,7 +72,7 @@ export const CaseStudyHub: React.FC<CaseStudyHubProps> = ({
                 <FileText size={16} />
                 <div>
                   <span className="block uppercase">01 / DOKUMENTACE</span>
-                  <span className={`text-[10px] ${activeTab === 'dossier' ? 'text-neutral-700' : 'text-neutral-400'}`}>30 akademických kapitol</span>
+                  <span className={`text-[10px] ${activeTab === 'dossier' ? 'text-neutral-700' : 'text-neutral-400'}`}>11 kapitol dokumentace</span>
                 </div>
               </div>
             </button>

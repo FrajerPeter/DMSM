@@ -43,29 +43,29 @@ export const HomeView: React.FC<HomeViewProps> = ({
     PRODUCTS.find(p => p.id === 'prod-03') || PRODUCTS[2],  // ECTS ARE TEMPORARY TEE
   ];
 
-  // 3. STUDENT STORIES (Authentic Brno student voices)
+  // 3. Sample student stories for the prototype (fictional)
   const studentStories = [
     {
       id: 's1',
       name: 'Tereza M.',
-      detail: '1. ročník · Ekonomika a management',
-      quote: '„První týden v Brně byl totální šok. Pak přišly první noci na Flédě, ranní přednášky a rozjezdy z Hlaváku. FP DROP triko nosím do školy i na party. Není to trapný propagační merch, ale reálný streetwear.“',
+      detail: '1. ročník · Ekonomika a manažment',
+      quote: '„Prvý týždeň v Brne bol poriadny šok. Potom prišli večery na Fléde, ranné prednášky a nočné spoje z hlavnej stanice. Tričko FP DROP by som nosila do školy aj na párty. Pôsobí skôr ako streetwear než reklamný predmet.“',
       piece: 'HOT GIRLS GO TO FP TEE',
       location: 'Kolejní 29, Brno'
     },
     {
       id: 's2',
       name: 'Lukáš K.',
-      detail: '2. ročník · Informační management',
-      quote: '„Když jsem přišel na zkoušku z makroekonomie v těžké mikině s nápisem NO SLEEP JUST DEADLINES, cvičící se jen usmál a řekl, že ten pocit důvěrně zná. Zkoušku jsem dal a mikinu nesundávám.“',
+      detail: '2. ročník · Informačný manažment',
+      quote: '„Keď som prišiel na skúšku z makroekonómie v ťažkej mikine s nápisom NO SLEEP JUST DEADLINES, vyučujúci sa usmial, že ten pocit dobre pozná. Skúšku som zvládol a mikinu nosím ďalej.“',
       piece: 'NO SLEEP JUST DEADLINES HOODIE',
       location: 'Knihovna VUT'
     },
     {
       id: 's3',
       name: 'Klára & Tomáš',
-      detail: '3. ročník · Podnikové finance',
-      quote: '„Kvalita bavlny nás dostala. 240 gramů na tričku drží tvar a nesrazí se po třetím vyprání. Lidi z jiných fakult se nás na ulici ptají, kde jsme to koupili.“',
+      detail: '3. ročník · Podnikové financie',
+      quote: '„Kvalita bavlny nás zaujala. Tričko s gramážou 240 g/m² drží tvar a po niekoľkých praniach sa nezrazí. Ľudia z iných fakúlt sa nás pýtajú, kde sme ho kúpili.“',
       piece: 'ECTS ARE TEMPORARY TEE',
       location: 'Jakubské náměstí'
     }
@@ -74,7 +74,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newsletterEmail || !newsletterEmail.includes('@')) return;
-    analytics.trackEvent('newsletter_signup', { email: newsletterEmail, source: 'brand_statement' });
+    analytics.trackEvent('newsletter_form_submit_demo', { source: 'brand_statement' });
     setNewsletterSubscribed(true);
   };
 
@@ -107,17 +107,17 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </h1>
 
             <p className="text-sm md:text-base text-neutral-300 font-sans max-w-xl leading-relaxed">
-              Limitovaný brněnský streetwear z těžké 240g bio bavlny. Navrženo pro studenty FP VUT. Žádný levný propagační merch — pouze autentická kampusová kultura a uvolněný oversized fit.
+              Návrh brnianskeho streetwearu pre študentov FP VUT. Materiály a výroba sú zatiaľ iba návrhové predpoklady na overenie.
             </p>
 
             {/* Quick Urgency Ticker */}
             <div className="p-3 bg-[#0d0d0d] border border-neutral-800 max-w-lg font-mono text-xs space-y-1.5">
               <div className="flex justify-between items-baseline text-[11px]">
-                <span className="text-neutral-400 uppercase">STAV SKLADU: DROP 001</span>
-                <span className="text-white font-bold tabular-nums">84 % VYPRODÁNO</span>
+                <span className="text-neutral-400 uppercase">UKÁŽKOVÝ STAV: DROP 001</span>
+                <span className="text-white font-bold tabular-nums">DEMO ÚDAJ</span>
               </div>
               <div className="w-full bg-neutral-900 h-1">
-                <div className="bg-white h-full" style={{ width: '84%' }} />
+                <div className="bg-white h-full" style={{ width: '50%' }} />
               </div>
             </div>
 
@@ -130,7 +130,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 }}
                 className="px-8 py-4 bg-white text-black hover:bg-neutral-200 font-bold uppercase tracking-widest transition-all flex items-center gap-2"
               >
-                <span>SHOP DROP 001</span>
+                <span>POZRIEŤ KOLEKCIU 001</span>
                 <ArrowRight size={15} />
               </button>
 
@@ -138,7 +138,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 onClick={onNavigateToLookbook}
                 className="px-6 py-4 bg-neutral-950 hover:bg-neutral-900 border border-neutral-700 text-white font-bold uppercase tracking-widest transition-colors"
               >
-                LOOKBOOK 2026
+                GALÉRIA 2026
               </button>
             </div>
           </div>
@@ -170,13 +170,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   <h3 className="font-display font-black text-sm uppercase text-white group-hover:text-neutral-200">
                     {heroProduct.name}
                   </h3>
-                  <span className="text-[11px] font-mono text-neutral-400">Oversized střih • Poslední kusy</span>
+                  <span className="text-[11px] font-mono text-neutral-400">Voľný strih • ukážkový produkt</span>
                 </div>
                 <div className="text-right">
                   <span className="font-mono text-lg font-bold text-white tabular-nums block">
                     {heroProduct.price} Kč
                   </span>
-                  <span className="text-[10px] font-mono text-emerald-400">Skladem v Brně</span>
+                  <span className="text-[10px] font-mono text-emerald-400">Ukážkové údaje</span>
                 </div>
               </div>
             </div>
@@ -229,10 +229,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 border-b border-neutral-800 pb-4">
           <div>
             <div className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-1">
-              NEJPRODÁVANĚJŠÍ V KAMPUSU
+              VÝBER TÍMU FP DROP
             </div>
             <h2 className="font-display font-black text-2xl md:text-3xl uppercase text-white tracking-tight">
-              BEST SELLERS
+              VYBRANÉ KÚSKY
             </h2>
           </div>
 
@@ -240,7 +240,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             onClick={onNavigateToShop}
             className="text-xs font-mono text-neutral-400 hover:text-white flex items-center gap-1.5 underline underline-offset-4"
           >
-            <span>Všechny bestsellery →</span>
+            <span>Všetky produkty →</span>
           </button>
         </div>
 
@@ -265,7 +265,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="flex items-center justify-between border-b border-neutral-800 pb-4 mb-8">
           <div>
             <span className="text-xs font-mono uppercase tracking-widest text-neutral-400">
-              EDITORIAL CAMPAIGN
+              NÁVRHY KOLEKCIE
             </span>
             <h2 className="font-display font-black text-2xl md:text-3xl uppercase text-white tracking-tight">
               LOOKBOOK
@@ -276,7 +276,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             onClick={onNavigateToLookbook}
             className="text-xs font-mono text-neutral-400 hover:text-white flex items-center gap-1 underline underline-offset-4"
           >
-            <span>Otevřít celý lookbook 2026</span>
+            <span>Otvoriť galériu 2026</span>
             <ArrowRight size={13} />
           </button>
         </div>
@@ -299,7 +299,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 HOT GIRLS GO TO FP TEE & CAMPUS SURVIVAL TOTE
               </p>
               <span className="text-[11px] font-mono text-white underline mt-2 block">
-                Zobrazit look & nakoupit →
+                Pozrieť návrh →
               </span>
             </div>
           </div>
@@ -321,7 +321,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 NIGHTLINE HOODIE & KOLEJNÍ SOCKS
               </p>
               <span className="text-[11px] font-mono text-white underline mt-2 block">
-                Zobrazit look & nakoupit →
+                Pozrieť návrh →
               </span>
             </div>
           </div>
@@ -334,11 +334,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="border-b border-neutral-800 pb-4 mb-8">
           <span className="text-xs font-mono uppercase tracking-widest text-neutral-400">
-            KOMUNITA & HLASY Z KAMPUSU
+            KOMUNITA A ŠTUDENTSKÉ PRÍBEHY
           </span>
           <h2 className="font-display font-black text-2xl md:text-3xl uppercase text-white tracking-tight mt-1">
-            STUDENT STORIES
+            PRÍBEHY Z KAMPUSU
           </h2>
+          <p className="mt-2 text-xs font-mono text-amber-200">
+            Ukážkové citácie a mená – nejde o skutočné recenzie ani výpovede študentov.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -358,7 +361,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <div className="text-white font-bold">{story.name}</div>
                 <div className="text-[11px] text-neutral-400">{story.detail}</div>
                 <div className="text-[10px] text-neutral-500 mt-2 flex items-center justify-between">
-                  <span>Oblíbený kousek: <strong className="text-neutral-300">{story.piece}</strong></span>
+                  <span>Obľúbený kúsok: <strong className="text-neutral-300">{story.piece}</strong></span>
                   <span>{story.location}</span>
                 </div>
               </div>
@@ -374,10 +377,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="flex items-center justify-between border-b border-neutral-800 pb-4 mb-8">
           <div>
             <span className="text-xs font-mono uppercase tracking-widest text-neutral-400">
-              OBSAHOVÝ MAGAZÍN & ESEJE
+              ČLÁNKY A PRÍBEHY
             </span>
             <h2 className="font-display font-black text-2xl md:text-3xl uppercase text-white tracking-tight">
-              NEWS
+              MAGAZÍN
             </h2>
           </div>
 

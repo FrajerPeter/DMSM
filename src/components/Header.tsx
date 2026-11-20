@@ -1,7 +1,7 @@
 import React from 'react';
 import { Search, ShoppingBag, Heart, User, Menu, X, ArrowUpRight } from 'lucide-react';
 
-export type MainNavView = 'home' | 'shop' | 'drops' | 'lookbook' | 'news' | 'about' | 'case-study';
+export type MainNavView = 'home' | 'shop' | 'drops' | 'lookbook' | 'news' | 'vlog' | 'about' | 'case-study';
 
 interface HeaderProps {
   activeView: MainNavView;
@@ -28,14 +28,14 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
-  // Strictly customer-facing streetwear navigation as instructed:
-  // SHOP, DROPS, LOOKBOOK, NEWS, ABOUT
+  // Customer-facing navigation
   const customerNavLinks = [
-    { id: 'shop', label: 'SHOP' },
-    { id: 'drops', label: 'DROPS' },
-    { id: 'lookbook', label: 'LOOKBOOK' },
-    { id: 'news', label: 'NEWS' },
-    { id: 'about', label: 'ABOUT' }
+    { id: 'shop', label: 'OBCHOD' },
+    { id: 'drops', label: 'DROPY' },
+    { id: 'lookbook', label: 'GALÉRIA' },
+    { id: 'news', label: 'MAGAZÍN' },
+    { id: 'vlog', label: 'VLOG' },
+    { id: 'about', label: 'O ZNAČKE' }
   ] as const;
 
   const handleNavClick = (viewId: typeof customerNavLinks[number]['id']) => {
@@ -51,18 +51,18 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center justify-center gap-3 md:gap-4 flex-wrap">
           <span className="text-white font-bold flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            DROP 001 IS LIVE (84 % SOLD)
+            UKÁŽKOVÝ PROTOTYP • CENY, SKLAD A OBJEDNÁVKY SÚ DEMO
           </span>
           <span aria-hidden="true" className="text-neutral-700 hidden sm:inline">/</span>
           <span className="hidden sm:inline text-neutral-300">
-            DOPRAVA ZDARMA NAD 1 000 KČ • OSOBNÍ ODBĚR KOLEJNÍ 29 ZDARMA
+            FP DROP • ŠTUDENTSKÝ STREETWEAR – AKADEMICKÝ PROJEKT
           </span>
           <span aria-hidden="true" className="text-neutral-700 hidden md:inline">/</span>
           <button
             onClick={onNavigateToCaseStudy}
             className="text-neutral-400 hover:text-white underline underline-offset-2 flex items-center gap-1 transition-colors"
           >
-            <span>AKADEMICKÝ PROJEKT: CASE STUDY →</span>
+            <span>AKADEMICKÝ PROJEKT: PRÍPADOVÁ ŠTÚDIA →</span>
           </button>
         </div>
       </div>
@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
               title="Otevřít akademickou případovou studii a metriky"
             >
-              <span>CASE STUDY</span>
+              <span>PRÍPADOVÁ ŠTÚDIA</span>
               <ArrowUpRight size={10} />
             </button>
           </div>
@@ -163,7 +163,7 @@ export const Header: React.FC<HeaderProps> = ({
               aria-label="Nákupní taška"
             >
               <ShoppingBag size={15} />
-              <span className="text-xs font-mono font-bold">BAG</span>
+              <span className="text-xs font-mono font-bold">KOŠÍK</span>
               {cartCount > 0 && (
                 <span className="bg-black text-white text-[10px] px-1.5 py-0.2 rounded font-mono font-bold tabular-nums">
                   {cartCount}
@@ -204,7 +204,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Secondary Academic Area in Mobile Menu */}
             <div className="pt-4 border-t border-neutral-800">
               <span className="text-[10px] text-neutral-500 uppercase font-mono block mb-2">
-                AKADEMICKÁ PŘÍPADOVÁ STUDIE (FP VUT)
+                AKADEMICKÁ PRÍPADOVÁ ŠTÚDIA (FP VUT)
               </span>
               <button
                 onClick={() => {
@@ -213,7 +213,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }}
                 className={`w-full text-left py-2.5 px-3 border border-neutral-800 bg-neutral-950 text-neutral-300 hover:text-white hover:border-neutral-600 transition-colors flex items-center justify-between text-xs font-mono`}
               >
-                <span>PROJECT / CASE STUDY</span>
+                <span>PROJEKT / PRÍPADOVÁ ŠTÚDIA</span>
                 <ArrowUpRight size={14} className="text-neutral-500" />
               </button>
             </div>

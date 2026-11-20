@@ -160,6 +160,19 @@ export interface STDCStage {
   kpis: string[];
 }
 
+export interface CustomerJourneyStage {
+  id: string;
+  stage: string;
+  stdc: 'SEE' | 'THINK' | 'DO' | 'CARE';
+  trigger: string;
+  userNeed: string;
+  touchpoints: string[];
+  friction: string;
+  response: string;
+  events: string[];
+  kpis: string[];
+}
+
 export interface SocialMediaPost {
   id: string;
   format: 'Post' | 'Reel' | 'Story';

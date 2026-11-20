@@ -37,7 +37,7 @@ export const AnalyticsDashboard: React.FC = () => {
             E-COMMERCE KPI DASHBOARD
           </h1>
           <p className="text-xs md:text-sm text-neutral-400 mt-2 font-mono">
-            Měření výkonnosti pro akademický projekt FP VUT. Integrovaná GA4 architektura a simulace Meta Ads.
+            Ukázkové KPI hodnoty. Události se do GA4 odešlou až po nastavení ID a udělení souhlasu.
           </p>
         </div>
 
@@ -50,6 +50,10 @@ export const AnalyticsDashboard: React.FC = () => {
             CLARITY: <span className="text-white font-bold">{analytics.getClarityId()}</span>
           </div>
         </div>
+      </div>
+
+      <div className="sticky top-20 z-20 mb-8 border border-amber-700 bg-amber-950/95 p-4 text-xs font-mono text-amber-100 shadow-xl backdrop-blur">
+        UKÁZKOVÁ DATA: KPI karty, grafy a historické prodeje jsou simulované, nejde o skutečné tržby ani report GA4. Aktuální události jsou v lokálním inspectoru; GA4 a Clarity zůstanou vypnuté, dokud nenastavíš ID a návštěvník neudělí souhlas.
       </div>
 
       {/* KPI Cards Grid */}
@@ -218,11 +222,11 @@ export const AnalyticsDashboard: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
               <h3 className="font-display font-bold text-sm uppercase text-white">
-                LIVE GA4 EVENT INSPECTOR & LOG
+                LOKÁLNY EVENT INSPECTOR
               </h3>
             </div>
             <p className="text-xs font-mono text-neutral-400 mt-0.5">
-              Reálné události odesílané při kliknutí na webu (view_item, add_to_cart, purchase, atd.)
+              Lokálny záznam udalostí; odosielanie do GA4 vyžaduje platné ID a súhlas návštevníka.
             </p>
           </div>
 

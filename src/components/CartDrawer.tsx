@@ -397,8 +397,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <ArrowRight size={14} />
               </button>
 
-              <div className="text-[10px] font-mono text-center text-neutral-400">
-                Bezpečný checkout • Zásilkovna • Apple Pay • Garance vrácení
+              <div className="border border-amber-700/60 bg-amber-950/30 px-3 py-2 text-[10px] font-mono text-center text-amber-100">
+                DEMO KOŠÍK • Objednávka, doprava ani platba nejsou připojené.
               </div>
             </div>
           )}

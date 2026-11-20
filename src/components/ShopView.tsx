@@ -71,7 +71,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
             <span>FP VUT BRNO</span>
           </div>
           <h1 className="font-display font-extrabold text-3xl md:text-5xl uppercase tracking-tight text-white">
-            SHOP ALL
+            CELÝ OBCHOD
           </h1>
         </div>
 
@@ -114,7 +114,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
                 : 'bg-neutral-950 text-neutral-400 border-neutral-800 hover:text-white hover:border-neutral-600'
             }`}
           >
-            {cat === 'ALL' ? 'VŠECHNO' :
+            {cat === 'ALL' ? 'VŠETKO' :
              cat === 'T-SHIRTS' ? 'TRIČKA (TEES)' :
              cat === 'HOODIES' ? 'MIKINY S KAPUCÍ' :
              cat === 'SWEATSHIRTS' ? 'CREWNECK MIKINY' : 'DOPLŇKY'}
@@ -132,7 +132,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
             onChange={e => setSelectedDrop(e.target.value)}
             className="bg-black border border-neutral-800 text-white px-2.5 py-1"
           >
-            <option value="ALL">Všechny dropy</option>
+            <option value="ALL">Všetky dropy</option>
             {DROPS.map(d => (
               <option key={d.id} value={d.id}>{d.code} — {d.title}</option>
             ))}
@@ -187,7 +187,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
 
       {/* Product Results Counter */}
       <div className="mb-6 flex justify-between items-center text-xs font-mono text-neutral-400">
-        <span>Zobrazeno {filteredProducts.length} z {PRODUCTS.length} produktů</span>
+        <span>Zobrazených {filteredProducts.length} z {PRODUCTS.length} produktov</span>
         {selectedDrop !== 'ALL' && (
           <span className="text-white font-bold">
             {DROPS.find(d => d.id === selectedDrop)?.title}
@@ -199,7 +199,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
       {filteredProducts.length === 0 ? (
         <div className="py-20 text-center space-y-4">
           <p className="font-display font-bold text-lg uppercase text-neutral-400">
-            ŽÁDNÉ PRODUKTY NEODPOVÍDAJÍ ZVOLENÝM FILTRŮM
+            ŽIADNE PRODUKTY NEZODPOVEDAJÚ ZVOLENÝM FILTROM
           </p>
           <button
             onClick={() => {
@@ -210,7 +210,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
             }}
             className="px-4 py-2 bg-white text-black font-mono text-xs uppercase font-bold"
           >
-            ZOBRAZIT VŠECHNY PRODUKTY
+            ZOBRAZIŤ VŠETKY PRODUKTY
           </button>
         </div>
       ) : (

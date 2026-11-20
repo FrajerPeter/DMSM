@@ -1,0 +1,8 @@
+# FP DROP — Python Mobile Prototype Dependencies
+# Základný režim (main.py / app_web.py) beží v čistej štandardnej knižnici Python 3 bez akýchkoľvek závislostí.
+#
+# Voliteľné moderné GUI frameworky:
+flet>=0.21.0
+customtkinter>=5.2.0
+pillow>=10.0.0
+requests>=2.31.0

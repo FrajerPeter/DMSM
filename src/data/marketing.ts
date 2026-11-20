@@ -1,4 +1,4 @@
-import { LookbookItem, Persona, TriggerSystemItem, STDCStage, SocialMediaPost, PPCCampaign } from '../types';
+import { LookbookItem, Persona, TriggerSystemItem, STDCStage, CustomerJourneyStage, SocialMediaPost, PPCCampaign } from '../types';
 
 export const LOOKBOOK_ITEMS: LookbookItem[] = [
   {
@@ -258,7 +258,7 @@ export const STDC_FRAMEWORK: STDCStage[] = [
     marketingActivity: 'Výkonnostní kampaně zaměřené na konverze, komunikace scarcity („Poslední kusy skladem“), promo kód pro prváky PRVAK10.',
     contentExample: 'Instagram Story: „DROP 001: Zbývá posledních 14 kusů HOT GIRLS GO TO FP TEE. Odesíláme zítra přes Zásilkovnu.“',
     websiteFeature: 'Rychlý slide-out košík, progress bar pro dopravu zdarma (od 1 000 Kč), 1-step checkout, platba Apple Pay / kartou, volba Zásilkovny.',
-    ga4Events: ['add_to_cart', 'remove_from_cart', 'view_cart', 'begin_checkout', 'add_shipping_info', 'add_payment_info', 'purchase'],
+    ga4Events: ['add_to_cart', 'remove_from_cart', 'view_cart', 'begin_checkout', 'add_shipping_info', 'add_payment_info', 'purchase (až v produkcii)'],
     kpis: ['E-commerce Conversion Rate (> 3,0 %)', 'Average Order Value (AOV)', 'Míra opuštění košíku (< 60 %)', 'Cost per Acquisition (CPA)']
   },
   {
@@ -269,8 +269,61 @@ export const STDC_FRAMEWORK: STDCStage[] = [
     marketingActivity: 'Unboxing zážitek s prémiovým balením a samolepkami zdarma v balíčku, výzva ke sdílení fotky na Instagramu s označením @fpdrop.',
     contentExample: 'E-mail 5 dní po doručení: „Jak sedí tvé nové triko? Označ nás na story a získej VIP přednostní přístup k DROP 002: EXAM SEASON.“',
     websiteFeature: 'Můj profil s historií objednávek, Wishlist oblíbených kousků, sekce Student Stories & Memes, exkluzivní odemykání dropů.',
-    ga4Events: ['newsletter_signup', 'add_to_wishlist', 'share', 'repeat_purchase'],
+    ga4Events: ['newsletter_signup (produkcia)', 'add_to_wishlist', 'share', 'repeat_purchase (produkcia)'],
     kpis: ['Repeat Purchase Rate (> 22 %)', 'Customer Lifetime Value (CLV)', 'Počet UGC označení na Instagramu', 'NPS spokojenost']
+  }
+];
+
+export const CUSTOMER_JOURNEY: CustomerJourneyStage[] = [
+  {
+    id: 'cj-01', stage: 'Objevení značky', stdc: 'SEE',
+    trigger: 'Student uvidí Instagram Reel, příspěvek spolužáka nebo značku v kampusu.',
+    userNeed: 'Rychle pochopit, co FP DROP nabízí a zda jde o autentický projekt pro studenty FP VUT.',
+    touchpoints: ['Instagram Reels a Stories', 'Doporučení spolužáka', 'Plakát nebo QR kód v kampusu', 'Vstupní stránka z odkazu v biu'],
+    friction: 'Neznámá značka a nejasný rozdíl oproti běžnému fakultnímu merchi.',
+    response: 'Mobilní vstupní stránka vysvětlí koncept a aktuální drop a odkáže na kolekci bez povinné registrace.',
+    events: ['page_view', 'view_promotion', 'scroll'],
+    kpis: ['Dosah a zhlédnutí videa', 'CTR odkazu', 'Návštěvy z UTM kampaní', 'Podíl mobilních návštěv']
+  },
+  {
+    id: 'cj-02', stage: 'Zvažování a výběr', stdc: 'THINK',
+    trigger: 'Uživateli se líbí design a ověřuje cenu, materiál, velikost a důvěryhodnost.',
+    userNeed: 'Zjistit, jak produkt sedí, z čeho je vyrobený a zda cena odpovídá kvalitě.',
+    touchpoints: ['Produktový katalog a detail', 'Lookbook', 'Magazín a články', 'Tabulka velikostí', 'Stories a recenze komunity'],
+    friction: 'Pochybnosti o střihu, kvalitě látky, dostupné velikosti a pravosti recenzí.',
+    response: 'Ukázat složení, gramáž, detaily, rozměry a dostupnost; umožnit uložit produkt mezi oblíbené.',
+    events: ['view_item_list', 'select_item', 'view_item', 'search', 'read_article', 'wishlist_toggle'],
+    kpis: ['Prechod z katalógu na detail', 'Kliknutia na veľkostnú tabuľku', 'Uloženia do wishlistu', 'Miera prekliku z článku na produkt']
+  },
+  {
+    id: 'cj-03', stage: 'Nákupní rozhodnutí', stdc: 'DO',
+    trigger: 'Uživatel si vybere velikost nebo reaguje na limitovaný drop či studentský kód.',
+    userNeed: 'Dokončit objednávku rychle, znát cenu dopravy a mít jasný způsob převzetí.',
+    touchpoints: ['Produktová karta', 'Košík a kupón', 'Výběr dopravy', 'Checkout a potvrzení'],
+    friction: 'Nečekané náklady na dopravu, složitý checkout nebo nejasný stav objednávky.',
+    response: 'Zobrazit celkovou cenu předem, postup k dopravě zdarma, osobní odběr a srozumitelné kroky checkoutu.',
+    events: ['add_to_cart', 'apply_promo_code', 'begin_checkout', 'add_shipping_info', 'add_payment_info', 'purchase (až po platbe)'],
+    kpis: ['Add-to-cart rate', 'Dokončenie checkoutu', 'E-commerce konverzný pomer', 'AOV', 'CPA a opustenie košíka']
+  },
+  {
+    id: 'cj-04', stage: 'Převzetí a zkušenost', stdc: 'CARE',
+    trigger: 'Objednávka je potvrzena; zákazník čeká na doručení nebo osobní převzetí.',
+    userNeed: 'Vědět, co se s objednávkou děje, a dostat produkt v očekávané kvalitě.',
+    touchpoints: ['Potvrzovací obrazovka', 'Potvrzovací e-mail (v produkční verzi)', 'Zásilkovna nebo výdejní místo'],
+    friction: 'Prototyp není napojen na sklad, platební bránu ani sledování zásilky.',
+    response: 'V produkční verzi připojit objednávkový backend, stav objednávky a kontakt na podporu; v prototypu objednávku jasně označit jako ukázkovou.',
+    events: ['demo_order_completed (iba prototyp)', 'purchase (až po skutočnej platbe)', 'order_status_view (návrh)'],
+    kpis: ['Úspešnosť prevzatia', 'Čas od objednávky po prevzatie', 'Počet otázok na podporu', 'Spokojnosť po nákupe']
+  },
+  {
+    id: 'cj-05', stage: 'Návrat a doporučení', stdc: 'CARE',
+    trigger: 'Zákazník nosí produkt, všimne si nový drop nebo sdílí outfit s komunitou.',
+    userNeed: 'Získat důvod k návratu a snadnou možnost doporučit značku spolužákům.',
+    touchpoints: ['Instagram UGC a Stories', 'Nový drop a newsletter', 'Wishlist', 'Doporučení spolužákovi'],
+    friction: 'Bez následné komunikace zákazník na značku zapomene; prototyp neposílá skutečné e-maily ani upozornění.',
+    response: 'Se souhlasem posílat upozornění na další drop, zvýraznit komunitní obsah a umožnit sdílet outfit.',
+    events: ['newsletter_form_submit_demo (iba prototyp)', 'wishlist_toggle', 'share (návrh udalosti)', 'newsletter_signup / repeat_purchase (až po produkčnom napojení)'],
+    kpis: ['Míra opakovaných nákupů', 'Opakované návštěvy', 'Míra přihlášení k newsletteru', 'UGC zmínky a doporučení']
   }
 ];
 
@@ -776,10 +829,10 @@ export const TRACEABILITY_MATRIX = [
   },
   {
     projectRequirement: '6. Měření v Google Analytics 4 & Microsoft Clarity',
-    implementation: 'Event architektura se 14 standardními a custom událostmi (view_item, purchase, atd.)',
-    websiteFeature: 'Vestavěný živý GA4 Event Debugger / Inspector v reálném čase přímo v aplikaci',
-    marketingActivity: 'Vyhodnocování konverzních cest, heatmapy chování uživatelů, analýza scroll hloubky',
-    kpi: '100% spolehlivost logování e-commerce událostí, Míra opuštění kroků checkoutu'
+    implementation: 'Konfigurovatelná GA4 event architektura; externí odesílání vyžaduje Measurement ID a souhlas návštěvníka',
+    websiteFeature: 'Lokální event inspector a volitelné integrace GA4 / Microsoft Clarity po souhlase',
+    marketingActivity: 'Analýza konverzních cest a scrollu; heatmapy Clarity až po nastavení ID a souhlasu',
+    kpi: 'Validace klíčových událostí v GA4 DebugView, pokrytí checkout kroků a míra opuštění'
   },
   {
     projectRequirement: '7. E-commerce KPI Dashboard a vyhodnocení projektu',

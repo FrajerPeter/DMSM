@@ -18,7 +18,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'ORDERS' | 'ADDRESSES' | 'NOTIFICATIONS'>('ORDERS');
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [emailInput, setEmailInput] = useState('tomas.dvorak@vut.cz');
+  const [emailInput, setEmailInput] = useState('alex.novak@example.invalid');
   const [isicVerified, setIsicVerified] = useState(true);
   const [smsAlerts, setSmsAlerts] = useState(true);
   const [emailAlerts, setEmailAlerts] = useState(true);
@@ -36,10 +36,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             <User size={18} className="text-white" />
             <div>
               <span className="font-display font-black text-sm uppercase tracking-tight text-white block">
-                STUDENT ACCOUNT / FP DROP ID
+                ŠTUDENTSKÝ ÚČET / FP DROP ID
               </span>
               <span className="text-[10px] font-mono text-neutral-400">
-                PROFIL STUDENTA FP VUT BRNO
+                ŠTUDENTSKÝ PROFIL FP VUT BRNO
               </span>
             </div>
           </div>
@@ -53,23 +53,27 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           </button>
         </div>
 
+        <div className="border border-amber-900/70 bg-amber-950/30 px-3 py-2 text-[11px] font-mono text-amber-200">
+          DEMO PROFIL — meno, e-mail, ISIC, adresa aj objednávky sú fiktívne ukážkové údaje. Prihlásenie ani objednávanie nie sú aktívne.
+        </div>
+
         {/* User Card & ISIC Status */}
         <div className="p-4 bg-black border border-neutral-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-xs">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-white uppercase text-sm">Tomáš Dvořák</span>
+              <span className="font-bold text-white uppercase text-sm">Alex Novák</span>
               <span className="px-1.5 py-0.5 bg-emerald-950 border border-emerald-700 text-emerald-300 text-[10px] font-bold flex items-center gap-1">
                 <Check size={10} />
-                ISIC AKTIVNÍ (-10 %)
+                UKÁŽKOVÝ ISIC (-10 %)
               </span>
             </div>
             <div className="text-[11px] text-neutral-400">
-              {emailInput} · Fakulta podnikatelská VUT
+                {emailInput} · Fakulta podnikateľská VUT
             </div>
           </div>
 
           <div className="text-[11px] text-neutral-400 text-left sm:text-right">
-            <span className="block text-white font-bold">STATUS: PRVÁK VIP</span>
+            <span className="block text-white font-bold">STATUS: DEMO PROFIL</span>
             <span>Kolejní 29, Brno</span>
           </div>
         </div>
@@ -117,9 +121,9 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             <div className="border border-neutral-800 bg-neutral-950 p-4 space-y-3">
               <div className="flex items-center justify-between text-[11px] border-b border-neutral-900 pb-2">
                 <span className="text-white font-bold">OBJEDNÁVKA #FP-94821</span>
-                <span className="text-emerald-400 font-bold flex items-center gap-1">
+              <span className="text-emerald-400 font-bold flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  DORUČENO DO Z-BOXU
+                  UKÁŽKOVO DORUČENÉ
                 </span>
               </div>
 
@@ -133,23 +137,23 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                 </div>
                 <div className="flex-1 space-y-0.5">
                   <div className="font-bold text-white uppercase text-xs">HOT GIRLS GO TO FP TEE</div>
-                  <div className="text-[11px] text-neutral-400">Velikost: L · Washed Black · 240 GSM</div>
-                  <div className="text-[10px] text-neutral-500">Místo: Z-BOX VUT Kolejní 2, Brno</div>
+                  <div className="text-[11px] text-neutral-400">Veľkosť: L · Washed Black · 240 GSM</div>
+                  <div className="text-[10px] text-neutral-500">Miesto: ukážkový Z-BOX VUT, Brno</div>
                 </div>
                 <div className="text-right">
                   <span className="font-bold text-white block">349 Kč</span>
-                  <span className="text-[10px] text-neutral-500">Apple Pay</span>
+                  <span className="text-[10px] text-neutral-500">Ukážková platba</span>
                 </div>
               </div>
 
               <div className="pt-2 border-t border-neutral-900 flex justify-between items-center text-[10px] text-neutral-400">
-                <span>Kód zásilky Zásilkovny: <strong>Z942088192</strong></span>
-                <span className="text-white underline cursor-pointer">Stáhnout fakturu (PDF)</span>
+                <span>Ukážkový kód zásielky: <strong>DEMO-00001</strong></span>
+                <span className="text-white underline cursor-pointer">Zobraziť faktúru (ukážka)</span>
               </div>
             </div>
 
             <div className="p-3 bg-black border border-neutral-900 text-center text-neutral-500 text-[11px]">
-              Žádné další otevřené objednávky. DROP 002 startuje za 14 dní.
+              Žiadne ďalšie ukážkové objednávky. Termíny dropov sú iba návrh.
             </div>
           </div>
         )}
@@ -159,14 +163,14 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           <div className="space-y-3 font-mono text-xs">
             <div className="p-4 bg-neutral-950 border border-neutral-800 space-y-1">
               <div className="flex items-center justify-between text-[11px]">
-                <strong className="text-white uppercase">VÝCHOZÍ KAMPUSOVÁ ADRESA (KOLEJE VUT)</strong>
-                <span className="px-1.5 py-0.5 bg-neutral-800 text-white text-[9px] uppercase">VÝCHOZÍ</span>
+              <strong className="text-white uppercase">UKÁŽKOVÁ KAMPUSOVÁ ADRESA (KOLEJE VUT)</strong>
+                <span className="px-1.5 py-0.5 bg-neutral-800 text-white text-[9px] uppercase">PREDVOLENÁ</span>
               </div>
               <p className="text-neutral-300 text-[11px] leading-relaxed pt-1">
-                Tomáš Dvořák<br />
+                Alex Novák (fiktívny profil)<br />
                 VUT Koleje Pod Palackého vrchem, Blok A03<br />
                 Kolejní 2, 612 00 Brno-Královo Pole<br />
-                Tel: +420 773 124 890
+                Tel.: ukážkový údaj
               </p>
             </div>
 
@@ -185,9 +189,9 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           <div className="space-y-3 font-mono text-xs">
             <label className="p-3.5 bg-neutral-950 border border-neutral-800 flex items-center justify-between cursor-pointer">
               <div>
-                <strong className="text-white block">UPOZORNĚNÍ NA NOVÝ DROP (E-MAIL)</strong>
+                <strong className="text-white block">UPOZORNENIE NA NOVÝ DROP (E-MAIL)</strong>
                 <span className="text-[11px] text-neutral-400">
-                  Zaslat upozornění 15 minut před otevřením DROP 002 na {emailInput}
+                Odoslať upozornenie 15 minút pred ukážkovým termínom na {emailInput}
                 </span>
               </div>
               <input
@@ -200,9 +204,9 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
             <label className="p-3.5 bg-neutral-950 border border-neutral-800 flex items-center justify-between cursor-pointer">
               <div>
-                <strong className="text-white block">SMS DROP ALERTY</strong>
+                  <strong className="text-white block">SMS UPOZORNENIA NA DROP</strong>
                 <span className="text-[11px] text-neutral-400">
-                  Blesková SMS při restocku a spuštění secret drops
+                  Okamžitá SMS pri doplnení zásob a spustení nových kolekcií
                 </span>
               </div>
               <input

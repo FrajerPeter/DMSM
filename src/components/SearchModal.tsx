@@ -24,7 +24,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   useEffect(() => {
     if (query.trim().length > 1) {
       analytics.trackEvent('search', {
-        search_term: query.trim()
+        search_term_length: query.trim().length
       });
     }
   }, [query]);
