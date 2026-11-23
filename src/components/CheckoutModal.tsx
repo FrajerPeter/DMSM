@@ -124,7 +124,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           <div className="bg-neutral-950 px-6 py-3 border-b border-neutral-800/80 flex items-center justify-between text-xs font-mono">
             <div className={`flex items-center gap-2 ${step >= 1 ? 'text-white' : 'text-neutral-500'}`}>
               <span className={`w-5 h-5 flex items-center justify-center rounded-full text-[11px] font-bold ${step === 1 ? 'bg-white text-black' : 'bg-neutral-800 text-neutral-300'}`}>1</span>
-              <span>DORUČENÍ & ADRESA</span>
+              <span>DORUČENIE A ADRESA</span>
             </div>
             <div className="w-8 h-px bg-neutral-800" />
             <div className={`flex items-center gap-2 ${step >= 2 ? 'text-white' : 'text-neutral-500'}`}>
@@ -154,9 +154,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <div>
                     <span className="text-white font-bold block flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      STUDUJEŠ NA FP NEBO BYDLÍŠ NA KOLEJÍCH?
+                      ŠTUDUJEŠ NA FP ALEBO BÝVAŠ NA INTERNÁTE?
                     </span>
-                    <span className="text-[11px] text-neutral-400">Ukázková volba osobního odběru; prototyp není napojen na výdejní místo.</span>
+                    <span className="text-[11px] text-neutral-400">Ukážková voľba osobného odberu; prototyp nie je napojený na výdajné miesto.</span>
                   </div>
                   <button
                     type="button"
@@ -170,17 +170,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     }}
                     className="px-3 py-1.5 bg-white text-black font-bold uppercase hover:bg-neutral-200 transition-colors text-[10px] shrink-0 self-start sm:self-auto"
                   >
-                    ⚡ VYBRAT OSOBNÍ ODBĚR
+                    ⚡ VYBRAŤ OSOBNÝ ODBER
                   </button>
                 </div>
 
                 <div>
                   <h3 className="font-display font-bold text-sm uppercase text-white mb-3">
-                    1. KONTAKTNÍ ÚDAJE
+                    1. KONTAKTNÉ ÚDAJE
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[11px] font-mono text-neutral-400 mb-1">JMÉNO</label>
+                      <label className="block text-[11px] font-mono text-neutral-400 mb-1">MENO</label>
                       <input
                         type="text"
                         value={customer.firstName}
@@ -189,7 +189,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] font-mono text-neutral-400 mb-1">PŘÍJMENÍ</label>
+                      <label className="block text-[11px] font-mono text-neutral-400 mb-1">PRIEZVISKO</label>
                       <input
                         type="text"
                         value={customer.lastName}
@@ -222,7 +222,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
                 <div>
                   <h3 className="font-display font-bold text-sm uppercase text-white mb-3">
-                    2. ZPŮSOB DORUČENÍ
+                    2. SPÔSOB DORUČENIA
                   </h3>
                   <div className="space-y-2">
                     <label className={`flex items-start gap-3 p-3 border cursor-pointer transition-colors ${customer.deliveryMethod === 'zasilkovna' ? 'border-white bg-neutral-900' : 'border-neutral-800 bg-neutral-950 hover:border-neutral-700'}`}>
@@ -235,10 +235,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       />
                       <div className="flex-1 text-xs">
                         <div className="flex justify-between font-bold text-white font-mono">
-                          <span>ZÁSILKOVNA (VÝDEJNÍ MÍSTO / Z-BOX)</span>
-                          <span className="tabular-nums">{isFreeShipping ? 'ZDARMA' : '69 Kč'}</span>
+                          <span>ZÁSIELKOVŇA (VÝDAJNÉ MIESTO / Z-BOX)</span>
+                          <span className="tabular-nums">{isFreeShipping ? 'ZADARMO' : '69 Kč'}</span>
                         </div>
-                        <p className="text-[11px] text-neutral-400 mt-1">Modelová možnost dopravy; napojení na dopravce není součástí prototypu.</p>
+                        <p className="text-[11px] text-neutral-400 mt-1">Modelová možnosť dopravy; napojenie na dopravcu nie je súčasťou prototypu.</p>
                         {customer.deliveryMethod === 'zasilkovna' && (
                           <div className="mt-2.5 pt-2 border-t border-neutral-800">
                             <span className="text-[10px] font-mono text-neutral-400 block mb-1">VYBRANÁ POBOČKA:</span>
@@ -263,10 +263,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       />
                       <div className="flex-1 text-xs">
                         <div className="flex justify-between font-bold text-white font-mono">
-                          <span>OSOBNÍ ODBĚR NA FP VUT (KOLEJNÍ 29)</span>
-                          <span className="text-emerald-400 font-bold">ZDARMA VŽDY</span>
+                          <span>OSOBNÝ ODBER NA FP VUT (KOLEJNÍ 29)</span>
+                          <span className="text-emerald-400 font-bold">VŽDY ZADARMO</span>
                         </div>
-                        <p className="text-[11px] text-neutral-400 mt-1">Modelová možnost převzetí; skutečné místo a termín zatím nejsou stanoveny.</p>
+                        <p className="text-[11px] text-neutral-400 mt-1">Modelová možnosť prevzatia; skutočné miesto a termín zatiaľ nie sú stanovené.</p>
                       </div>
                     </label>
 
@@ -281,9 +281,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       <div className="flex-1 text-xs">
                         <div className="flex justify-between font-bold text-white font-mono">
                           <span>PPL KURÝR NA ADRESU</span>
-                          <span className="tabular-nums">{isFreeShipping ? 'ZDARMA' : '89 Kč'}</span>
+                          <span className="tabular-nums">{isFreeShipping ? 'ZADARMO' : '89 Kč'}</span>
                         </div>
-                        <p className="text-[11px] text-neutral-400 mt-1">Modelová možnost dopravy; napojení na dopravce není součástí prototypu.</p>
+                        <p className="text-[11px] text-neutral-400 mt-1">Modelová možnosť dopravy; napojenie na dopravcu nie je súčasťou prototypu.</p>
                       </div>
                     </label>
                   </div>
@@ -296,7 +296,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     </h3>
                     <div className="space-y-3">
                       <div>
-                        <label className="block text-[11px] font-mono text-neutral-400 mb-1">ULICE A ČÍSLO POPISNÉ</label>
+                        <label className="block text-[11px] font-mono text-neutral-400 mb-1">ULICA A ČÍSLO DOMU</label>
                         <input
                           type="text"
                           value={customer.street}
@@ -306,7 +306,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       </div>
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-[11px] font-mono text-neutral-400 mb-1">MĚSTO</label>
+                          <label className="block text-[11px] font-mono text-neutral-400 mb-1">MESTO</label>
                           <input
                             type="text"
                             value={customer.city}
@@ -333,7 +333,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               <div className="md:col-span-5 bg-neutral-950 border border-neutral-800 p-6 flex flex-col justify-between">
                 <div>
                   <h4 className="font-display font-bold text-xs uppercase tracking-wider text-neutral-400 mb-4">
-                    SOUHRN POLOŽEK ({items.length})
+                    SÚHRN POLOŽIEK ({items.length})
                   </h4>
                   <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
                     {items.map(item => (
@@ -348,7 +348,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                         <div className="flex-1 min-w-0">
                           <div className="font-bold text-white truncate">{item.product.name}</div>
                           <div className="text-[11px] font-mono text-neutral-400">
-                            Velikost: {item.size} × {item.quantity} ks
+                            Veľkosť: {item.size} × {item.quantity} ks
                           </div>
                         </div>
                         <div className="font-mono font-bold text-white tabular-nums">
@@ -360,23 +360,23 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
                   <div className="mt-6 pt-4 border-t border-neutral-800 space-y-2 text-xs font-mono">
                     <div className="flex justify-between text-neutral-400">
-                      <span>Mezisoučet</span>
+                      <span>Medzisúčet</span>
                       <span className="text-white tabular-nums">{subtotal} Kč</span>
                     </div>
                     {discount > 0 && (
                       <div className="flex justify-between text-emerald-400">
-                        <span>Studentská sleva</span>
+                        <span>Študentská zľava</span>
                         <span className="tabular-nums">-{discount} Kč</span>
                       </div>
                     )}
                     <div className="flex justify-between text-neutral-400">
                       <span>Doprava</span>
                       <span className="text-white tabular-nums">
-                        {shippingCost === 0 ? 'ZDARMA' : `${shippingCost} Kč`}
+                        {shippingCost === 0 ? 'ZADARMO' : `${shippingCost} Kč`}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm font-bold text-white pt-2 border-t border-neutral-800">
-                      <span>CELKEM</span>
+                      <span>SPOLU</span>
                       <span className="font-mono text-base tabular-nums">{finalTotal} Kč</span>
                     </div>
                   </div>
@@ -386,7 +386,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   onClick={() => setStep(2)}
                   className="mt-6 w-full py-3 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>POKRAČOVAT K PLATBĚ</span>
+                  <span>POKRAČOVAŤ K PLATBE</span>
                   <ArrowRight size={14} />
                 </button>
               </div>
@@ -396,10 +396,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           {step === 2 && (
             <div className="max-w-xl mx-auto space-y-6">
               <h3 className="font-display font-bold text-lg uppercase text-white mb-2">
-                VYBER ZPŮSOB PLATBY
+                VYBER SPÔSOB PLATBY
               </h3>
               <p className="text-xs font-mono text-neutral-400 mb-4">
-                Způsoby platby jsou pouze modelové prvky rozhraní. Nezadávejte údaje ke kartě; žádná platební brána není připojena.
+                Spôsoby platby sú iba modelové prvky rozhrania. Nezadávajte údaje o karte; žiadna platobná brána nie je pripojená.
               </p>
 
               <div className="space-y-3">
@@ -417,9 +417,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                         <Smartphone size={16} />
                         APPLE PAY / GOOGLE PAY
                       </span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 bg-neutral-800 text-neutral-300">EXPRESNÍ</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 bg-neutral-800 text-neutral-300">EXPRESNÉ</span>
                     </div>
-                    <p className="text-[11px] text-neutral-400 mt-1">Pouze návrh rozhraní; Apple Pay ani Google Pay nejsou připojeny.</p>
+                    <p className="text-[11px] text-neutral-400 mt-1">Iba návrh rozhrania; Apple Pay ani Google Pay nie sú pripojené.</p>
                   </div>
                 </label>
 
@@ -435,10 +435,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     <div className="flex items-center justify-between font-bold text-white font-mono">
                       <span className="flex items-center gap-2">
                         <CreditCard size={16} />
-                        PLATEBNÍ KARTA (VISA / MASTERCARD)
+                        PLATOBNÁ KARTA (VISA / MASTERCARD)
                       </span>
                     </div>
-                    <p className="text-[11px] text-neutral-400 mt-1">Pouze návrh rozhraní; platební brána není připojena.</p>
+                    <p className="text-[11px] text-neutral-400 mt-1">Iba návrh rozhrania; platobná brána nie je pripojená.</p>
                     {customer.paymentMethod === 'card' && (
                       <div className="mt-3 border-t border-neutral-800 pt-3 text-[11px] text-amber-200">
                         Pole platební karty nejsou v prototypu dostupná. Pro pokračování použijte pouze demo volbu.
@@ -459,10 +459,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     <div className="flex items-center justify-between font-bold text-white font-mono">
                       <span className="flex items-center gap-2">
                         <Building2 size={16} />
-                        BANKOVNÍ PŘEVOD / OKAMŽITÁ QR PLATBA
+                        BANKOVÝ PREVOD / OKAMŽITÁ QR PLATBA
                       </span>
                     </div>
-                    <p className="text-[11px] text-neutral-400 mt-1">Pouze návrh rozhraní; QR platba ani bankovní převod nejsou připojeny.</p>
+                    <p className="text-[11px] text-neutral-400 mt-1">Iba návrh rozhrania; QR platba ani bankový prevod nie sú pripojené.</p>
                   </div>
                 </label>
               </div>
@@ -473,13 +473,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   className="px-4 py-2.5 text-xs font-mono uppercase text-neutral-400 hover:text-white flex items-center gap-1.5"
                 >
                   <ArrowLeft size={14} />
-                  <span>ZPĚT NA ADRESU</span>
+                  <span>SPÄŤ NA ADRESU</span>
                 </button>
                 <button
                   onClick={() => setStep(3)}
                   className="px-6 py-3 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 flex items-center gap-2"
                 >
-                  <span>REKAPITULACE OBJEDNÁVKY</span>
+                  <span>REKAPITULÁCIA OBJEDNÁVKY</span>
                   <ArrowRight size={14} />
                 </button>
               </div>
@@ -489,7 +489,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           {step === 3 && (
             <div className="max-w-xl mx-auto space-y-6">
               <h3 className="font-display font-bold text-lg uppercase text-white mb-2">
-                ZKONTROLUJ A POTVRĎ OBJEDNÁVKU
+                SKONTROLUJ A POTVRĎ OBJEDNÁVKU
               </h3>
 
               <div className="bg-neutral-950 border border-neutral-800 p-5 space-y-4 text-xs font-mono">
@@ -500,11 +500,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
 
                 <div className="pt-3 border-t border-neutral-900">
-                  <span className="text-neutral-500 uppercase block text-[10px]">ZPŮSOB DORUČENÍ</span>
+                  <span className="text-neutral-500 uppercase block text-[10px]">SPÔSOB DORUČENIA</span>
                   <span className="text-white font-bold uppercase">{customer.deliveryMethod}</span>
                   <span className="text-neutral-400 block">
                     {customer.deliveryMethod === 'pickup'
-                      ? 'Osobní odběr FP VUT, Kolejní 29, Brno'
+                      ? 'Osobný odber FP VUT, Kolejní 29, Brno'
                       : customer.deliveryMethod === 'zasilkovna'
                       ? customer.pickupBranch
                       : `${customer.street}, ${customer.city} ${customer.postalCode}`}
@@ -517,7 +517,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
 
                 <div className="pt-3 border-t border-neutral-900">
-                  <span className="text-neutral-500 uppercase block text-[10px]">POLOŽKY K ODESLÁNÍ</span>
+                  <span className="text-neutral-500 uppercase block text-[10px]">POLOŽKY NA ODOSLANIE</span>
                   <div className="space-y-1 mt-1">
                     {items.map(i => (
                       <div key={i.id} className="flex justify-between text-neutral-300">
@@ -529,14 +529,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
 
                 <div className="pt-3 border-t border-neutral-900 flex justify-between text-sm font-bold text-white">
-                  <span>FINÁLNÍ ČÁSTKA K ÚHRADĚ</span>
+                  <span>KONEČNÁ SUMA NA ÚHRADU</span>
                   <span className="text-base font-mono tabular-nums">{finalTotal} Kč</span>
                 </div>
               </div>
 
               <div className="flex items-center gap-3 p-3 bg-neutral-900/60 border border-neutral-800 text-xs font-mono text-neutral-400">
                 <ShieldCheck size={18} className="text-emerald-400 shrink-0" />
-                <span>Kliknutím odešlete nezávaznou zkušební objednávku v rámci akademického projektu.</span>
+                <span>Kliknutím odošlete nezáväznú skúšobnú objednávku v rámci akademického projektu.</span>
               </div>
 
               <div className="flex items-center justify-between pt-4">
@@ -545,13 +545,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   className="px-4 py-2.5 text-xs font-mono uppercase text-neutral-400 hover:text-white flex items-center gap-1.5"
                 >
                   <ArrowLeft size={14} />
-                  <span>ZPĚT K PLATBĚ</span>
+                  <span>SPÄŤ K PLATBE</span>
                 </button>
                 <button
                   onClick={handleCompleteOrder}
                   className="px-8 py-3.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-neutral-200 transition-colors shadow-xl"
                 >
-                  DOKONČIT OBJEDNÁVKU ({finalTotal} Kč)
+                  DOKONČIŤ OBJEDNÁVKU ({finalTotal} Kč)
                 </button>
               </div>
             </div>
@@ -577,32 +577,32 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
               <div className="p-5 bg-neutral-950 border border-neutral-800 text-left text-xs font-mono space-y-3">
                 <div className="flex justify-between border-b border-neutral-900 pb-2">
-                  <span className="text-neutral-500">Stav zásilky:</span>
-                  <span className="text-emerald-400 font-bold">Připravujeme k expedici</span>
+                  <span className="text-neutral-500">Stav zásielky:</span>
+                  <span className="text-emerald-400 font-bold">Pripravujeme na expedíciu</span>
                 </div>
                 <div className="flex justify-between border-b border-neutral-900 pb-2">
-                  <span className="text-neutral-500">Doručení do:</span>
-                  <span className="text-white">{confirmedOrder.customer.deliveryMethod === 'pickup' ? 'FP VUT Kolejní 29 (zítra 10:00)' : 'Z-BOX / Adresa (do 24–48 h)'}</span>
+                  <span className="text-neutral-500">Doručenie do:</span>
+                  <span className="text-white">{confirmedOrder.customer.deliveryMethod === 'pickup' ? 'FP VUT Kolejní 29 (zajtra 10:00)' : 'Z-BOX / Adresa (do 24–48 h)'}</span>
                 </div>
                 <div className="flex justify-between border-b border-neutral-900 pb-2">
-                  <span className="text-neutral-500">E-mailové potvrzení:</span>
+                  <span className="text-neutral-500">E-mailové potvrdenie:</span>
                   <span className="text-white" data-clarity-mask="True">{confirmedOrder.customer.email}</span>
                 </div>
                 <div className="flex justify-between font-bold text-white pt-1">
-                  <span>Celková částka:</span>
+                  <span>Celková suma:</span>
                   <span className="tabular-nums">{confirmedOrder.total} Kč</span>
                 </div>
               </div>
 
               <p className="text-xs font-mono text-neutral-400 max-w-sm mx-auto">
-                Do každého balíčku přikládáme zdarma balíček matných vinyl samolepek FP DROP pro tvůj notebook!
+                Ku každému balíku pribalíme zadarmo sadu matných vinylových nálepiek FP DROP na tvoj notebook!
               </p>
 
               <button
                 onClick={onClose}
                 className="w-full py-3 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-neutral-200"
               >
-                ZPĚT DO OBCHODU
+                SPÄŤ DO OBCHODU
               </button>
             </div>
           )}

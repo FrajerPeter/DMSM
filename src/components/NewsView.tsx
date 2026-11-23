@@ -82,7 +82,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
                 className="hover:text-white flex items-center gap-1"
               >
                 <Share2 size={13} />
-                <span>Sdílet</span>
+                <span>Zdieľať</span>
               </button>
             </div>
           </div>
@@ -253,7 +253,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ onSelectProduct, onNavigateT
                 <div className="mt-4 pt-3 border-t border-neutral-900/80 flex items-center gap-2 text-[10px] font-mono text-neutral-400">
                 <span className="uppercase text-neutral-400">PRODUKT:</span>
                   <span className="text-white truncate">
-                    {PRODUCTS.find(p => p.id === art.relatedProductIds[0])?.name || 'Kolekce FP'}
+                    {PRODUCTS.find(p => p.id === art.relatedProductIds[0])?.name || 'Kolekcia FP'}
                   </span>
                 </div>
               )}

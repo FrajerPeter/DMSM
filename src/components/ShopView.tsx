@@ -79,23 +79,23 @@ export const ShopView: React.FC<ShopViewProps> = ({
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 text-xs font-mono text-neutral-400">
             <ArrowUpDown size={14} />
-            <span className="hidden sm:inline">ŘAZENÍ:</span>
+            <span className="hidden sm:inline">ZORADIŤ:</span>
             <select
               value={sortBy}
               onChange={e => setSortBy(e.target.value as any)}
               className="bg-neutral-950 border border-neutral-800 text-white px-3 py-1.5 focus:outline-none focus:border-white font-mono"
             >
-              <option value="POPULAR">Nejpopulárnější</option>
-              <option value="NEWEST">Nejnovější</option>
-              <option value="PRICE_ASC">Cena: Od nejnižší</option>
-              <option value="PRICE_DESC">Cena: Od nejvyšší</option>
+              <option value="POPULAR">Najpopulárnejšie</option>
+              <option value="NEWEST">Najnovšie</option>
+              <option value="PRICE_ASC">Cena: od najnižšej</option>
+              <option value="PRICE_DESC">Cena: od najvyššej</option>
             </select>
           </div>
 
           <button
             onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
             className="md:hidden p-2 bg-neutral-900 border border-neutral-800 text-neutral-300"
-            aria-label="Filtry"
+            aria-label="Filtre"
           >
             <Filter size={16} />
           </button>
@@ -116,7 +116,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
           >
             {cat === 'ALL' ? 'VŠETKO' :
              cat === 'T-SHIRTS' ? 'TRIČKA (TEES)' :
-             cat === 'HOODIES' ? 'MIKINY S KAPUCÍ' :
+             cat === 'HOODIES' ? 'MIKINY S KAPUCŇOU' :
              cat === 'SWEATSHIRTS' ? 'CREWNECK MIKINY' : 'DOPLŇKY'}
           </button>
         ))}
@@ -141,7 +141,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
 
         {/* Size Selector */}
         <div className="flex items-center gap-1.5">
-          <span className="text-neutral-400 mr-1">VELIKOST:</span>
+          <span className="text-neutral-400 mr-1">VEĽKOSŤ:</span>
           {sizes.map(s => (
             <button
               key={s}
@@ -165,7 +165,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
             onChange={e => setOnlyInStock(e.target.checked)}
             className="rounded bg-black border-neutral-800"
           />
-          <span>Pouze skladem</span>
+          <span>Iba skladom</span>
         </label>
 
         {/* Reset filter if any active */}

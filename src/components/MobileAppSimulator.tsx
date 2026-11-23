@@ -136,20 +136,19 @@ STUDENT_PROFILE = {
     "studyProgram": "Informační management & Podnikání",
     "campusLocation": "Kolejní 29, 612 00 Brno",
     "ectsCredits": 142,
-    "loyaltyLevel": "VIP SENIOR (10% SLEVA)",
+    "loyaltyLevel": "VIP SENIOR (10 % ZĽAVA)",
     "couponCode": "FPVUT10"
 }
 `;
 
-export const MobileAppSimulator: React.FC<MobileAppSimulatorProps> = ({
+// Hooky musia byť volané vždy v rovnakom poradí, preto podmienené zobrazenie rieši obal nižšie.
+const MobileAppSimulatorContent: React.FC<MobileAppSimulatorProps> = ({
   isOpen,
   onClose,
   onSelectProduct,
   wishlistIds,
   cartCount
 }) => {
-  if (!isOpen) return null;
-
   const [mode, setMode] = useState<'DEVICE' | 'PYTHON'>('DEVICE');
   const [activeTab, setActiveTab] = useState<'HOME' | 'SHOP' | 'DROPS' | 'WISHLIST' | 'PROFILE'>('HOME');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
@@ -361,7 +360,7 @@ export const MobileAppSimulator: React.FC<MobileAppSimulatorProps> = ({
                         onClick={() => setActiveTab('SHOP')}
                         className="text-xs font-mono text-white flex items-center gap-1"
                       >
-                        Vše <ArrowRight size={12} />
+                        Všetko <ArrowRight size={12} />
                       </button>
                     </div>
 
@@ -446,7 +445,7 @@ export const MobileAppSimulator: React.FC<MobileAppSimulatorProps> = ({
               {activeTab === 'DROPS' && (
                 <div className="space-y-3 font-mono text-xs">
                   <div className="text-[10px] uppercase tracking-wider text-neutral-400">
-                    EDICE & KALENDÁŘ DROPU
+                    EDÍCIA A KALENDÁR DROPOV
                   </div>
                   {DROPS.map(d => (
                     <div
@@ -514,7 +513,7 @@ export const MobileAppSimulator: React.FC<MobileAppSimulatorProps> = ({
                             </div>
                           </div>
                           <span className="text-xs font-mono text-white underline">
-                            ZOBRAZIT
+                            ZOBRAZIŤ
                           </span>
                         </div>
                       ))}
@@ -640,3 +639,6 @@ export const MobileAppSimulator: React.FC<MobileAppSimulatorProps> = ({
     </div>
   );
 };
+
+export const MobileAppSimulator: React.FC<MobileAppSimulatorProps> = props =>
+  props.isOpen ? <MobileAppSimulatorContent {...props} /> : null;

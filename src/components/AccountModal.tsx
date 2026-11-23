@@ -47,7 +47,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           <button
             onClick={onClose}
             className="p-1.5 text-neutral-400 hover:text-white transition-colors"
-            aria-label="Zavřít"
+            aria-label="Zavrieť"
           >
             <X size={18} />
           </button>
@@ -111,7 +111,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             }`}
           >
             <Bell size={13} />
-            <span>NOTIFIKACE DROPŮ</span>
+            <span>NOTIFIKÁCIE DROPOV</span>
           </button>
         </div>
 
@@ -177,8 +177,8 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             <div className="p-4 bg-neutral-950 border border-neutral-900 space-y-1 text-neutral-400">
               <div className="text-[11px] text-white font-bold uppercase">PREFEROVANÝ Z-BOX:</div>
               <p className="text-[11px] leading-relaxed">
-                Z-BOX VUT Brno, Kolejní 2 (přímo u vchodu na koleje)<br />
-                K dispozici 24/7 pro vyzvednutí aplikací Zásilkovna.
+                Z-BOX VUT Brno, Kolejní 2 (priamo pri vchode na internát)<br />
+                K dispozícii 24/7 na vyzdvihnutie cez aplikáciu Zásielkovňa.
               </p>
             </div>
           </div>
@@ -228,7 +228,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             }}
             className="text-neutral-400 hover:text-white flex items-center gap-1.5 transition-colors"
           >
-            <span>Pokračovat v nákupu</span>
+            <span>Pokračovať v nákupe</span>
             <ArrowRight size={13} />
           </button>
 
@@ -240,7 +240,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             className="text-neutral-500 hover:text-rose-400 flex items-center gap-1.5 transition-colors"
           >
             <LogOut size={13} />
-            <span>Odhlásit se</span>
+            <span>Odhlásiť sa</span>
           </button>
         </div>
       </div>

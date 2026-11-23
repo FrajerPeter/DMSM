@@ -4,11 +4,11 @@ export const LOOKBOOK_ITEMS: LookbookItem[] = [
   {
     id: 'lb-01',
     title: 'LOOK 01 — FIRST SEMESTER ARRIVAL',
-    subtitle: 'Kolejní 29 Campus, Ranní světlo',
+    subtitle: 'Kampus Kolejní 29, ranné svetlo',
     dropId: 'drop-001',
     location: 'Brno, Královo Pole',
     vibe: 'Brutalist Concrete & Heavyweight Cotton',
-    imageAlt: 'Student v černém oversized tričku HOT GIRLS GO TO FP s plátěnou taškou před moderní betonovou architekturou',
+    imageAlt: 'Študentka v čiernom oversized tričku HOT GIRLS GO TO FP s plátennou taškou pred modernou betónovou architektúrou',
     featuredProductIds: ['prod-01', 'prod-19', 'prod-17'],
     hotspots: [
       { x: 48, y: 38, productId: 'prod-01', label: 'HOT GIRLS GO TO FP TEE — 349 Kč' },
@@ -20,11 +20,11 @@ export const LOOKBOOK_ITEMS: LookbookItem[] = [
   {
     id: 'lb-02',
     title: 'LOOK 02 — EXAM MARATHON',
-    subtitle: 'Studovna & Knihovna VUT Kolejní',
+    subtitle: 'Študovňa a knižnica VUT Kolejní',
     dropId: 'drop-002',
-    location: 'Knihovna VUT',
+    location: 'Knižnica VUT',
     vibe: '450 GSM Heavy Hoodie & Espresso Double',
-    imageAlt: 'Student v masivní mikině EXAM SURVIVOR a ponožkách Kolejní 29 soustředěný na notebook',
+    imageAlt: 'Študent v masívnej mikine EXAM SURVIVOR a ponožkách Kolejní 29 sústredený na notebook',
     featuredProductIds: ['prod-14', 'prod-02', 'prod-21'],
     hotspots: [
       { x: 50, y: 35, productId: 'prod-14', label: 'EXAM SURVIVOR HOODIE — 949 Kč' },
@@ -36,11 +36,11 @@ export const LOOKBOOK_ITEMS: LookbookItem[] = [
   {
     id: 'lb-03',
     title: 'LOOK 03 — FP AFTER DARK',
-    subtitle: 'Jakubské náměstí & Noční Brno',
+    subtitle: 'Jakubské náměstí a nočné Brno',
     dropId: 'drop-003',
     location: 'Jakubské náměstí, Brno',
     vibe: 'Nightline Streetwear, Neon Reflections',
-    imageAlt: 'Dvojice studentů v nočním městě v trikách FP AFTER DARK a kšiltovce NIGHTLINE',
+    imageAlt: 'Dvojica študentov v nočnom meste v tričkách FP AFTER DARK a šiltovke NIGHTLINE',
     featuredProductIds: ['prod-04', 'prod-18', 'prod-08'],
     hotspots: [
       { x: 45, y: 40, productId: 'prod-04', label: 'FP AFTER DARK TEE — 349 Kč' },
@@ -51,11 +51,11 @@ export const LOOKBOOK_ITEMS: LookbookItem[] = [
   {
     id: 'lb-04',
     title: 'LOOK 04 — MADE IN BRNO',
-    subtitle: 'Villa Tugendhat & Funkcionalismus',
+    subtitle: 'Vila Tugendhat a funkcionalizmus',
     dropId: 'drop-004',
     location: 'Černá Pole, Brno',
     vibe: 'Minimal Architecture & Local Identity',
-    imageAlt: 'Modelka v crewnecku Brno Brutalism a tričku Brno is Home před čistými geometrickými liniemi',
+    imageAlt: 'Modelka v crewnecku Brno Brutalism a tričku Brno is Home pred čistými geometrickými líniami',
     featuredProductIds: ['prod-15', 'prod-11', 'prod-20'],
     hotspots: [
       { x: 50, y: 32, productId: 'prod-15', label: 'BRNO BRUTALISM CREWNECK — 799 Kč' },

@@ -43,7 +43,7 @@ export const DropsView: React.FC<DropsViewProps> = ({
         </h1>
 
         <p className="mt-4 text-sm md:text-base text-neutral-400 max-w-2xl leading-relaxed">
-          Náš obchod nefunguje jako nudný permanentní katalog. Vydáváme limitované tematické série vázané na životní cyklus studenta FP VUT — od prvního týdne semestru přes zkouškové až po noční život v Brně.
+          Náš obchod nefunguje ako nudný stály katalóg. Vydávame limitované tematické série naviazané na život študenta FP VUT — od prvého týždňa semestra cez skúškové až po nočný život v Brne.
         </p>
 
         {/* Drop Navigation Selectors */}
@@ -82,7 +82,7 @@ export const DropsView: React.FC<DropsViewProps> = ({
           <div className="flex items-center gap-3 text-xs font-mono">
             <span className="px-2 py-0.5 bg-white text-black font-bold uppercase">{selectedDrop.code}</span>
             <span className="text-emerald-400 font-bold uppercase flex items-center gap-1">
-              <CheckCircle2 size={13} /> NYNÍ SKLADEM V BRNĚ
+              <CheckCircle2 size={13} /> TERAZ SKLADOM V BRNE
             </span>
           </div>
 
@@ -103,21 +103,21 @@ export const DropsView: React.FC<DropsViewProps> = ({
               onClick={() => onFilterShopByDrop(selectedDrop.id)}
               className="px-5 py-2.5 bg-white text-black font-bold uppercase tracking-wider hover:bg-neutral-200 transition-colors flex items-center gap-2"
             >
-              <span>ZOBRAZIT VŠECH {dropProducts.length} KUSŮ V SHOPU</span>
+              <span>ZOBRAZIŤ VŠETKÝCH {dropProducts.length} KÚSKOV V OBCHODE</span>
               <ArrowRight size={14} />
             </button>
 
             <button
               onClick={() => {
                 const title = `FP DROP: ${selectedDrop.code} (${selectedDrop.title})`;
-                const details = `Spuštění limitovaného dropu FP DROP pro studenty FP VUT. Místo: fpdrop.cz`;
+                const details = `Spustenie limitovaného dropu FP DROP pre študentov FP VUT. Místo: fpdrop.cz`;
                 const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&details=${encodeURIComponent(details)}&location=FP+VUT+Brno`;
                 window.open ? window.open(gCalUrl, '_blank') : null;
               }}
               className="px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 font-bold uppercase transition-colors flex items-center gap-1.5"
             >
               <Clock size={13} />
-              <span>PŘIDAT DO KALENDÁŘE</span>
+              <span>PRIDAŤ DO KALENDÁRA</span>
             </button>
 
             <span className="text-neutral-400">
@@ -134,7 +134,7 @@ export const DropsView: React.FC<DropsViewProps> = ({
             PRODUKTY V TOMTO DROPU ({dropProducts.length})
           </h3>
           <span className="text-xs font-mono text-neutral-400">
-            100% bio bavlna • Lokální sítotisk
+            100 % bio bavlna • Lokálna sieťotlač
           </span>
         </div>
 

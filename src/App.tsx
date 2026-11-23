@@ -16,8 +16,10 @@ import { CheckoutModal } from './components/CheckoutModal';
 import { SearchModal } from './components/SearchModal';
 import { AccountModal } from './components/AccountModal';
 import { AnalyticsConsent } from './components/AnalyticsConsent';
-import { analytics } from './utils/analytics';
-import { pathToRoute, routeToPath, VIEW_TITLES } from './utils/router';
+import { analytics, ga4Item } from './utils/analytics';
+import { pathToRoute, routeToPath, VIEW_DESCRIPTIONS, VIEW_TITLES } from './utils/router';
+import { setPageMeta } from './utils/seo';
+import { NotFoundView } from './components/NotFoundView';
 import { getBlogPost } from './data/blog';
 import { Home, Grid, Zap, BookOpen, ShoppingBag, CheckCircle2 } from 'lucide-react';
 
@@ -115,11 +117,18 @@ export default function App() {
   useEffect(() => {
     const path = routeToPath(route);
     const post = route.blogSlug ? getBlogPost(route.blogSlug) : undefined;
-    document.title = post
-      ? `${post.title} | Blog FP DROP`
-      : route.view === 'home'
-        ? 'FP DROP — Student Streetwear FP VUT Brno'
-        : `${VIEW_TITLES[route.view]} | FP DROP`;
+    const missingPost = Boolean(route.blogSlug && !post);
+    setPageMeta({
+      title: post
+        ? `${post.title} | Blog FP DROP`
+        : missingPost
+          ? 'Článok sa nenašiel | FP DROP'
+          : route.view === 'home'
+            ? 'FP DROP — Študentský streetwear FP VUT Brno'
+            : `${VIEW_TITLES[route.view]} | FP DROP`,
+      description: post ? post.perex : VIEW_DESCRIPTIONS[route.view],
+      noindex: route.view === 'not-found' || missingPost
+    });
     // Jeden page_view na zmenu URL (StrictMode v dev režime spúšťa efekty dvakrát).
     if (lastTrackedPath.current === path) return;
     lastTrackedPath.current = path;
@@ -157,16 +166,12 @@ export default function App() {
     });
 
     analytics.trackEvent('add_to_cart', {
-      item_id: product.id,
-      item_name: product.name,
-      price: product.price,
-      quantity,
-      size,
+      currency: 'CZK',
       value: product.price * quantity,
-      currency: 'CZK'
+      items: [ga4Item(product, { quantity, size })]
     });
 
-    showToast(`Přidáno do košíku: ${product.name} (${size})`);
+    showToast(`Pridané do košíka: ${product.name} (${size})`);
   };
 
   const handleBuyNow = (product: Product, size: string, quantity: number = 1) => {
@@ -196,10 +201,10 @@ export default function App() {
     setWishlistIds(prev => {
       const exists = prev.includes(productId);
       if (exists) {
-        showToast('Odebráno z oblíbených');
+        showToast('Odobrané z obľúbených');
         return prev.filter(id => id !== productId);
       } else {
-        showToast('Přidáno do oblíbených');
+        showToast('Pridané do obľúbených');
         return [...prev, productId];
       }
     });
@@ -345,8 +350,17 @@ export default function App() {
           />
         )}
 
+        {activeView === 'not-found' && (
+          <NotFoundView
+            path={route.path}
+            onGoHome={() => setActiveView('home')}
+            onGoShop={() => setActiveView('shop')}
+            onGoBlog={() => setActiveView('blog')}
+          />
+        )}
+
         {activeView === 'case-study' && (
-          <Suspense fallback={<div className="min-h-screen bg-[#070707] text-neutral-400 p-8 font-mono text-xs">Načítám případovou studii…</div>}>
+          <Suspense fallback={<div className="min-h-screen bg-[#070707] text-neutral-400 p-8 font-mono text-xs">Načítavam prípadovú štúdiu…</div>}>
             <CaseStudyHub
               onBackToShop={() => {
                 setActiveView('shop');

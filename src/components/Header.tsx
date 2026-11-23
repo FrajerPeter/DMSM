@@ -96,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({
                   ? 'border-white text-white bg-neutral-900'
                   : 'border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-600'
               }`}
-              title="Otevřít akademickou případovou studii a metriky"
+              title="Otvoriť akademickú prípadovú štúdiu a metriky"
             >
               <span>PRÍPADOVÁ ŠTÚDIA</span>
               <ArrowUpRight size={10} />
@@ -144,8 +144,8 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={onOpenSearch}
               className="p-1.5 sm:p-2 text-neutral-400 hover:text-white transition-colors"
-              aria-label="Vyhledávání"
-              title="Vyhledat v produktech"
+              aria-label="Vyhľadávanie"
+              title="Vyhľadať v produktoch"
             >
               <Search size={18} />
             </button>
@@ -154,8 +154,8 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={onOpenAccount}
               className="p-1.5 sm:p-2 text-neutral-400 hover:text-white transition-colors"
-              aria-label="Můj účet"
-              title="Studentský profil & objednávky"
+              aria-label="Môj účet"
+              title="Študentský profil a objednávky"
             >
               <User size={18} />
             </button>
@@ -164,8 +164,8 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={onOpenWishlist}
               className="hidden min-[400px]:block p-1.5 sm:p-2 text-neutral-400 hover:text-white relative transition-colors"
-              aria-label="Oblíbené"
-              title="Oblíbené kousky"
+              aria-label="Obľúbené"
+              title="Obľúbené kúsky"
             >
               <Heart size={18} />
               {wishlistCount > 0 && (
@@ -179,7 +179,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={onOpenCart}
               className="flex items-center gap-2 px-2.5 sm:px-3 py-2 bg-white text-black hover:bg-neutral-200 font-bold transition-all select-none ml-1"
-              aria-label="Nákupní taška"
+              aria-label="Nákupný košík"
             >
               <ShoppingBag size={15} />
               <span className="hidden sm:inline text-xs font-mono font-bold">KOŠÍK</span>
@@ -194,7 +194,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-neutral-400 hover:text-white lg:hidden transition-colors"
-              aria-label={mobileMenuOpen ? 'Zavřít menu' : 'Otevřít menu'}
+              aria-label={mobileMenuOpen ? 'Zavrieť menu' : 'Otvoriť menu'}
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Product } from '../types';
 import { ProductImage } from './ProductImage';
 import { X, Check, Truck, RotateCcw, Ruler, ArrowRight, Minus, Plus, ChevronDown, ChevronUp } from 'lucide-react';
-import { analytics } from '../utils/analytics';
+import { analytics, ga4Item } from '../utils/analytics';
 import { PRODUCTS } from '../data/products';
 
 interface ProductDetailModalProps {
@@ -13,15 +13,14 @@ interface ProductDetailModalProps {
   onSelectProduct: (product: Product) => void;
 }
 
-export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
+// Hooky musia byť volané vždy v rovnakom poradí, preto podmienené zobrazenie rieši obal nižšie.
+const ProductDetailModalContent: React.FC<Omit<ProductDetailModalProps, 'product'> & { product: Product }> = ({
   product,
   onClose,
   onAddToCart,
   onBuyNow,
   onSelectProduct
 }) => {
-  if (!product) return null;
-
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes[0] || 'M');
   const [selectedColor, setSelectedColor] = useState<string>(product.color);
   const [quantity, setQuantity] = useState<number>(1);
@@ -57,13 +56,9 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
       setOpenSection('desc');
 
       analytics.trackEvent('view_item', {
-        item_id: product.id,
-        item_name: product.name,
-        price: product.price,
-        item_category: product.category,
-        item_drop: product.dropName,
+        currency: 'CZK',
         value: product.price,
-        currency: 'CZK'
+        items: [ga4Item(product)]
       });
     }
   }, [product]);
@@ -102,7 +97,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           <button
             onClick={onClose}
             className="p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors"
-            aria-label="Zavřít detail"
+            aria-label="Zavrieť detail"
           >
             <X size={18} />
           </button>
@@ -168,12 +163,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <span className="text-white font-bold mt-0.5 block">{product.material.includes('450') ? '450 GSM' : '240 GSM'}</span>
                 </div>
                 <div className="p-2.5 bg-neutral-950 border border-neutral-800">
-                  <span className="text-[10px] text-neutral-400 uppercase block">STŘIH</span>
+                  <span className="text-[10px] text-neutral-400 uppercase block">STRIH</span>
                   <span className="text-white font-bold mt-0.5 block">{product.fit.split(' ')[0]} Fit</span>
                 </div>
                 <div className="p-2.5 bg-neutral-950 border border-neutral-800">
-                  <span className="text-[10px] text-neutral-400 uppercase block">PŮVOD</span>
-                  <span className="text-white font-bold mt-0.5 block">Sítotisk Brno</span>
+                  <span className="text-[10px] text-neutral-400 uppercase block">PÔVOD</span>
+                  <span className="text-white font-bold mt-0.5 block">Sieťotlač Brno</span>
                 </div>
               </div>
             </div>
@@ -202,14 +197,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     </span>
                   )}
                   <span className="text-[10px] font-mono text-neutral-400 ml-auto">
-                    VČETNĚ 21% DPH
+                    VRÁTANE 21 % DPH
                   </span>
                 </div>
 
                 {/* 3. COLOR SELECTOR */}
                 <div>
                   <div className="flex items-center justify-between text-xs font-mono mb-2">
-                    <span className="text-neutral-400 uppercase">BARVA:</span>
+                    <span className="text-neutral-400 uppercase">FARBA:</span>
                     <span className="text-white font-bold">{selectedColor}</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -226,13 +221,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 {/* 4. SIZE SELECTOR */}
                 <div>
                   <div className="flex items-center justify-between text-xs font-mono mb-2">
-                    <span className="text-neutral-400 uppercase">VELIKOST:</span>
+                    <span className="text-neutral-400 uppercase">VEĽKOSŤ:</span>
                     <button
                       onClick={() => setShowFitCalculator(!showFitCalculator)}
                       className="text-white underline hover:text-neutral-300 flex items-center gap-1 font-bold text-[11px]"
                     >
                       <Ruler size={12} />
-                      <span>Kalkulátor velikosti</span>
+                      <span>Kalkulačka veľkosti</span>
                     </button>
                   </div>
 
@@ -289,7 +284,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       </div>
                       <div className="flex items-center justify-between pt-2 border-t border-neutral-800">
                         <span className="text-[11px] text-neutral-300">
-                          Doporučeno: <strong className="text-white">{suggestedSize} (Boxy fit)</strong>
+                          Odporúčame: <strong className="text-white">{suggestedSize} (Boxy fit)</strong>
                         </span>
                         <button
                           onClick={() => {
@@ -312,8 +307,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <span className={`w-2 h-2 rounded-full ${product.inStock ? 'bg-emerald-400 animate-pulse' : 'bg-red-500'}`} />
                   <span className="text-neutral-300">
                     {product.inStock
-                      ? `Skladem v Brně (${product.stockCount} ks) • Z-BOX Kolejní do 24h`
-                      : 'Vyprodáno — přihlas se k informacím o restocku'}
+                      ? `Skladom v Brne (${product.stockCount} ks) • Z-BOX Kolejní do 24 h`
+                      : 'Vypredané — prihlás sa na informácie o naskladnení'}
                   </span>
                 </div>
 
@@ -353,10 +348,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       {addedAnimation ? (
                         <>
                           <Check size={16} />
-                          <span>PŘIDÁNO DO TAŠKY</span>
+                          <span>PRIDANÉ DO KOŠÍKA</span>
                         </>
                       ) : (
-                        <span>PŘIDAT DO TAŠKY — {product.price * quantity} Kč</span>
+                        <span>PRIDAŤ DO KOŠÍKA — {product.price * quantity} Kč</span>
                       )}
                     </button>
                   </div>
@@ -366,7 +361,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     disabled={!product.inStock}
                     className="w-full py-3 text-xs font-bold uppercase tracking-widest bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-700 hover:border-neutral-500 transition-colors flex items-center justify-center gap-2"
                   >
-                    <span>RYCHLÝ CHECKOUT</span>
+                    <span>RÝCHLY NÁKUP</span>
                     <ArrowRight size={13} />
                   </button>
                 </div>
@@ -379,14 +374,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       onClick={() => toggleSection('desc')}
                       className="w-full py-3 flex items-center justify-between text-neutral-200 hover:text-white text-left font-bold"
                     >
-                      <span>POPIS & INSPIRACE</span>
+                      <span>POPIS A INŠPIRÁCIA</span>
                       {openSection === 'desc' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
                     {openSection === 'desc' && (
                       <div className="pb-3 text-neutral-400 leading-relaxed font-sans text-xs">
                         <p>{product.description}</p>
                         <p className="mt-2 text-neutral-300 font-mono text-[11px]">
-                          Vytištěno v limitované sérii pro studenty Fakulty podnikatelské VUT.
+                          Vytlačené v limitovanej sérii pre študentov Fakulty podnikateľskej VUT.
                         </p>
                       </div>
                     )}
@@ -398,13 +393,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       onClick={() => toggleSection('size')}
                       className="w-full py-3 flex items-center justify-between text-neutral-200 hover:text-white text-left font-bold"
                     >
-                      <span>TABULKA VELIKOSTÍ (BOXY FIT)</span>
+                      <span>TABUĽKA VEĽKOSTÍ (BOXY FIT)</span>
                       {openSection === 'size' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
                     {openSection === 'size' && (
                       <div className="pb-3 text-neutral-300">
                         <p className="text-[11px] text-neutral-400 mb-2 font-mono">
-                          Míry v centimetrech. Model měří 183 cm a má velikost L.
+                          Miery v centimetroch. Model meria 183 cm a má veľkosť L.
                         </p>
                         <table className="w-full text-[11px] font-mono border-collapse text-left">
                           <thead>
@@ -432,13 +427,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       onClick={() => toggleSection('material')}
                       className="w-full py-3 flex items-center justify-between text-neutral-200 hover:text-white text-left font-bold"
                     >
-                      <span>MATERIÁL & ÚDRŽBA</span>
+                      <span>MATERIÁL A ÚDRŽBA</span>
                       {openSection === 'material' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
                     {openSection === 'material' && (
                       <div className="pb-3 text-neutral-400 text-xs font-mono space-y-1">
                         <div>• Složení: <strong className="text-white">{product.material}</strong></div>
-                        <div>• Lokální ruční sítotisk s vysokým krytím vytvrzený při 160 °C</div>
+                        <div>• Lokálna ručná sieťotlač s vysokým krytím vytvrdená pri 160 °C</div>
                         <div>• Prát naruby na 30 °C, nesušit v sušičce, žehlit mimo potisk</div>
                       </div>
                     )}
@@ -457,11 +452,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       <div className="pb-3 text-neutral-400 text-xs font-mono space-y-1.5">
                         <div className="text-white font-bold flex items-center gap-1">
                           <Truck size={13} />
-                          <span>Zásilkovna (69 Kč) & Osobní odběr FP (0 Kč)</span>
+                          <span>Zásielkovňa (69 Kč) a osobný odber na FP (0 Kč)</span>
                         </div>
-                        <div>• Doprava ZDARMA při objednávce nad 1 000 Kč</div>
-                        <div>• Osobní předání po přednáškách na Kolejní 29 zdarma</div>
-                        <div>• Z-BOX Kolejní 2 (Koleje VUT Pod Palackého vrchem) do 24 hodin</div>
+                        <div>• Doprava ZADARMO pri objednávke nad 1 000 Kč</div>
+                        <div>• Osobné odovzdanie po prednáškach na Kolejní 29 zadarmo</div>
+                        <div>• Z-BOX Kolejní 2 (internáty VUT Pod Palackého vrchem) do 24 hodín</div>
                       </div>
                     )}
                   </div>
@@ -472,16 +467,16 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       onClick={() => toggleSection('returns')}
                       className="w-full py-3 flex items-center justify-between text-neutral-200 hover:text-white text-left font-bold"
                     >
-                      <span>VÝMĚNA VELIKOSTI & VRÁCENÍ</span>
+                      <span>VÝMENA VEĽKOSTI A VRÁTENIE</span>
                       {openSection === 'returns' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
                     {openSection === 'returns' && (
                       <div className="pb-3 text-neutral-400 text-xs font-mono space-y-1">
                         <div className="text-white font-bold flex items-center gap-1">
                           <RotateCcw size={13} />
-                          <span>14 dní na bezplatnou výměnu velikosti</span>
+                          <span>14 dní na bezplatnú výmenu veľkosti</span>
                         </div>
-                        <div>Nesedí velikost? Vyměníme ji přímo na fakultě nebo přes Zásilkovnu.</div>
+                        <div>Nesedí veľkosť? Vymeníme ju priamo na fakulte alebo cez Zásielkovňu.</div>
                       </div>
                     )}
                   </div>
@@ -527,7 +522,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         <div className="md:hidden sticky bottom-0 z-30 bg-[#0c0c0c] border-t border-neutral-800 p-3 flex items-center justify-between gap-3 shadow-2xl">
           <div>
             <div className="font-mono text-sm font-bold text-white tabular-nums">{product.price * quantity} Kč</div>
-            <div className="text-[10px] font-mono text-neutral-400 uppercase">Velikost: <strong className="text-white">{selectedSize}</strong></div>
+            <div className="text-[10px] font-mono text-neutral-400 uppercase">Veľkosť: <strong className="text-white">{selectedSize}</strong></div>
           </div>
           <button
             onClick={handleAddToCart}
@@ -537,10 +532,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             }`}
           >
             {addedAnimation ? <Check size={14} /> : null}
-            <span>{addedAnimation ? 'PŘIDÁNO DO TAŠKY' : 'PŘIDAT DO TAŠKY'}</span>
+            <span>{addedAnimation ? 'PRIDANÉ DO KOŠÍKA' : 'PRIDAŤ DO KOŠÍKA'}</span>
           </button>
         </div>
       </div>
     </div>
   );
 };
+
+export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, ...props }) =>
+  product ? <ProductDetailModalContent product={product} {...props} /> : null;

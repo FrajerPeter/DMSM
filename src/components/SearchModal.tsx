@@ -12,13 +12,12 @@ interface SearchModalProps {
   onSelectProduct: (product: Product) => void;
 }
 
-export const SearchModal: React.FC<SearchModalProps> = ({
+// Hooky musia byť volané vždy v rovnakom poradí, preto podmienené zobrazenie rieši obal nižšie.
+const SearchModalContent: React.FC<SearchModalProps> = ({
   isOpen,
   onClose,
   onSelectProduct
 }) => {
-  if (!isOpen) return null;
-
   const [query, setQuery] = useState('');
 
   useEffect(() => {
@@ -62,7 +61,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           <Search size={18} className="text-neutral-400" />
           <input
             type="text"
-            placeholder="Hledej trička, mikiny, slogany, články (např. 'hot girls', 'deadlines')..."
+            placeholder="Hľadaj tričká, mikiny, slogany, články (napr. 'hot girls', 'deadlines')..."
             value={query}
             autoFocus
             onChange={e => setQuery(e.target.value)}
@@ -73,7 +72,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
               onClick={() => setQuery('')}
               className="text-neutral-500 hover:text-white text-xs font-mono"
             >
-              Vymazat
+              Vymazať
             </button>
           )}
           <button
@@ -86,7 +85,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
 
         {/* Quick Suggestion Tags */}
         <div className="px-4 py-2.5 bg-neutral-950 border-b border-neutral-900 flex items-center gap-2 overflow-x-auto text-[11px] font-mono text-neutral-400">
-          <span className="shrink-0 text-neutral-400">ČASTÉ DOTAZY:</span>
+          <span className="shrink-0 text-neutral-400">ČASTÉ VYHĽADÁVANIA:</span>
           {quickSearchTags.map(tag => (
             <button
               key={tag}
@@ -102,11 +101,11 @@ export const SearchModal: React.FC<SearchModalProps> = ({
         <div className="max-h-96 overflow-y-auto p-4 space-y-4">
           {trimmed === '' ? (
             <div className="text-center py-8 text-xs font-mono text-neutral-400">
-              Začněte psát název produktu, slogan nebo kategorii...
+              Začni písať názov produktu, slogan alebo kategóriu...
             </div>
           ) : matchingProducts.length === 0 && matchingArticles.length === 0 ? (
             <div className="text-center py-8 text-xs font-mono text-neutral-400">
-              Nebyly nalezeny žádné výsledky pro dotaz „{query}“.
+              Nenašli sa žiadne výsledky pre dopyt „{query}“.
             </div>
           ) : (
             <>
@@ -179,3 +178,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({
     </div>
   );
 };
+
+export const SearchModal: React.FC<SearchModalProps> = props =>
+  props.isOpen ? <SearchModalContent {...props} /> : null;

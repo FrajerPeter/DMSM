@@ -274,7 +274,7 @@ export const AnalyticsDashboard: React.FC = () => {
                     <span className="font-bold text-white">{evt.eventName}</span>
                   </div>
                   <span className="text-[11px] text-neutral-400 truncate max-w-[150px]">
-                    {evt.params.item_name || evt.params.transaction_id || evt.params.page_title || ''}
+                    {evt.params.item_name || evt.params.items?.[0]?.item_name || evt.params.transaction_id || evt.params.page_title || ''}
                   </span>
                 </div>
               ))

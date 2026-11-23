@@ -1,4 +1,22 @@
-import { AnalyticsEventLog } from '../types';
+import { AnalyticsEventLog, Product } from '../types';
+
+/**
+ * Položka pre GA4 e-commerce udalosti (view_item, add_to_cart, begin_checkout …).
+ * GA4 zobrazí produkty v prehľadoch Monetizácia → E-commerce iba vtedy, keď sú v poli `items`.
+ */
+export function ga4Item(product: Product, options: { quantity?: number; size?: string; listName?: string } = {}) {
+  return {
+    item_id: product.id,
+    item_name: product.name,
+    item_brand: 'FP DROP',
+    item_category: product.category,
+    item_category2: product.dropName,
+    ...(options.size ? { item_variant: options.size } : {}),
+    ...(options.listName ? { item_list_name: options.listName } : {}),
+    price: product.price,
+    quantity: options.quantity ?? 1
+  };
+}
 
 /**
  * Analytika FP DROP — Google Analytics 4 + Microsoft Clarity.

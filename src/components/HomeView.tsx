@@ -97,7 +97,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <span aria-hidden="true" className="text-neutral-700">·</span>
               <span className="text-emerald-400 font-mono text-[11px] font-bold flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                ONLINE V BRNĚ
+                ONLINE V BRNE
               </span>
             </div>
 
@@ -191,7 +191,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 border-b border-neutral-800 pb-4">
           <div>
             <div className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-1">
-              LIMITOVANÁ KOLEKCE · PRVNÍ SEMESTR
+              LIMITOVANÁ KOLEKCIA · PRVÝ SEMESTER
             </div>
             <h2 className="font-display font-black text-2xl md:text-3xl uppercase text-white tracking-tight">
               NEW DROP / DROP 001
@@ -202,7 +202,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             onClick={onNavigateToShop}
             className="text-xs font-mono text-neutral-400 hover:text-white flex items-center gap-1.5 underline underline-offset-4"
           >
-            <span>Zobrazit všechny kousky v shopu</span>
+            <span>Zobraziť všetky kúsky v obchode</span>
             <ArrowRight size={13} />
           </button>
         </div>
@@ -311,7 +311,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
             <div className="relative z-20 flex justify-between text-xs font-mono text-neutral-400">
               <span className="px-2 py-0.5 bg-black/80 border border-neutral-800 text-white">LOOK 03</span>
-              <span>JAKUBSKÉ NÁMĚSTÍ & NOČNÍ BRNO</span>
+              <span>JAKUBSKÉ NÁMĚSTÍ & NOČNÉ BRNO</span>
             </div>
             <div className="relative z-20">
               <h3 className="font-display font-black text-xl uppercase text-white group-hover:text-neutral-200">
@@ -388,7 +388,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             onClick={onNavigateToNews}
             className="text-xs font-mono text-neutral-400 hover:text-white flex items-center gap-1 underline underline-offset-4"
           >
-            <span>Všechny články</span>
+            <span>Všetky články</span>
             <ArrowRight size={13} />
           </button>
         </div>
@@ -412,7 +412,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-neutral-900 text-xs font-mono text-white flex items-center justify-between">
-                <span>Číst esej</span>
+                <span>Čítať esej</span>
                 <ArrowRight size={12} />
               </div>
             </article>
@@ -434,7 +434,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <span className="text-neutral-400">BORN AT KOLEJNÍ 29, BRNO.</span>
             </h2>
             <p className="text-xs sm:text-sm text-neutral-300 max-w-xl mx-auto font-sans leading-relaxed">
-              Nezávislý koncept vytvořený v rámci akademického projektu na FP VUT. Žádné propagační klišé ani generická loga. Pouze poctivá 240g bio bavlna, uvolněné střihy a autentická studentská identita.
+              Nezávislý koncept vytvorený v rámci akademického projektu na FP VUT. Žiadne propagačné klišé ani generické logá. Iba poctivá 240 g bio bavlna, voľné strihy a autentická študentská identita.
             </p>
           </div>
 
@@ -443,7 +443,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             {newsletterSubscribed ? (
               <div className="p-4 bg-black border border-emerald-800 text-emerald-300 font-mono text-xs flex items-center justify-center gap-2">
                 <Check size={16} />
-                <span>Kód aktivován: <strong className="text-white font-bold">PRVAK10</strong> (-10 % sleva)</span>
+                <span>Kód aktivovaný: <strong className="text-white font-bold">PRVAK10</strong> (-10 % zľava)</span>
               </div>
             ) : (
               <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-2">
@@ -459,12 +459,12 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   type="submit"
                   className="px-6 py-3 bg-white text-black font-mono font-bold text-xs uppercase hover:bg-neutral-200 transition-colors shrink-0"
                 >
-                  ZÍSKAT SLEVU 10 %
+                  ZÍSKAŤ ZĽAVU 10 %
                 </button>
               </form>
             )}
             <div className="text-[10px] font-mono text-neutral-500 mt-2">
-              Kód PRVAK10 je platný pro všechny studenty VUT.
+              Kód PRVAK10 platí pre všetkých študentov VUT.
             </div>
           </div>
         </div>

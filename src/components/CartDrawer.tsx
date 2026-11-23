@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CartItem, Product } from '../types';
 import { ProductImage } from './ProductImage';
 import { X, Trash2, ArrowRight, Plus, Minus, Tag, Check, Sparkles, Clock } from 'lucide-react';
-import { analytics } from '../utils/analytics';
+import { analytics, ga4Item } from '../utils/analytics';
 import { PRODUCTS } from '../data/products';
 
 interface CartDrawerProps {
@@ -15,7 +15,8 @@ interface CartDrawerProps {
   onAddProduct: (product: Product, size: string, quantity: number) => void;
 }
 
-export const CartDrawer: React.FC<CartDrawerProps> = ({
+// Hooky musia byť volané vždy v rovnakom poradí, preto podmienené zobrazenie rieši obal nižšie.
+const CartDrawerContent: React.FC<CartDrawerProps> = ({
   isOpen,
   onClose,
   items,
@@ -24,8 +25,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onCheckout,
   onAddProduct
 }) => {
-  if (!isOpen) return null;
-
   const [promoCode, setPromoCode] = useState<string>('');
   const [appliedPromo, setAppliedPromo] = useState<string | null>(null);
   const [promoDiscountRate, setPromoDiscountRate] = useState<number>(0);
@@ -69,7 +68,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
       setPromoDiscountRate(0.12);
       analytics.trackEvent('apply_promo_code', { promo_code: 'ISIC', discount: 12 });
     } else {
-      setPromoError('Neplatný studentský kód. Zkus PRVAK10 nebo FPSTREET');
+      setPromoError('Neplatný študentský kód. Skús PRVAK10 alebo FPSTREET');
     }
   };
 
@@ -87,13 +86,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     analytics.trackEvent('begin_checkout', {
       value: total,
       currency: 'CZK',
-      items: items.map(i => ({
-        item_id: i.product.id,
-        item_name: i.product.name,
-        price: i.product.price,
-        quantity: i.quantity,
-        size: i.size
-      }))
+      items: items.map(i => ga4Item(i.product, { quantity: i.quantity, size: i.size }))
     });
     onCheckout();
   };
@@ -115,7 +108,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           <div className="px-6 py-5 border-b border-neutral-800 flex items-center justify-between">
             <div className="flex items-baseline gap-2">
               <h2 className="font-display font-extrabold text-base tracking-wider uppercase text-white">
-                NÁKUPNÍ KOŠÍK
+                NÁKUPNÝ KOŠÍK
               </h2>
               <span className="font-mono text-xs text-neutral-400">
                 ({items.reduce((s, i) => s + i.quantity, 0)} ks)
@@ -124,7 +117,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             <button
               onClick={onClose}
               className="p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
-              aria-label="Zavřít košík"
+              aria-label="Zavrieť košík"
             >
               <X size={18} />
             </button>
@@ -135,11 +128,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             <div className="px-6 py-2.5 bg-neutral-900 border-b border-neutral-800 text-[11px] font-mono text-neutral-300 flex items-center justify-between">
               <span className="flex items-center gap-1.5 text-amber-300">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                DROP 001 REZERVACE
+                DROP 001 REZERVÁCIA
               </span>
               <span className="text-white font-bold flex items-center gap-1 tabular-nums">
                 <Clock size={12} className="text-amber-400" />
-                {formatTimer(reservationSeconds)} min zbývá
+                {formatTimer(reservationSeconds)} min zostáva
               </span>
             </div>
           )}
@@ -151,10 +144,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 {amountToFreeShipping === 0 ? (
                   <span className="text-emerald-400 font-bold flex items-center gap-1">
                     <Sparkles size={12} />
-                    MÁŠ DOPRAVU ZDARMA!
+                    MÁŠ DOPRAVU ZADARMO!
                   </span>
                 ) : (
-                  <span>Do dopravy zdarma ti chybí <strong className="text-white">{amountToFreeShipping} Kč</strong></span>
+                  <span>Do dopravy zadarmo ti chýba <strong className="text-white">{amountToFreeShipping} Kč</strong></span>
                 )}
               </span>
               <span className="text-neutral-400 font-mono">{progressPercentage}%</span>
@@ -175,16 +168,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   0
                 </div>
                 <h3 className="font-display font-bold text-sm uppercase text-neutral-300">
-                  TVŮJ KOŠÍK JE PRÁZDNÝ
+                  TVOJ KOŠÍK JE PRÁZDNY
                 </h3>
                 <p className="text-xs text-neutral-400 max-w-xs font-mono">
-                  Prohlédni si Drop 001 nebo ostatní kousky a doplň svůj univerzitní šatník.
+                  Pozri si Drop 001 alebo ostatné kúsky a doplň svoj univerzitný šatník.
                 </p>
                 <button
                   onClick={onClose}
                   className="mt-4 px-5 py-2.5 bg-white text-black text-xs font-bold font-mono uppercase tracking-wider hover:bg-neutral-200"
                 >
-                  PROZKOUMAT DROPY
+                  PRESKÚMAŤ DROPY
                 </button>
               </div>
             ) : (
@@ -210,22 +203,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         <button
                           onClick={() => {
                             analytics.trackEvent('remove_from_cart', {
-                              item_id: item.product.id,
-                              item_name: item.product.name,
-                              price: item.product.price,
-                              size: item.size
+                              currency: 'CZK',
+                              value: item.product.price * item.quantity,
+                              items: [ga4Item(item.product, { quantity: item.quantity, size: item.size })]
                             });
                             onRemoveItem(item.id);
                           }}
                           className="text-neutral-500 hover:text-red-400 p-0.5 transition-colors"
-                          aria-label="Odstranit položku"
+                          aria-label="Odstrániť položku"
                         >
                           <Trash2 size={13} />
                         </button>
                       </div>
 
                       <div className="flex items-center gap-2 mt-1 text-[11px] font-mono text-neutral-400">
-                        <span>VELIKOST: <strong className="text-neutral-200">{item.size}</strong></span>
+                        <span>VEĽKOSŤ: <strong className="text-neutral-200">{item.size}</strong></span>
                         <span aria-hidden="true">·</span>
                         <span className="text-neutral-400">{item.product.price} Kč / ks</span>
                       </div>
@@ -262,7 +254,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             {items.length > 0 && amountToFreeShipping > 0 && (
               <div className="pt-2">
                 <div className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider mb-2">
-                  DOPLŇKEM ZÍSKEJ DOPRAVU ZDARMA:
+                  S DOPLNKOM ZÍSKAŠ DOPRAVU ZADARMO:
                 </div>
                 <div className="space-y-2">
                   {crossSellAccessories.map(acc => (
@@ -287,7 +279,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         onClick={() => onAddProduct(acc, acc.sizes[0] || 'ONE SIZE', 1)}
                         className="px-2.5 py-1 bg-white text-black font-mono text-[10px] font-bold uppercase hover:bg-neutral-200 shrink-0"
                       >
-                        + PŘIDAT
+                        + PRIDAŤ
                       </button>
                     </div>
                   ))}
@@ -321,7 +313,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         <Tag size={12} className="absolute left-2.5 top-2.5 text-neutral-500" />
                         <input
                           type="text"
-                          placeholder="Kód slevy (např. PRVAK10)"
+                          placeholder="Zľavový kód (napr. PRVAK10)"
                           value={promoCode}
                           onChange={(e) => setPromoCode(e.target.value)}
                           className="w-full bg-neutral-950 border border-neutral-800 text-white text-xs pl-8 pr-3 py-2 uppercase font-mono placeholder:text-neutral-600 focus:outline-none focus:border-white"
@@ -331,13 +323,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         onClick={handleApplyPromo}
                         className="px-3 py-2 bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-mono uppercase"
                       >
-                        POUŽÍT
+                        POUŽIŤ
                       </button>
                     </div>
 
                     {/* Quick 1-click Student Codes */}
                     <div className="flex items-center gap-1.5 flex-wrap text-[10px] font-mono">
-                      <span className="text-neutral-400">RYCHLÝ KÓD:</span>
+                      <span className="text-neutral-400">RÝCHLY KÓD:</span>
                       <button
                         onClick={() => applyCode('PRVAK10')}
                         className="px-2 py-0.5 bg-neutral-900 border border-neutral-700 hover:border-neutral-500 text-neutral-300 hover:text-white"
@@ -367,23 +359,23 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               {/* Price Calculation */}
               <div className="space-y-1.5 text-xs font-mono text-neutral-400 pt-2 border-t border-neutral-800">
                 <div className="flex justify-between">
-                  <span>Mezisoučet</span>
+                  <span>Medzisúčet</span>
                   <span className="text-white tabular-nums">{subtotal} Kč</span>
                 </div>
                 {discountAmount > 0 && (
                   <div className="flex justify-between text-emerald-400">
-                    <span>Studentská sleva</span>
+                    <span>Študentská zľava</span>
                     <span className="tabular-nums">-{discountAmount} Kč</span>
                   </div>
                 )}
                 <div className="flex justify-between">
                   <span>Odhad dopravy</span>
                   <span className="text-white tabular-nums">
-                    {amountToFreeShipping === 0 ? 'ZDARMA' : 'Od 69 Kč'}
+                    {amountToFreeShipping === 0 ? 'ZADARMO' : 'Od 69 Kč'}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm font-bold text-white pt-2 border-t border-neutral-800">
-                  <span className="font-display">CELKEM S DPH</span>
+                  <span className="font-display">SPOLU S DPH</span>
                   <span className="font-mono text-base tabular-nums">{total} Kč</span>
                 </div>
               </div>
@@ -393,12 +385,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 onClick={handleCheckoutClick}
                 className="w-full py-3.5 bg-white text-black hover:bg-neutral-200 text-xs font-bold font-mono uppercase tracking-widest transition-colors flex items-center justify-center gap-2"
               >
-                <span>POKRAČOVAT K OBJEDNÁVCE</span>
+                <span>POKRAČOVAŤ K OBJEDNÁVKE</span>
                 <ArrowRight size={14} />
               </button>
 
               <div className="border border-amber-700/60 bg-amber-950/30 px-3 py-2 text-[10px] font-mono text-center text-amber-100">
-                DEMO KOŠÍK • Objednávka, doprava ani platba nejsou připojené.
+                DEMO KOŠÍK • Objednávka, doprava ani platba nie sú pripojené.
               </div>
             </div>
           )}
@@ -407,3 +399,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     </div>
   );
 };
+
+export const CartDrawer: React.FC<CartDrawerProps> = props =>
+  props.isOpen ? <CartDrawerContent {...props} /> : null;

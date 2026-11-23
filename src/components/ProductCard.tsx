@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Product } from '../types';
 import { ProductImage } from './ProductImage';
 import { Heart, Plus, Check, ArrowRight } from 'lucide-react';
-import { analytics } from '../utils/analytics';
+import { analytics, ga4Item } from '../utils/analytics';
 import { PRODUCT_IMAGES } from '../data/productImages';
 
 interface ProductCardProps {
@@ -29,11 +29,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
   const handleCardClick = () => {
     analytics.trackEvent('select_item', {
-      item_id: product.id,
-      item_name: product.name,
-      price: product.price,
-      item_category: product.category,
-      item_drop: product.dropName
+      items: [ga4Item(product)]
     });
     onSelect(product);
   };
@@ -110,7 +106,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           {onToggleWishlist && (
             <button
               onClick={handleWishlistClick}
-              aria-label="Přidat do oblíbených"
+              aria-label="Pridať do obľúbených"
               className="p-1.5 bg-black/80 hover:bg-black text-neutral-300 hover:text-white border border-neutral-800 hover:border-neutral-600 transition-colors pointer-events-auto backdrop-blur-sm"
             >
               <Heart
@@ -193,7 +189,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               {justAdded ? (
                 <>
                   <Check size={12} />
-                  <span>PŘIDÁNO</span>
+                  <span>PRIDANÉ</span>
                 </>
               ) : (
                 <>
@@ -242,11 +238,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             {product.inStock ? (
               <span className="text-neutral-400">
                 {product.stockCount && product.stockCount <= 5
-                  ? `POSLEDNÍ ${product.stockCount} KS`
-                  : 'SKLADEM BRNO'}
+                  ? `POSLEDNÉ ${product.stockCount} KS`
+                  : 'SKLADOM BRNO'}
               </span>
             ) : (
-              <span className="text-neutral-600 font-bold">VYPRODÁNO</span>
+              <span className="text-neutral-600 font-bold">VYPREDANÉ</span>
             )}
           </div>
         </div>

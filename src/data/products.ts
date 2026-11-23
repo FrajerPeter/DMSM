@@ -13,18 +13,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-001',
     dropName: 'DROP 001 — FIRST SEMESTER',
     status: 'LIMITED',
-    color: 'Černá (Washed Black)',
+    color: 'Čierna (Washed Black)',
     fit: 'Oversized Boxy Fit',
-    material: '100% česaná bio bavlna (240 g/m²)',
+    material: '100 % česaná bio bavlna (240 g/m²)',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 14,
-    description: 'Ikonický kousek naší komunity inspirovaný estetikou moderního streetwearu. Těžká organická bavlna, zpevněný límec a výrazná bílá typografie na hrudi. Navrženo pro studentky i studenty, kteří berou studium s nadsázkou a stylem.',
+    description: 'Ikonický kúsok našej komunity inšpirovaný estetikou moderného streetwearu. Ťažká organická bavlna, spevnený golier a výrazná typografia na hrudi. Navrhnuté pre študentky aj študentov, ktorí berú štúdium s nadhľadom a štýlom.',
     highlights: [
       'Heavyweight 240 g/m² organická bavlna',
-      'Kvalitní sítotisk odolný vůči praní na 30 °C',
-      'Unisex uvolněný oversized střih s padlými rameny',
-      'Tkaný štítek FP DROP na spodním lemu'
+      'Kvalitná sieťotlač odolná voči praniu na 30 °C',
+      'Unisex voľný oversized strih so spadnutými ramenami',
+      'Tkaný štítok FP DROP na spodnom leme'
     ],
     mockDetails: {
       textLines: ['HOT GIRLS', 'GO TO FP'],
@@ -43,18 +43,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-002',
     dropName: 'DROP 002 — EXAM SEASON',
     status: 'NEW',
-    color: 'Sytě černá (Jet Black)',
+    color: 'Sýta čierna (Jet Black)',
     fit: 'Boxy Heavyweight Fit',
-    material: '100% bavlna (240 g/m²)',
+    material: '100 % bavlna (240 g/m²)',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     inStock: true,
     stockCount: 28,
-    description: 'Oficiální uniforma zápočtového týdne a zkouškového maratonu. Vtip, který pochopí každý, kdo někdy psal seminární práci ve tři ráno v knihovně nebo na pokoji na Kolejní.',
+    description: 'Oficiálna uniforma zápočtového týždňa a skúškového maratónu. Vtip, ktorý pochopí každý, kto niekedy písal seminárku o tretej ráno v knižnici alebo na izbe na Kolejní.',
     highlights: [
-      'Pevná bavlněná gramáž s hedvábným omakem',
-      'Typografie ve stylu švýcarského brutalismu',
-      'Bezešvé dvojité prošití rukávů a lemu',
-      'Lokální sítotisk v brněnské dílně'
+      'Pevná bavlnená gramáž s hodvábnym omakom',
+      'Typografia v štýle švajčiarskeho brutalizmu',
+      'Dvojité prešitie rukávov a lemu',
+      'Lokálna sieťotlač v brnianskej dielni'
     ],
     mockDetails: {
       textLines: ['NO SLEEP', 'JUST DEADLINES'],
@@ -73,18 +73,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-001',
     dropName: 'DROP 001 — FIRST SEMESTER',
     status: 'LAST PIECES',
-    color: 'Vintage Uhlová (Charcoal)',
+    color: 'Vintage uhľová (Charcoal)',
     fit: 'Oversized Street Cut',
-    material: '100% enzymaticky praná bavlna (250 g/m²)',
+    material: '100 % enzymaticky praná bavlna (250 g/m²)',
     sizes: ['S', 'M', 'L'],
     inStock: true,
     stockCount: 4,
-    description: 'Kredity přicházejí a odcházejí, ale vkus a vzpomínky na Brno zůstávají. Prémiové vintage prané triko s jemně strukturovaným povrchem a zadním detailním nápisem.',
+    description: 'Kredity prichádzajú a odchádzajú, ale vkus a spomienky na Brno zostávajú. Prémiové vintage prané tričko s jemne štruktúrovaným povrchom a nápisom vzadu.',
     highlights: [
-      'Enzymatické vintage oprání pro měkký autentický feeling',
-      'Zadní grafika s kalkulací semestrálních kreditů',
-      'Vyšší žebrovaný límec držící tvar',
-      'Poslední kusy ze série 001'
+      'Enzymatické vintage pranie pre mäkký autentický pocit',
+      'Grafika vzadu s výpočtom semestrálnych kreditov',
+      'Vyšší rebrovaný golier, ktorý drží tvar',
+      'Posledné kusy zo série 001'
     ],
     mockDetails: {
       textLines: ['ECTS ARE', 'TEMPORARY'],
@@ -103,18 +103,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-003',
     dropName: 'DROP 003 — FP AFTER DARK',
     status: 'LIMITED',
-    color: 'Námořnická modrá (Midnight Navy)',
+    color: 'Námornícka modrá (Midnight Navy)',
     fit: 'Relaxed Street Cut',
-    material: '100% česaná bavlna (230 g/m²)',
+    material: '100 % česaná bavlna (230 g/m²)',
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 19,
-    description: 'Triko pro ty nejlepší zážitky po skončení přednášek. Klubové večery na Flédě, rozjezdy z Hlavního nádraží a debaty u piva na Jakubském náměstí.',
+    description: 'Tričko na tie najlepšie zážitky po skončení prednášok. Klubové večery vo Flédě, nočné rozjazdy z hlavnej stanice a debaty pri pive na Jakubskom námestí.',
     highlights: [
-      'Decentní reflexní tisk odrážející světlo',
-      'Vhodné na denní nošení i večerní akce',
-      'Komfortní měkký materiál',
-      'Limitovaný náklad 100 kusů'
+      'Výrazná neónová potlač nočného Brna',
+      'Vhodné na denné nosenie aj večerné akcie',
+      'Komfortný mäkký materiál',
+      'Limitovaný náklad 100 kusov'
     ],
     mockDetails: {
       textLines: ['FP AFTER', 'DARK'],
@@ -135,16 +135,16 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     status: 'AVAILABLE',
     color: 'Krémová (Off-White)',
     fit: 'Standard Oversize Fit',
-    material: '100% bavlna (220 g/m²)',
+    material: '100 % bavlna (220 g/m²)',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     inStock: true,
     stockCount: 42,
-    description: 'Hrdé prohlášení o městě, které nám dává prostor růst, studovat a tvořit. Čistý geometrický design inspirovaný brněnským minimalismem.',
+    description: 'Hrdé vyhlásenie o meste, ktoré nám dáva priestor rásť, študovať a tvoriť. Čistý geometrický dizajn inšpirovaný brnianskym minimalizmom.',
     highlights: [
-      'Univerzální nadčasový střih',
-      'Minimalistická typografie na hrudi',
-      'GPS souřadnice kampusu Kolejní na rukávu',
-      'Prodyšná přírodní bavlna'
+      'Univerzálny nadčasový strih',
+      'Minimalistická typografia na hrudi',
+      'GPS súradnice kampusu Kolejní na rukáve',
+      'Priedušná prírodná bavlna'
     ],
     mockDetails: {
       textLines: ['MADE IN', 'BRNO'],
@@ -163,18 +163,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-001',
     dropName: 'DROP 001 — FIRST SEMESTER',
     status: 'AVAILABLE',
-    color: 'Písková (Sand Beige)',
+    color: 'Piesková (Sand Beige)',
     fit: 'Oversized Boxy',
-    material: '100% bio bavlna (240 g/m²)',
+    material: '100 % bio bavlna (240 g/m²)',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 22,
-    description: 'Kdo říká, že ekonomka a management musí být nuda v šedém obleku? FP VUT je o inovacích, startupech a odvaze dělat věci jinak.',
+    description: 'Kto hovorí, že ekonómia a manažment musia byť nuda v sivom obleku? FP VUT je o inováciách, startupoch a odvahe robiť veci inak.',
     highlights: [
-      'Prostorný střih s širokými rukávy',
-      'Hebká bavlněná vazba',
-      'Vhodné k volným kalhotám i džínsům',
-      'Praní na 30 °C'
+      'Priestranný strih so širokými rukávmi',
+      'Hebká bavlnená väzba',
+      'Vhodné k voľným nohaviciam aj rifliam',
+      'Pranie na 30 °C'
     ],
     mockDetails: {
       textLines: ['BUSINESS', 'BUT MAKE', 'IT FUN'],
@@ -192,18 +192,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-002',
     dropName: 'DROP 002 — EXAM SEASON',
     status: 'AVAILABLE',
-    color: 'Tmavě hnědá (Espresso Brown)',
+    color: 'Tmavohnedá (Espresso Brown)',
     fit: 'Oversized Fit',
-    material: '100% bavlna (230 g/m²)',
+    material: '100 % bavlna (230 g/m²)',
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 31,
-    description: 'Základní ekonomická rovnice každého studenta FP: směnný kurz mezi blížícím se termínem odevzdání a třetím dvojitým espressem dne.',
+    description: 'Základná ekonomická rovnica každého študenta FP: výmenný kurz medzi blížiacim sa termínom odovzdania a tretím dvojitým espressom dňa.',
     highlights: [
-      'Typografie inspirovaná burzovními tikery',
-      'Příjemná prodyšnost při celodenním nošení',
-      'Stálobarevný tisk',
-      'Designováno v Brně'
+      'Typografia inšpirovaná burzovými tickermi',
+      'Príjemná priedušnosť pri celodennom nosení',
+      'Stálofarebná potlač',
+      'Navrhnuté v Brne'
     ],
     mockDetails: {
       textLines: ['TRADING', 'DEADLINES', 'FOR COFFEE'],
@@ -223,16 +223,16 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     status: 'AVAILABLE',
     color: 'Midnight Black',
     fit: 'Unisex Street Fit',
-    material: '100% bavlna (220 g/m²)',
+    material: '100 % bavlna (220 g/m²)',
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 16,
-    description: 'Svatá trojice semestrálního života. Jednoduchý a úderný nápis, který shrnuje celý studentský koloběh od října do května.',
+    description: 'Svätá trojica semestrálneho života. Jednoduchý a úderný nápis, ktorý zhŕňa celý študentský kolobeh od októbra do mája.',
     highlights: [
-      'Kontrastní čistě bílý tisk',
-      'Klasický crewneck límeček',
-      'Certifikace OEKO-TEX Standard 100',
-      'Testováno na studentských akcích'
+      'Kontrastná potlač',
+      'Klasický crewneck golier',
+      'Certifikácia OEKO-TEX Standard 100',
+      'Otestované na študentských akciách'
     ],
     mockDetails: {
       textLines: ['STUDY.', 'PARTY.', 'REPEAT.'],
@@ -250,18 +250,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-001',
     dropName: 'DROP 001 — FIRST SEMESTER',
     status: 'SOLD OUT',
-    color: 'Šedý melír (Heather Gray)',
+    color: 'Sivý melír (Heather Gray)',
     fit: 'Boxy Fit',
-    material: '100% bavlna (240 g/m²)',
+    material: '100 % bavlna (240 g/m²)',
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: false,
     stockCount: 0,
-    description: 'Když vejdeš do místnosti a všichni vědí. Vyprodaný limitovaný kousek z pilotního spuštění Drop 001. Připravujeme restock v příštím dropu.',
+    description: 'Keď vojdeš do miestnosti a všetci vedia. Vypredaný limitovaný kúsok z pilotného spustenia Drop 001. Pripravujeme naskladnenie v ďalšom drope.',
     highlights: [
-      'Vyprodáno během prvních 48 hodin',
-      'Kultovní kousek první edice',
-      'Hustá bavlněná příze',
-      'Přihlas se k odběru pro info o restocku'
+      'Vypredané počas prvých 48 hodín',
+      'Kultový kúsok prvej edície',
+      'Hustá bavlnená priadza',
+      'Prihlás sa na odber info o naskladnení'
     ],
     mockDetails: {
       textLines: ['FP VUT', 'NO EXPLANATION', 'NEEDED'],
@@ -279,18 +279,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-002',
     dropName: 'DROP 002 — EXAM SEASON',
     status: 'AVAILABLE',
-    color: 'Lahvově zelená (Forest Green)',
+    color: 'Fľašovo zelená (Forest Green)',
     fit: 'Relaxed Daily Fit',
-    material: '100% bavlna (200 g/m²)',
+    material: '100 % bavlna (200 g/m²)',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 35,
-    description: 'Diskrétní omluvenka pro spolubydlící i přátele. Triko pro tiché dny strávené mezi regály v knihovně VUT na Kolejní.',
+    description: 'Diskrétne ospravedlnenie pre spolubývajúcich aj kamarátov. Tričko na tiché dni strávené medzi regálmi v knižnici VUT na Kolejní.',
     highlights: [
-      'Odlehčená příjemná gramáž 200 g/m²',
-      'Decentní velikost písma na levé straně hrudi',
-      'Ideální vrstva pod mikinu nebo košili',
-      'Studentská cena 299 Kč'
+      'Odľahčená príjemná gramáž 200 g/m²',
+      'Výrazný nápis s motívom otvorenej knihy',
+      'Ideálna vrstva pod mikinu alebo košeľu',
+      'Študentská cena 299 Kč'
     ],
     mockDetails: {
       textLines: ['PROBABLY IN', 'THE LIBRARY'],
@@ -310,15 +310,15 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     status: 'AVAILABLE',
     color: 'Carbon Black',
     fit: 'Oversized Boxy',
-    material: '100% česaná bio bavlna (240 g/m²)',
+    material: '100 % česaná bio bavlna (240 g/m²)',
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 25,
-    description: 'Ať už jsi rodilý Brňák, nebo ses sem přestěhoval kvůli FP z druhého konce republiky nebo ze Slovenska. Brno se stane domovem.',
+    description: 'Či si rodený Brňák, alebo si sa sem kvôli FP presťahoval z druhého konca republiky či zo Slovenska. Brno sa stane domovom.',
     highlights: [
-      'Silná komunitní identita',
-      'Masivní 240g organická bavlna',
-      'Dvojitý steh na límci',
+      'Silná komunitná identita',
+      'Masívna 240 g organická bavlna',
+      'Dvojitý steh na golieri',
       'Unisex silueta'
     ],
     mockDetails: {
@@ -338,18 +338,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-001',
     dropName: 'DROP 001 — FIRST SEMESTER',
     status: 'LAST PIECES',
-    color: 'Bílá (Optic White)',
+    color: 'Biela (Optic White)',
     fit: 'Heavyweight Oversized',
-    material: '100% těžká bavlna (250 g/m²)',
+    material: '100 % ťažká bavlna (250 g/m²)',
     sizes: ['M', 'L'],
     inStock: true,
     stockCount: 6,
-    description: 'Univerzální studentská lež i naděje. Pro ty, kteří píší diplomku, finišují státnice, nebo si jen prostě prodloužili mládí.',
+    description: 'Univerzálna študentská lož aj nádej. Pre tých, ktorí píšu diplomovku, finišujú štátnice alebo si len jednoducho predĺžili mladosť.',
     highlights: [
-      'Posledních 6 kusů skladem',
-      'Exkluzivní těžká gramáž',
-      'Vysoký žebrovaný lem u krku',
-      'Kultovní slogan'
+      'Posledných 6 kusov skladom',
+      'Exkluzívna ťažká gramáž',
+      'Vysoký rebrovaný lem pri krku',
+      'Kultový slogan'
     ],
     mockDetails: {
       textLines: ['ONE MORE', 'SEMESTER'],
@@ -368,18 +368,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-001',
     dropName: 'DROP 001 — FIRST SEMESTER',
     status: 'LIMITED',
-    color: 'Hluboká černá',
+    color: 'Hlboká čierna',
     fit: 'Ultra Heavyweight Oversized',
-    material: '80% bavlna, 20% recyklovaný polyester (450 g/m²)',
+    material: '80 % bavlna, 20 % recyklovaný polyester (450 g/m²)',
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 11,
-    description: 'Vlajková loď celého projektu. Extrémně teplá a masivní mikina s kapucí o gramáži 450 GSM. Hluboká dvojitá kapuce bez šňůrek v čistém high-fashion streetwear střihu. Udrží tě v teple i v nejstudenějších posluchárnách.',
+    description: 'Vlajková loď celého projektu. Extrémne teplá a masívna mikina s kapucňou s gramážou 450 GSM. Hlboká dvojitá kapucňa bez šnúrok v čistom high-fashion streetwearovom strihu. Udrží ťa v teple aj v najchladnejších posluchárňach.',
     highlights: [
-      'Extrémní gramáž 450 g/m² french terry úplet',
-      'Dvojvrstvá bezešvá kapuce držící tvar',
-      'Diskrétní vyšívané logo FP DROP na zápěstí',
-      'Prostorná klokaní kapsa'
+      'Extrémna gramáž 450 g/m², french terry úplet',
+      'Dvojvrstvová kapucňa, ktorá drží tvar',
+      'Diskrétne vyšívané logo FP DROP na zápästí',
+      'Priestranné klokanie vrecko'
     ],
     mockDetails: {
       textLines: ['FP DROP', 'KOLEJNÍ 29'],
@@ -400,16 +400,16 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     status: 'NEW',
     color: 'Krémová (Ecru)',
     fit: 'Boxy Heavyweight',
-    material: '85% bio bavlna, 15% polyester (420 g/m²)',
+    material: '85 % bio bavlna, 15 % polyester (420 g/m²)',
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 18,
-    description: 'Tvá druhá kůže během zkouškového maratonu. Vnitřní počesaná fleece vrstva pro maximální komfort, pevné náplety a brutální streetwearový fit.',
+    description: 'Tvoja druhá koža počas skúškového maratónu. Vnútorná počesaná fleecová vrstva pre maximálny komfort, pevné náplety a brutálny streetwearový strih.',
     highlights: [
-      'Počesaný hřejivý fleece uvnitř',
-      'Zesílené švy v namáhaných místech',
-      'Kvalitní kovová očka a široké stahovací šňůry',
-      'Minimalistický nápis na kapuci'
+      'Počesaný hrejivý fleece vnútri',
+      'Zosilnené švy v namáhaných miestach',
+      'Kvalitné kovové očká a široké sťahovacie šnúrky',
+      'Minimalistický nápis na hrudi'
     ],
     mockDetails: {
       textLines: ['EXAM', 'SURVIVOR'],
@@ -427,18 +427,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-004',
     dropName: 'DROP 004 — BRNO',
     status: 'AVAILABLE',
-    color: 'Šedý melír (Heather Gray)',
+    color: 'Sivý melír (Heather Gray)',
     fit: 'Boxy Crewneck Fit',
-    material: '100% bavlna french terry (380 g/m²)',
+    material: '100 % bavlna french terry (380 g/m²)',
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 20,
-    description: 'Čistý crewneck sweatshirt bez kapuce. Architektonické linie, těžká nepodčesaná bavlna a decentní bílý akcent. Perfektní alternativa k saku na neformální zkoušky.',
+    description: 'Čistý crewneck sveter bez kapucne. Architektonické línie, ťažká nepočesaná bavlna a decentný akcent. Perfektná alternatíva k saku na neformálne skúšky.',
     highlights: [
-      '380 g/m² prémiový francouzský froté úplet',
-      'Široké žebrované manžety a spodní lem',
-      'Čistý streetwear profil',
-      'Snadná kombinovatelnost'
+      '380 g/m² prémiový francúzsky froté úplet',
+      'Široké rebrované manžety a spodný lem',
+      'Čistý streetwearový profil',
+      'Jednoduchá kombinovateľnosť'
     ],
     mockDetails: {
       textLines: ['BRNO', 'BRUTALISM'],
@@ -458,16 +458,16 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     status: 'AVAILABLE',
     color: 'Onyx',
     fit: 'Relaxed Unisex Fit',
-    material: '80% bavlna, 20% polyester (360 g/m²)',
+    material: '80 % bavlna, 20 % polyester (360 g/m²)',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     inStock: true,
     stockCount: 24,
-    description: 'Pro chvíle, kdy odevzdáváš ve 23:59 a systém ještě stíhá nahrát PDF. Lehká sportovně-streetwearová elegance do posluchárny.',
+    description: 'Pre chvíle, keď odovzdávaš o 23:59 a systém ešte stihne nahrať PDF. Ľahká športovo-streetwearová elegancia do posluchárne.',
     highlights: [
-      'Příjemná směs s tvarovou stálostí',
-      'Elastické manžety s podílem elastanu',
-      'Odolný sítotisk',
-      'Vyrobeno v limitované sérii'
+      'Príjemná zmes s tvarovou stálosťou',
+      'Elastické manžety s podielom elastanu',
+      'Odolná sieťotlač',
+      'Vyrobené v limitovanej sérii'
     ],
     mockDetails: {
       textLines: ['DEADLINE', 'RUNNER'],
@@ -487,16 +487,16 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     status: 'AVAILABLE',
     color: 'Black Washed Twill',
     fit: 'Low Profile Adjustable',
-    material: '100% bavlna těžký kepr',
-    sizes: ['ONE SIZE (Nastavitelná)'],
+    material: '100 % bavlna, ťažký kepr',
+    sizes: ['ONE SIZE (nastaviteľná)'],
     inStock: true,
     stockCount: 30,
-    description: 'Nestrukturovaná bavlněná kšiltovka s 3D bílou výšivkou loga FP DROP. Kovová přezka na zadní straně pro dokonalé nastavení velikosti.',
+    description: 'Neštruktúrovaná bavlnená šiltovka s 3D bielou výšivkou loga FP. Kovová pracka vzadu na dokonalé nastavenie veľkosti.',
     highlights: [
-      'Pevný bavlněný kepr 280 g/m²',
-      'Kovové zapínání s gravírováním',
-      'Zahnutý kšilt v klasickém 90s stylu',
-      'Bílá kontrastní výšivka'
+      'Pevný bavlnený kepr 280 g/m²',
+      'Kovové zapínanie s gravírovaním',
+      'Zahnutý šilt v klasickom štýle 90. rokov',
+      'Biela kontrastná výšivka'
     ],
     mockDetails: {
       textLines: ['FP DROP'],
@@ -516,16 +516,16 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     status: 'LIMITED',
     color: 'Pitch Black',
     fit: '5-Panel Flat Peak',
-    material: '100% bavlna',
+    material: '100 % bavlna',
     sizes: ['ONE SIZE'],
     inStock: true,
     stockCount: 15,
-    description: 'Pětipanelová moderní kšiltovka s rovným kšiltem a reflexním potiskem NIGHTLINE. Kousek stvořený pro páteční brněnské noci.',
+    description: 'Moderná päťpanelová šiltovka s rovným šiltom a výraznou výšivkou NIGHTLINE. Kúsok stvorený na piatkové brnianske noci.',
     highlights: [
-      'Moderní 5-panel konstrukce',
-      'Reflexní prvek viditelný ve tmě',
-      'Ventilační očka po obvodu',
-      'Nastavitelný plastový pásek'
+      'Moderná 5-panelová konštrukcia',
+      'Tyrkysová výšivka NIGHTLINE',
+      'Ventilačné očká po obvode',
+      'Nastaviteľný plastový pások'
     ],
     mockDetails: {
       textLines: ['NIGHTLINE', 'BRNO'],
@@ -543,18 +543,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-001',
     dropName: 'DROP 001 — FIRST SEMESTER',
     status: 'AVAILABLE',
-    color: 'Přírodní (Natural Canvas)',
+    color: 'Prírodná (Natural Canvas)',
     fit: 'Extra Large Capacity (20 L)',
-    material: '100% těžké bavlněné plátno (320 g/m²)',
+    material: '100 % ťažké bavlnené plátno (320 g/m²)',
     sizes: ['ONE SIZE (38 × 42 × 10 cm)'],
     inStock: true,
     stockCount: 45,
-    description: 'Zapomeň na chatrné plátěnky z veletrhu. Tato taška z 320g plátna pojme 16" MacBook Pro, tři učebnice mikroekonomie, láhev s vodou i svačinu z menzy.',
+    description: 'Zabudni na chatrné plátenky z veľtrhu. Táto taška z 320 g plátna pojme 16" MacBook Pro, tri učebnice mikroekonómie, fľašu s vodou aj desiatu z menzy.',
     highlights: [
-      'Unese až 15 kg bez natahování uch',
-      'Zesílené křížové prošití popruhů',
-      'Dno se záševkem pro větší objem',
-      'Vnitřní kapsička na zip pro telefon a klíče'
+      'Unesie až 15 kg bez naťahovania úch',
+      'Zosilnené krížové prešitie popruhov',
+      'Dno so záševkom pre väčší objem',
+      'Vnútorné vrecko na zips na telefón a kľúče'
     ],
     mockDetails: {
       textLines: ['CAMPUS', 'SURVIVAL', 'FP VUT'],
@@ -572,18 +572,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-002',
     dropName: 'DROP 002 — EXAM SEASON',
     status: 'AVAILABLE',
-    color: 'Přírodní (Natural Canvas)',
+    color: 'Prírodná (Natural Canvas)',
     fit: 'Large Volume with Base',
-    material: '100% recyklované plátno (340 g/m²)',
+    material: '100 % recyklované plátno (340 g/m²)',
     sizes: ['ONE SIZE (40 × 44 cm)'],
     inStock: true,
     stockCount: 38,
-    description: 'Pytel na sbírání zápočtů a kreditů. Přírodní plátěné provedení s výraznou černou typografií a dlouhými uchy přes rameno.',
+    description: 'Vrece na zbieranie zápočtov a kreditov. Prírodné plátenné prevedenie s výraznou čiernou typografiou a dlhými uchami cez plece.',
     highlights: [
-      'Vyrobeno z recyklovaných bavlněných vláken',
-      'Dlouhá ucha (70 cm) pohodlná na rameni přes zimní bundu',
-      'Vysoká odolnost proti oděru',
-      'Kvalitní vodou ředitelný sítotisk'
+      'Vyrobené z recyklovaných bavlnených vlákien',
+      'Dlhé uchá (70 cm) pohodlné na pleci aj cez zimnú bundu',
+      'Vysoká odolnosť proti oderu',
+      'Kvalitná vodou riediteľná sieťotlač'
     ],
     mockDetails: {
       textLines: ['ECTS', 'COLLECTOR'],
@@ -601,18 +601,18 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropId: 'drop-001',
     dropName: 'DROP 001 — FIRST SEMESTER',
     status: 'AVAILABLE',
-    color: 'Bílá (White)',
+    color: 'Biela (White)',
     fit: 'Mid-Calf Ribbed Crew',
-    material: '82% česaná bavlna, 15% polyamid, 3% elastan',
+    material: '82 % česaná bavlna, 15 % polyamid, 3 % elastan',
     sizes: ['38–41', '42–46'],
     inStock: true,
     stockCount: 52,
-    description: 'Žebrované streetwearové ponožky v balení po 2 párech (bílé s tyrkysovým nápisem KOLEJNÍ 29). Zesílená pata a špička pro maximální výdrž na campusu.',
+    description: 'Rebrované streetwearové ponožky v balení po 2 pároch (biele s tyrkysovým nápisom KOLEJNÍ 29). Zosilnená päta a špička pre maximálnu výdrž na kampuse.',
     highlights: [
-      'Dvojbalení v luxusní matné papírové pásce',
-      'Zesílené froté polstrování chodidla',
-      'Pružný žebrovaný lem, který neškrtí a nesjíždí',
-      'Tkaný nápis KOLEJNÍ 29 na zadní straně lýtka'
+      'Dvojbalenie v matnej papierovej páske',
+      'Zosilnené froté polstrovanie chodidla',
+      'Pružný rebrovaný lem, ktorý neškrtí a nezosúva sa',
+      'Tkaný nápis KOLEJNÍ 29 aj na chodidle'
     ],
     mockDetails: {
       textLines: ['KOLEJNÍ 29'],
@@ -632,16 +632,16 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     status: 'AVAILABLE',
     color: 'All Black',
     fit: 'Athletic High Cut',
-    material: '80% bavlna, 17% polyamid, 3% elastan',
+    material: '80 % bavlna, 17 % polyamid, 3 % elastan',
     sizes: ['38–41', '42–46'],
     inStock: true,
     stockCount: 40,
-    description: 'Sportovně laděné černé ponožky pro dlouhé dny i noci. Prodyšná zóna přes nárt zaručuje větrání i v teniskách během zkouškového.',
+    description: 'Športovo ladené čierne ponožky na dlhé dni aj noci. Priedušná zóna cez priehlavok zaručuje vetranie aj v teniskách počas skúškového.',
     highlights: [
-      'Tlumení nárazů v došlapu',
-      'Anatomické tvarování pro levé a pravé chodidlo',
-      'Ploché švy na špičce proti otlakům',
-      'Studentský cenový strop'
+      'Tlmenie nárazov pri došľape',
+      'Anatomické tvarovanie pre ľavé a pravé chodidlo',
+      'Ploché švy na špičke proti otlakom',
+      'Študentská cena'
     ],
     mockDetails: {
       textLines: ['NO SLEEP', 'FP DROP'],
@@ -660,17 +660,17 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropName: 'DROP 001 — FIRST SEMESTER',
     status: 'AVAILABLE',
     color: 'Monochrome Vinyl',
-    fit: 'Die-cut Různé formáty (5–10 cm)',
-    material: 'Voděodolný matný UV laminovaný vinyl',
+    fit: 'Die-cut, rôzne formáty (5–10 cm)',
+    material: 'Vodeodolný matný UV laminovaný vinyl',
     sizes: ['Sada 10 ks'],
     inStock: true,
     stockCount: 88,
-    description: 'Sada 10 matných vinylových samolepek pro polepení notebooku, iPadu, láhve na pití nebo sešitu. Obsahuje hlášky "HOT GIRLS GO TO FP", "NO SLEEP", "KOLEJNÍ 29" a logo FP DROP.',
+    description: 'Sada matných vinylových nálepiek na notebook, iPad, fľašu alebo zošit. Obsahuje hlášky "NO SLEEP", "KOLEJNÍ 29" a logo FP DROP.',
     highlights: [
-      '10 originálních designů v balení',
-      '100% voděodolné s UV ochranou proti vyblednutí',
-      'Nezanechávají lepidlo při odlepení z notebooku',
-      'Dárek zdarma ke každé objednávce nad 500 Kč'
+      '4 originálne dizajny v balení',
+      '100 % vodeodolné s UV ochranou proti vyblednutiu',
+      'Nezanechávajú lepidlo pri odlepení z notebooku',
+      'Darček zadarmo ku každej objednávke nad 500 Kč'
     ],
     mockDetails: {
       textLines: ['FP DROP', '10X PACK'],
@@ -689,17 +689,17 @@ const BASE_PRODUCTS: Omit<Product, 'imageUrl' | 'images'>[] = [
     dropName: 'DROP 004 — BRNO',
     status: 'LIMITED',
     color: 'Holographic & Matte Black',
-    fit: 'Die-cut Samolepky (8 ks)',
-    material: 'Holografická prémiová fólie 3M',
+    fit: 'Die-cut nálepky (8 ks)',
+    material: 'Holografická prémiová fólia 3M',
     sizes: ['Sada 8 ks'],
     inStock: true,
     stockCount: 65,
-    description: 'Limitovaná sada samolepek s duhovým holografickým odleskem a brněnskou tematikou. Vynikne na každém šedém nebo černém MacBooku.',
+    description: 'Limitovaná sada nálepiek s dúhovým holografickým odleskom a brnianskou tematikou. Vynikne na každom sivom alebo čiernom MacBooku.',
     highlights: [
-      'Efektní holografický lom světla',
-      'Extrémní odolnost vůči poškrábání',
-      'Přesný tvarový ořez die-cut',
-      'Limitovaná edice'
+      'Efektný holografický lom svetla',
+      'Extrémna odolnosť voči poškriabaniu',
+      'Presný tvarový orez die-cut',
+      'Limitovaná edícia'
     ],
     mockDetails: {
       textLines: ['BRNO VIBES', 'HOLO PACK'],

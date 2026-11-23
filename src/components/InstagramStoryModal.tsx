@@ -28,52 +28,51 @@ const STORIES: StorySlide[] = [
     id: 'story-1',
     title: '@fpdrop • Kolejní 29',
     location: 'Areál FP VUT Brno',
-    timeAgo: 'Před 2h',
+    timeAgo: 'Pred 2 h',
     productId: 'prod-01', // HOT GIRLS GO TO FP
-    caption: '„Drop 001 je venku. Už žádný nudný univerzitní textil. 240 GSM bio bavlna na těle.“',
-    stickerText: '🔥 KOUPIT TEE — 399 Kč',
+    caption: '„Drop 001 je vonku. Už žiadny nudný univerzitný textil. 240 GSM bio bavlna na tele.“',
+    stickerText: '🔥 KÚPIŤ TRIČKO — 399 Kč',
     tags: ['#fpdrop', '#kolejni29', '#fpvut']
   },
   {
     id: 'story-2',
     title: '@fpdrop • Studovna FP',
     location: 'Knihovna FP VUT',
-    timeAgo: 'Před 4h',
+    timeAgo: 'Pred 4 h',
     productId: 'prod-13', // NO SLEEP JUST DEADLINES HOODIE
-    caption: '„Zkouškové se blíží. 450 GSM těžká mikina pro noční učení a litry kávy.“',
-    stickerText: '☕ KOUPIT MIKINU — 899 Kč',
+    caption: '„Skúškové sa blíži. 450 GSM ťažká mikina na nočné učenie a litre kávy.“',
+    stickerText: '☕ KÚPIŤ MIKINU — 899 Kč',
     tags: ['#nosleep', '#deadlines', '#survivor']
   },
   {
     id: 'story-3',
     title: '@fpdrop • Noční Brno',
-    location: 'Jakubské náměstí & Noční rozjezd',
-    timeAgo: 'Před 6h',
+    location: 'Jakubské náměstí & nočný rozjazd',
+    timeAgo: 'Pred 6 h',
     productId: 'prod-04', // FP AFTER DARK
-    caption: '„Když skončí přednášky a začíná brněnská noc. Streetwear pro ty, co nespí.“',
-    stickerText: '🌙 KOUPIT AFTER DARK — 399 Kč',
+    caption: '„Keď skončia prednášky a začína brnianska noc. Streetwear pre tých, čo nespia.“',
+    stickerText: '🌙 KÚPIŤ AFTER DARK — 399 Kč',
     tags: ['#afterdark', '#brnolife', '#salina12']
   },
   {
     id: 'story-4',
     title: '@fpdrop • Unboxing',
     location: 'Koleje Pod Palackého vrchem',
-    timeAgo: 'Před 8h',
+    timeAgo: 'Pred 8 h',
     productId: 'prod-23', // STICKER PACK
-    caption: '„Balíček dorazil do Z-BOXu u bloku A03 za necelých 24 hodin! Samolepky top.“',
-    stickerText: '⚡ SAMOLEPKY ZDARMA S KÓDEM',
+    caption: '„Balík dorazil do Z-BOXu pri bloku A03 za necelých 24 hodín! Nálepky top.“',
+    stickerText: '⚡ NÁLEPKY ZADARMO S KÓDOM',
     tags: ['#zasilkovna', '#zbox', '#merch']
   }
 ];
 
-export const InstagramStoryModal: React.FC<InstagramStoryModalProps> = ({
+// Hooky musia byť volané vždy v rovnakom poradí, preto podmienené zobrazenie rieši obal nižšie.
+const InstagramStoryModalContent: React.FC<InstagramStoryModalProps> = ({
   isOpen,
   onClose,
   onSelectProduct,
   onQuickAdd
 }) => {
-  if (!isOpen) return null;
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [addedItem, setAddedItem] = useState(false);
@@ -210,7 +209,7 @@ export const InstagramStoryModal: React.FC<InstagramStoryModalProps> = ({
               {addedItem ? (
                 <>
                   <Check size={16} />
-                  <span>PŘIDÁNO DO KOŠÍKU!</span>
+                  <span>PRIDANÉ DO KOŠÍKA!</span>
                 </>
               ) : (
                 <>
@@ -231,7 +230,7 @@ export const InstagramStoryModal: React.FC<InstagramStoryModalProps> = ({
                   onClick={handleViewProduct}
                   className="text-white underline hover:text-neutral-200 font-bold"
                 >
-                  Detail kousku →
+                  Detail kúsku →
                 </button>
               </div>
             </div>
@@ -241,9 +240,12 @@ export const InstagramStoryModal: React.FC<InstagramStoryModalProps> = ({
         {/* Bottom Bar indicator */}
         <div className="relative z-30 px-4 py-3 border-t border-neutral-900 bg-black/90 flex items-center justify-between text-[11px] font-mono text-neutral-400">
           <span>STORY {currentIndex + 1} Z {STORIES.length}</span>
-          <span className="text-neutral-500">Klepni vpravo pro další</span>
+          <span className="text-neutral-500">Ťukni vpravo pre ďalšiu</span>
         </div>
       </div>
     </div>
   );
 };
+
+export const InstagramStoryModal: React.FC<InstagramStoryModalProps> = props =>
+  props.isOpen ? <InstagramStoryModalContent {...props} /> : null;

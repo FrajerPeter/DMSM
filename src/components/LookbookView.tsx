@@ -48,7 +48,7 @@ export const LookbookView: React.FC<LookbookViewProps> = ({ onSelectProduct, onQ
         </h1>
 
         <p className="mt-4 text-sm md:text-base text-neutral-400 max-w-2xl leading-relaxed font-sans">
-          Vizuální kronika studentského života na FP VUT v Brně. Syrový beton kampusu Kolejní 29, noční tramvaje, kavárenské útočiště a 240g česaná bavlna. Žádní modelové z agentur, pouze reální studenti.
+          Vizuálna kronika študentského života na FP VUT v Brne. Surový betón kampusu Kolejní 29, nočné električky, kaviarne ako útočisko a 240 g česaná bavlna. Žiadni modeli z agentúr, iba skutoční študenti.
         </p>
 
         {/* Filter buttons */}
@@ -63,7 +63,7 @@ export const LookbookView: React.FC<LookbookViewProps> = ({ onSelectProduct, onQ
                   : 'bg-neutral-950 text-neutral-400 border-neutral-800 hover:text-white hover:border-neutral-600'
               }`}
             >
-              {dId === 'ALL' ? 'VŠECHNY LOOKY' :
+              {dId === 'ALL' ? 'VŠETKY LOOKY' :
                dId === 'drop-001' ? 'DROP 001: FIRST SEMESTER' :
                dId === 'drop-002' ? 'DROP 002: EXAM SEASON' :
                dId === 'drop-003' ? 'DROP 003: FP AFTER DARK' : 'DROP 004: BRNO'}
@@ -166,7 +166,7 @@ export const LookbookView: React.FC<LookbookViewProps> = ({ onSelectProduct, onQ
                   {/* Bottom Caption */}
                   <div className="relative z-20 flex items-center justify-between text-xs font-mono text-neutral-300">
                     <span>{item.imageAlt}</span>
-                    <span className="text-[10px] uppercase text-neutral-400">KLIKNI NA BOD PRO NÁKUP</span>
+                    <span className="text-[10px] uppercase text-neutral-400">KLIKNI NA BOD A NAKÚP</span>
                   </div>
                 </div>
 
@@ -216,7 +216,7 @@ export const LookbookView: React.FC<LookbookViewProps> = ({ onSelectProduct, onQ
                                 : 'bg-white text-black hover:bg-neutral-200'
                             }`}
                           >
-                            {quickAddedId === prod.id ? 'PŘIDÁNO' : '+ KOŠÍK'}
+                            {quickAddedId === prod.id ? 'PRIDANÉ' : '+ KOŠÍK'}
                           </button>
                         )}
 
@@ -229,7 +229,7 @@ export const LookbookView: React.FC<LookbookViewProps> = ({ onSelectProduct, onQ
 
                   <div className="p-4 bg-neutral-950/60 border border-neutral-800/80 text-xs font-mono text-neutral-400 leading-relaxed">
                     <strong className="text-white block mb-1">STYLING NOTE:</strong>
-                    Všechny kousky v tomto looku mají uvolněný unisex oversized fit. Doporučujeme kombinovat s černými volnými cargo kalhotami nebo rovnou džínovinou a teniskami v neutrálních tónech.
+                    Všetky kúsky v tomto looku majú voľný unisex oversized strih. Odporúčame kombinovať s čiernymi voľnými cargo nohavicami alebo rovnými rifľami a teniskami v neutrálnych tónoch.
                   </div>
                 </div>
               </div>

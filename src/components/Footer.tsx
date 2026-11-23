@@ -48,7 +48,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Customer E-Commerce Links */}
           <div className="md:col-span-2 space-y-3 font-mono text-xs">
             <span className="text-neutral-400 font-bold uppercase tracking-wider block">
-              NAVIGACE
+              NAVIGÁCIA
             </span>
             <ul className="space-y-2">
               <li>
@@ -152,7 +152,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Newsletter / Student Discount */}
           <div className="md:col-span-3 space-y-3">
             <span className="text-neutral-400 font-bold font-mono text-xs uppercase tracking-wider block">
-              STUDENTSKÁ SLEVA 10 %
+              ŠTUDENTSKÁ ZĽAVA 10 %
             </span>
             <p className="text-xs text-neutral-400 font-mono">
               Zadaj študentský e-mail pre zľavový kód a prednostný prístup k novým kolekciám.
@@ -194,7 +194,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom Credits & Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-neutral-500 gap-4">
           <div>
-            © 2026 FP DROP. Nezávislý studentský projekt vytvořený pro FP VUT v Brně.
+            © 2026 FP DROP. Nezávislý študentský projekt vytvorený pre FP VUT v Brne.
           </div>
           <div className="flex gap-6">
             <span>ŠTUDENTSKÝ KONCEPT</span>
