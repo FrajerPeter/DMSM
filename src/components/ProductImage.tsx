@@ -19,9 +19,13 @@ export interface ProductImageProps {
   fallbackUrl?: string;
   /** Callback if image error occurs */
   onError?: () => void;
+  /** 'cover' (default) vyplní rámik, 'contain' zobrazí celý produkt bez orezania */
+  fit?: 'cover' | 'contain';
+  /** Tailwind trieda pozadia rámika (napr. svetlé pozadie pre produktové fotky pri fit='contain') */
+  backgroundClassName?: string;
 }
 
-const DEFAULT_ASSET_URL = '/products/hot-girls-front.jpg';
+const DEFAULT_ASSET_URL = '/products/winter26/20-hot-girls-go-to-fp-tee.jpg';
 
 export const ProductImage: React.FC<ProductImageProps> = ({
   imageUrl,
@@ -32,7 +36,9 @@ export const ProductImage: React.FC<ProductImageProps> = ({
   loading = 'lazy',
   aspectRatio = 'aspect-square',
   fallbackUrl = DEFAULT_ASSET_URL,
-  onError
+  onError,
+  fit = 'cover',
+  backgroundClassName = 'bg-[#0c0c0c]'
 }) => {
   const [hasError, setHasError] = useState(false);
   const activeUrl = hasError ? fallbackUrl : (imageUrl || src || fallbackUrl);
@@ -60,7 +66,7 @@ export const ProductImage: React.FC<ProductImageProps> = ({
 
   return (
     <div
-      className={`relative ${aspectRatio} w-full bg-[#0c0c0c] overflow-hidden flex items-center justify-center select-none ${className}`}
+      className={`relative ${aspectRatio} w-full ${backgroundClassName} overflow-hidden flex items-center justify-center select-none ${className}`}
     >
       {/* High-quality standard <img> element */}
       <img
@@ -69,7 +75,7 @@ export const ProductImage: React.FC<ProductImageProps> = ({
         loading={loading}
         draggable={false}
         onError={handleError}
-        className="w-full h-full object-cover object-center select-none transition-transform duration-300 ease-out"
+        className={`w-full h-full ${fit === 'contain' ? 'object-contain' : 'object-cover'} object-center select-none transition-transform duration-300 ease-out`}
       />
 
       {/* Dark theme contrast ring */}

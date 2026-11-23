@@ -6,6 +6,9 @@ import { BLOG_POSTS, BlogPost, formatBlogDate, getBlogPost } from '../data/blog'
 import { ProductImage } from './ProductImage';
 import { analytics } from '../utils/analytics';
 
+// Farba svetlého pozadia produktových fotiek Winter ’26 — titulky blogu ju použijú okolo celej fotky.
+const COVER_BG = 'bg-[#f3f2ee]';
+
 interface BlogViewProps {
   slug?: string;
   onOpenPost: (slug: string) => void;
@@ -67,7 +70,7 @@ const BlogList: React.FC<Pick<BlogViewProps, 'onOpenPost'>> = ({ onOpenPost }) =
 
         {featured && (
           <PostLink post={featured} onOpen={onOpenPost} className="group mb-6 grid overflow-hidden border border-neutral-800 bg-neutral-950 transition-colors hover:border-neutral-500 md:grid-cols-2">
-            <ProductImage src={featured.coverImage} alt={featured.coverAlt} aspectRatio="aspect-[4/3]" loading="eager" />
+            <ProductImage src={featured.coverImage} alt={featured.coverAlt} aspectRatio="aspect-[4/3]" loading="eager" fit="contain" backgroundClassName={COVER_BG} />
             <div className="flex flex-col justify-center p-6 md:p-10">
               <PostMeta post={featured} />
               <h2 lang="sk" className="mt-4 font-display text-2xl font-black uppercase leading-tight text-white break-words hyphens-auto md:text-3xl">{featured.title}</h2>
@@ -82,7 +85,7 @@ const BlogList: React.FC<Pick<BlogViewProps, 'onOpenPost'>> = ({ onOpenPost }) =
         <div className="grid gap-6 md:grid-cols-2">
           {rest.map(post => (
             <PostLink key={post.slug} post={post} onOpen={onOpenPost} className="group flex flex-col overflow-hidden border border-neutral-800 bg-neutral-950 transition-colors hover:border-neutral-500">
-              <ProductImage src={post.coverImage} alt={post.coverAlt} aspectRatio="aspect-[16/9]" />
+              <ProductImage src={post.coverImage} alt={post.coverAlt} aspectRatio="aspect-[16/9]" fit="contain" backgroundClassName={COVER_BG} />
               <div className="flex flex-1 flex-col p-6">
                 <PostMeta post={post} />
                 <h2 lang="sk" className="mt-4 font-display text-xl font-bold uppercase leading-snug text-white break-words hyphens-auto">{post.title}</h2>
@@ -126,7 +129,7 @@ const BlogDetail: React.FC<{ post: BlogPost } & Omit<BlogViewProps, 'slug'>> = (
       </header>
 
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-0">
-        <ProductImage src={post.coverImage} alt={post.coverAlt} aspectRatio="aspect-[16/9]" loading="eager" className="border border-neutral-800" />
+        <ProductImage src={post.coverImage} alt={post.coverAlt} aspectRatio="aspect-[16/9]" loading="eager" fit="contain" backgroundClassName={COVER_BG} className="border border-neutral-800" />
 
         <div className="mt-10 space-y-8">
           {post.sections.map((section, index) => (

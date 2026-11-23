@@ -120,8 +120,9 @@ class AnalyticsManager {
   public trackPageView(path: string, title: string, viewName: string): void {
     this.currentPath = path;
     this.scrollSent.clear();
-    // Po zmene stránky sa okno posúva hore — tento posun nepočítame ako scroll používateľa.
-    this.ignoreScrollUntil = Date.now() + 1000;
+    // Po zmene stránky sa okno (plynulo) posúva hore — tento posun nepočítame ako scroll používateľa.
+    // Meranie sa obnoví, keď je stránka hore, najneskôr po 3 s.
+    this.ignoreScrollUntil = Date.now() + 3000;
     const win = window as any;
     if (typeof win.clarity === 'function') win.clarity('set', 'page', path);
     this.trackEvent('page_view', {
@@ -181,7 +182,11 @@ class AnalyticsManager {
   };
 
   private handleScroll = (): void => {
-    if (this.scrollTicking || Date.now() < this.ignoreScrollUntil) return;
+    if (this.ignoreScrollUntil) {
+      if (window.scrollY > 10 && Date.now() < this.ignoreScrollUntil) return;
+      this.ignoreScrollUntil = 0;
+    }
+    if (this.scrollTicking) return;
     this.scrollTicking = true;
     requestAnimationFrame(() => {
       this.scrollTicking = false;

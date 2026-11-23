@@ -36,6 +36,17 @@ npm run preview
 
 Every main page has its own URL: `/`, `/shop`, `/drops`, `/lookbook`, `/news`, `/blog`, `/blog/<slug>`, `/about`, `/case-study`. The browser Back button and direct links work. Blog articles live in `src/data/blog.ts` (add a new object to `BLOG_POSTS` to publish another article).
 
+### Product photos (Winter '26)
+
+Product photos 20–43 are cut from the grid `assets/merch_grid_winter26.webp` into `public/products/winter26/` by:
+
+```bash
+pip install pillow numpy
+python scripts/crop_merch_grid.py
+```
+
+The script detects the grid lines, removes the caption above each tile and centres the product on a 1000×1000 canvas. The mapping to products is in `src/data/productImages.ts`.
+
 ### Analytics (GA4 + Microsoft Clarity)
 
 1. Copy `.env.example` to `.env` (PowerShell: `Copy-Item .env.example .env`).

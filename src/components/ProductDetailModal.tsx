@@ -140,39 +140,26 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 )}
               </div>
 
-              {/* View angle toggles: FRONT / BACK / DETAIL */}
-              <div className="grid grid-cols-3 gap-2">
-                <button
-                  onClick={() => setActiveAngle('front')}
-                  className={`py-2 text-[11px] font-mono uppercase tracking-wider border transition-colors ${
-                    activeAngle === 'front'
-                      ? 'bg-white text-black border-white font-bold'
-                      : 'bg-neutral-950 text-neutral-400 border-neutral-800 hover:text-white'
-                  }`}
-                >
-                  FRONT
-                </button>
-                <button
-                  onClick={() => setActiveAngle('back')}
-                  className={`py-2 text-[11px] font-mono uppercase tracking-wider border transition-colors ${
-                    activeAngle === 'back'
-                      ? 'bg-white text-black border-white font-bold'
-                      : 'bg-neutral-950 text-neutral-400 border-neutral-800 hover:text-white'
-                  }`}
-                >
-                  BACK
-                </button>
-                <button
-                  onClick={() => setActiveAngle('detail')}
-                  className={`py-2 text-[11px] font-mono uppercase tracking-wider border transition-colors ${
-                    activeAngle === 'detail'
-                      ? 'bg-white text-black border-white font-bold'
-                      : 'bg-neutral-950 text-neutral-400 border-neutral-800 hover:text-white'
-                  }`}
-                >
-                  DETAIL
-                </button>
-              </div>
+              {/* View angle toggles: zobrazia sa len pohľady, ku ktorým existuje fotka */}
+              {(product.images?.back || product.images?.detail) && (
+                <div className="grid grid-cols-3 gap-2">
+                  {(['front', 'back', 'detail'] as const)
+                    .filter(angle => angle === 'front' || Boolean(product.images?.[angle]))
+                    .map(angle => (
+                      <button
+                        key={angle}
+                        onClick={() => setActiveAngle(angle)}
+                        className={`py-2 text-[11px] font-mono uppercase tracking-wider border transition-colors ${
+                          activeAngle === angle
+                            ? 'bg-white text-black border-white font-bold'
+                            : 'bg-neutral-950 text-neutral-400 border-neutral-800 hover:text-white'
+                        }`}
+                      >
+                        {angle.toUpperCase()}
+                      </button>
+                    ))}
+                </div>
+              )}
 
               {/* Garment Quick Specs */}
               <div className="grid grid-cols-3 gap-3 pt-2 text-center text-xs font-mono">

@@ -4,125 +4,42 @@ export interface ProductImageSet {
   detail?: string;
 }
 
+// Produktové fotky kolekcie FP DROP • WINTER '26 (položky 20–43 z mriežky assets/merch_grid_winter26.webp).
+// Vyrezané skriptom scripts/crop_merch_grid.py. Pôvodné zadné/detailné fotky nezodpovedali novým návrhom,
+// preto má každý produkt zatiaľ len prednú fotku (galéria v detaile zobrazí iba dostupné pohľady).
+const WINTER26 = '/products/winter26';
+
 export const PRODUCT_IMAGES: Record<string, ProductImageSet> = {
-  'prod-01': {
-    front: '/products/hot-girls-front.jpg',
-    back: '/products/hot-girls-back.jpg',
-    detail: '/products/hot-girls-detail.jpg'
-  },
-  'prod-02': {
-    front: '/products/no-sleep-front.jpg',
-    back: '/products/no-sleep-back.jpg',
-    detail: '/products/no-sleep-detail.jpg'
-  },
-  'prod-03': {
-    front: '/products/ects-front.jpg',
-    back: '/products/ects-back.jpg',
-    detail: '/products/ects-detail.jpg'
-  },
-  'prod-04': {
-    front: '/products/fp-after-dark-front.jpg',
-    back: '/products/fp-after-dark-back.jpg',
-    detail: '/products/fp-after-dark-detail.jpg'
-  },
-  'prod-05': {
-    front: '/products/brno-front.jpg',
-    back: '/products/brno-back.jpg',
-    detail: '/products/brno-detail.jpg'
-  },
-  'prod-06': {
-    front: '/products/business-front.jpg',
-    back: '/products/brno-back.jpg',
-    detail: '/products/hot-girls-detail.jpg'
-  },
-  'prod-07': {
-    front: '/products/trading-front.jpg',
-    back: '/products/no-sleep-back.jpg',
-    detail: '/products/no-sleep-detail.jpg'
-  },
-  'prod-08': {
-    front: '/products/study-party-front.jpg',
-    back: '/products/hot-girls-back.jpg',
-    detail: '/products/hot-girls-detail.jpg'
-  },
-  'prod-09': {
-    front: '/products/no-explanation-front.jpg',
-    back: '/products/brno-back.jpg',
-    detail: '/products/ects-detail.jpg'
-  },
-  'prod-10': {
-    front: '/products/library-front.jpg',
-    back: '/products/no-sleep-back.jpg',
-    detail: '/products/no-sleep-detail.jpg'
-  },
-  'prod-11': {
-    front: '/products/brno-home-front.jpg',
-    back: '/products/brno-back.jpg',
-    detail: '/products/brno-detail.jpg'
-  },
-  'prod-12': {
-    front: '/products/one-more-front.jpg',
-    back: '/products/ects-back.jpg',
-    detail: '/products/ects-detail.jpg'
-  },
-  'prod-13': {
-    front: '/products/hoodie-001-front.jpg',
-    back: '/products/hoodie-001-back.jpg',
-    detail: '/products/hoodie-001-detail.jpg'
-  },
-  'prod-14': {
-    front: '/products/exam-hoodie-front.jpg',
-    back: '/products/hoodie-001-back.jpg',
-    detail: '/products/hoodie-001-detail.jpg'
-  },
-  'prod-15': {
-    front: '/products/sweatshirt-brno-front.jpg',
-    back: '/products/sweatshirt-brno-front.jpg',
-    detail: '/products/hoodie-001-detail.jpg'
-  },
-  'prod-16': {
-    front: '/products/sweatshirt-deadline-front.jpg',
-    back: '/products/sweatshirt-deadline-front.jpg',
-    detail: '/products/hoodie-001-detail.jpg'
-  },
-  'prod-17': {
-    front: '/products/dad-cap-front.jpg',
-    back: '/products/dad-cap-front.jpg'
-  },
-  'prod-18': {
-    front: '/products/snapback-front.jpg',
-    back: '/products/snapback-front.jpg'
-  },
-  'prod-19': {
-    front: '/products/tote-campus-front.jpg',
-    back: '/products/tote-campus-front.jpg'
-  },
-  'prod-20': {
-    front: '/products/tote-ects-front.jpg',
-    back: '/products/tote-ects-front.jpg'
-  },
-  'prod-21': {
-    front: '/products/socks-kolejni-front.jpg',
-    back: '/products/socks-kolejni-front.jpg'
-  },
-  'prod-22': {
-    front: '/products/socks-nosleep-front.jpg',
-    back: '/products/socks-nosleep-front.jpg'
-  },
-  'prod-23': {
-    front: '/products/stickers-pack.jpg',
-    back: '/products/stickers-pack.jpg'
-  },
-  'prod-24': {
-    front: '/products/stickers-holo.jpg',
-    back: '/products/stickers-holo.jpg'
-  }
+  'prod-01': { front: `${WINTER26}/20-hot-girls-go-to-fp-tee.jpg` },
+  'prod-02': { front: `${WINTER26}/21-no-sleep-tee.jpg` },
+  'prod-03': { front: `${WINTER26}/22-ects-are-temporary-tee.jpg` },
+  'prod-04': { front: `${WINTER26}/23-fp-after-dark-tee.jpg` },
+  'prod-05': { front: `${WINTER26}/24-brno-tee.jpg` },
+  'prod-06': { front: `${WINTER26}/25-business-but-make-it-fun-tee.jpg` },
+  'prod-07': { front: `${WINTER26}/26-trading-deadlines-for-coffee-tee.jpg` },
+  'prod-08': { front: `${WINTER26}/27-study-party-repeat-tee.jpg` },
+  'prod-09': { front: `${WINTER26}/28-fp-vut-no-explanation-needed-tee.jpg` },
+  'prod-10': { front: `${WINTER26}/29-probably-in-the-library-tee.jpg` },
+  'prod-11': { front: `${WINTER26}/30-brno-is-home-tee.jpg` },
+  'prod-12': { front: `${WINTER26}/31-one-more-semester-tee.jpg` },
+  'prod-13': { front: `${WINTER26}/32-fp-001-signature-hoodie.jpg` },
+  'prod-14': { front: `${WINTER26}/33-exam-survivor-hoodie.jpg` },
+  'prod-15': { front: `${WINTER26}/34-brno-brutalism-crewneck.jpg` },
+  'prod-16': { front: `${WINTER26}/35-deadline-runner-crewneck.jpg` },
+  'prod-17': { front: `${WINTER26}/36-fp-embroidery-dad-cap.jpg` },
+  'prod-18': { front: `${WINTER26}/37-brno-nightline-snapback.jpg` },
+  'prod-19': { front: `${WINTER26}/38-campus-survival-tote.jpg` },
+  'prod-20': { front: `${WINTER26}/39-ects-collector-tote.jpg` },
+  'prod-21': { front: `${WINTER26}/40-kolejni-29-socks.jpg` },
+  'prod-22': { front: `${WINTER26}/41-no-sleep-socks.jpg` },
+  'prod-23': { front: `${WINTER26}/42-fp-drop-vinyl-stickers.jpg` },
+  'prod-24': { front: `${WINTER26}/43-brno-holographic-stickers.jpg` }
 };
 
 export function getProductImageUrl(productId: string, view: 'front' | 'back' | 'detail' = 'front'): string {
   const images = PRODUCT_IMAGES[productId];
   if (!images) {
-    return '/products/hot-girls-front.jpg';
+    return `${WINTER26}/20-hot-girls-go-to-fp-tee.jpg`;
   }
   if (view === 'back' && images.back) {
     return images.back;
