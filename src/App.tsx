@@ -8,7 +8,7 @@ import { ShopView } from './components/ShopView';
 import { DropsView } from './components/DropsView';
 import { LookbookView } from './components/LookbookView';
 import { NewsView } from './components/NewsView';
-import { VlogView } from './components/VlogView';
+import { BlogView } from './components/BlogView';
 import { AboutView } from './components/AboutView';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { CartDrawer } from './components/CartDrawer';
@@ -17,6 +17,8 @@ import { SearchModal } from './components/SearchModal';
 import { AccountModal } from './components/AccountModal';
 import { AnalyticsConsent } from './components/AnalyticsConsent';
 import { analytics } from './utils/analytics';
+import { pathToRoute, routeToPath, VIEW_TITLES } from './utils/router';
+import { getBlogPost } from './data/blog';
 import { Home, Grid, Zap, BookOpen, ShoppingBag, CheckCircle2 } from 'lucide-react';
 
 const CaseStudyHub = lazy(() => import('./components/CaseStudyHub').then(module => ({ default: module.CaseStudyHub })));
@@ -56,8 +58,27 @@ function loadSavedWishlist(): string[] {
 }
 
 export default function App() {
-  const [activeView, setActiveView] = useState<MainNavView>('home');
-  const previousView = useRef(activeView);
+  const [route, setRoute] = useState(() => pathToRoute(window.location.pathname));
+  const activeView = route.view;
+  const lastTrackedPath = useRef<string | null>(null);
+
+  // Navigácia so skutočnými URL (/shop, /blog, /blog/<slug> …) a podporou tlačidla Späť.
+  const navigate = (view: MainNavView, blogSlug?: string) => {
+    const next = { view, blogSlug };
+    const path = routeToPath(next);
+    if (path !== window.location.pathname) window.history.pushState(null, '', path);
+    setRoute(next);
+  };
+  const setActiveView = (view: MainNavView) => navigate(view);
+
+  useEffect(() => {
+    // Neznáme alebo staré adresy (napr. /vlog) zjednotíme na kanonickú URL.
+    const canonical = routeToPath(route);
+    if (canonical !== window.location.pathname) window.history.replaceState(null, '', canonical);
+    const onPopState = () => setRoute(pathToRoute(window.location.pathname));
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
   const [cart, setCart] = useState<CartItem[]>(loadSavedCart);
   const [wishlistIds, setWishlistIds] = useState<string[]>(loadSavedWishlist);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -92,15 +113,25 @@ export default function App() {
   }, [wishlistIds]);
 
   useEffect(() => {
-    if (previousView.current === activeView) return;
-    previousView.current = activeView;
-    analytics.trackEvent('page_view', {
-      page_title: `FP DROP — ${activeView}`,
-      page_location: `${window.location.origin}${window.location.pathname}#${activeView}`,
-      page_path: `${window.location.pathname}#${activeView}`,
-      page_view_name: activeView
-    });
-  }, [activeView]);
+    const path = routeToPath(route);
+    const post = route.blogSlug ? getBlogPost(route.blogSlug) : undefined;
+    document.title = post
+      ? `${post.title} | Blog FP DROP`
+      : route.view === 'home'
+        ? 'FP DROP — Student Streetwear FP VUT Brno'
+        : `${VIEW_TITLES[route.view]} | FP DROP`;
+    // Jeden page_view na zmenu URL (StrictMode v dev režime spúšťa efekty dvakrát).
+    if (lastTrackedPath.current === path) return;
+    lastTrackedPath.current = path;
+    analytics.trackPageView(path, document.title, route.view);
+    if (post) {
+      analytics.trackEvent('blog_article_view', {
+        article_slug: post.slug,
+        article_title: post.title,
+        article_category: post.category
+      });
+    }
+  }, [route]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -189,7 +220,7 @@ export default function App() {
   const cartSubtotal = cart.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-neutral-100 flex flex-col font-sans selection:bg-white selection:text-black">
+    <div className="min-h-screen overflow-x-clip bg-[#0a0a0a] text-neutral-100 flex flex-col font-sans selection:bg-white selection:text-black">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-20 md:bottom-8 right-6 z-50 bg-white text-black px-4 py-2.5 font-mono text-xs font-bold shadow-2xl flex items-center gap-2 border border-neutral-300 animate-in fade-in slide-in-from-bottom-2">
@@ -286,7 +317,20 @@ export default function App() {
           />
         )}
 
-        {activeView === 'vlog' && <VlogView />}
+        {activeView === 'blog' && (
+          <BlogView
+            slug={route.blogSlug}
+            onOpenPost={slug => {
+              navigate('blog', slug);
+              window.scrollTo({ top: 0 });
+            }}
+            onBackToList={() => {
+              navigate('blog');
+              window.scrollTo({ top: 0 });
+            }}
+            onSelectProduct={setSelectedProduct}
+          />
+        )}
 
         {activeView === 'about' && (
           <AboutView

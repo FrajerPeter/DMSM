@@ -84,6 +84,15 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
               <li>
+                <a
+                  href="/blog"
+                  onClick={e => { if (e.metaKey || e.ctrlKey) return; e.preventDefault(); onNavigate('blog'); }}
+                  className="text-neutral-300 hover:text-white transition-colors"
+                >
+                  Blog
+                </a>
+              </li>
+              <li>
                 <button
                   onClick={() => onNavigate('about')}
                   className="text-neutral-300 hover:text-white transition-colors"
@@ -161,7 +170,8 @@ export const Footer: React.FC<FooterProps> = ({
                   placeholder="tvoj.email@vut.sk"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="flex-1 bg-neutral-950 border border-neutral-800 px-3 py-2 text-xs font-mono text-white placeholder:text-neutral-600 focus:outline-none focus:border-white"
+                  aria-label="E-mail pre newsletter"
+                  className="min-w-0 flex-1 bg-neutral-950 border border-neutral-800 px-3 py-2 text-xs font-mono text-white placeholder:text-neutral-600 focus:outline-none focus:border-white"
                   required
                 />
                 <button

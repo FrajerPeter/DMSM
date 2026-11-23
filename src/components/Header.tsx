@@ -1,7 +1,8 @@
 import React from 'react';
-import { Search, ShoppingBag, Heart, User, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Search, ShoppingBag, Heart, User, Menu, X, ArrowUpRight, PenLine } from 'lucide-react';
+import { MainNavView, routeToPath } from '../utils/router';
 
-export type MainNavView = 'home' | 'shop' | 'drops' | 'lookbook' | 'news' | 'vlog' | 'about' | 'case-study';
+export type { MainNavView };
 
 interface HeaderProps {
   activeView: MainNavView;
@@ -34,11 +35,14 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'drops', label: 'DROPY' },
     { id: 'lookbook', label: 'GALÉRIA' },
     { id: 'news', label: 'MAGAZÍN' },
-    { id: 'vlog', label: 'BLOG' },
+    { id: 'blog', label: 'BLOG' },
     { id: 'about', label: 'O ZNAČKE' }
   ] as const;
 
-  const handleNavClick = (viewId: typeof customerNavLinks[number]['id']) => {
+  const handleNavClick = (viewId: typeof customerNavLinks[number]['id'], e?: React.MouseEvent) => {
+    // Ctrl/Cmd + klik otvorí stránku v novej karte (odkaz má skutočnú URL).
+    if (e && (e.metaKey || e.ctrlKey || e.shiftKey)) return;
+    e?.preventDefault();
     setActiveView(viewId);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -79,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({
               }}
               className="text-left group"
             >
-              <span className="font-display font-black text-xl md:text-2xl tracking-tighter text-white group-hover:text-neutral-300 transition-colors">
+              <span className="whitespace-nowrap font-display font-black text-lg min-[400px]:text-xl md:text-2xl tracking-tighter text-white group-hover:text-neutral-300 transition-colors">
                 FP DROP
               </span>
             </button>
@@ -99,12 +103,14 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           </div>
 
-          {/* ZONE 2: 5 clean customer text navigation links: SHOP, DROPS, LOOKBOOK, NEWS, ABOUT */}
-          <nav className="hidden lg:flex items-center gap-8 text-xs font-mono font-medium tracking-wider">
+          {/* ZONE 2: hlavné menu: OBCHOD, DROPY, GALÉRIA, MAGAZÍN, BLOG, O ZNAČKE */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-8 text-xs font-mono font-medium tracking-wider">
             {customerNavLinks.map(link => (
-              <button
+              <a
                 key={link.id}
-                onClick={() => handleNavClick(link.id)}
+                href={routeToPath({ view: link.id })}
+                onClick={e => handleNavClick(link.id, e)}
+                aria-current={activeView === link.id ? 'page' : undefined}
                 className={`py-1 relative transition-colors ${
                   activeView === link.id
                     ? 'text-white font-bold'
@@ -115,16 +121,29 @@ export const Header: React.FC<HeaderProps> = ({
                 {activeView === link.id && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-white" />
                 )}
-              </button>
+              </a>
             ))}
           </nav>
 
           {/* ZONE 3: Customer Actions: SEARCH, ACCOUNT, WISHLIST, BAG / CART */}
-          <div className="flex items-center gap-2 sm:gap-3 font-mono text-xs">
+          <div className="flex items-center gap-0.5 min-[400px]:gap-1 sm:gap-3 font-mono text-xs">
+            {/* Blog – na mobiloch a tabletoch, kde je hlavné menu skryté v hamburgeri */}
+            <a
+              href="/blog"
+              onClick={e => handleNavClick('blog', e)}
+              aria-current={activeView === 'blog' ? 'page' : undefined}
+              className={`lg:hidden inline-flex items-center gap-1.5 p-1.5 sm:px-2 sm:py-2 transition-colors ${
+                activeView === 'blog' ? 'text-white font-bold' : 'text-neutral-300 hover:text-white'
+              }`}
+            >
+              <PenLine size={15} />
+              <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider">BLOG</span>
+            </a>
+
             {/* Search Trigger */}
             <button
               onClick={onOpenSearch}
-              className="p-2 text-neutral-400 hover:text-white transition-colors"
+              className="p-1.5 sm:p-2 text-neutral-400 hover:text-white transition-colors"
               aria-label="Vyhledávání"
               title="Vyhledat v produktech"
             >
@@ -134,7 +153,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Student Account Trigger */}
             <button
               onClick={onOpenAccount}
-              className="p-2 text-neutral-400 hover:text-white transition-colors"
+              className="p-1.5 sm:p-2 text-neutral-400 hover:text-white transition-colors"
               aria-label="Můj účet"
               title="Studentský profil & objednávky"
             >
@@ -144,7 +163,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Wishlist Trigger */}
             <button
               onClick={onOpenWishlist}
-              className="p-2 text-neutral-400 hover:text-white relative transition-colors"
+              className="hidden min-[400px]:block p-1.5 sm:p-2 text-neutral-400 hover:text-white relative transition-colors"
               aria-label="Oblíbené"
               title="Oblíbené kousky"
             >
@@ -159,11 +178,11 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Cart / Bag Trigger */}
             <button
               onClick={onOpenCart}
-              className="flex items-center gap-2 px-3 py-2 bg-white text-black hover:bg-neutral-200 font-bold transition-all select-none ml-1"
+              className="flex items-center gap-2 px-2.5 sm:px-3 py-2 bg-white text-black hover:bg-neutral-200 font-bold transition-all select-none ml-1"
               aria-label="Nákupní taška"
             >
               <ShoppingBag size={15} />
-              <span className="text-xs font-mono font-bold">KOŠÍK</span>
+              <span className="hidden sm:inline text-xs font-mono font-bold">KOŠÍK</span>
               {cartCount > 0 && (
                 <span className="bg-black text-white text-[10px] px-1.5 py-0.2 rounded font-mono font-bold tabular-nums">
                   {cartCount}
@@ -174,7 +193,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Menu Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-neutral-400 hover:text-white lg:hidden transition-colors ml-1"
+              className="p-2 text-neutral-400 hover:text-white lg:hidden transition-colors"
               aria-label={mobileMenuOpen ? 'Zavřít menu' : 'Otevřít menu'}
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -188,9 +207,11 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="lg:hidden fixed inset-x-0 top-20 bg-[#0a0a0a]/98 border-b border-neutral-800 z-30 px-6 py-8 backdrop-blur-xl animate-in fade-in slide-in-from-top-4">
           <div className="flex flex-col gap-5 text-sm font-mono tracking-wider">
             {customerNavLinks.map(link => (
-              <button
+              <a
                 key={link.id}
-                onClick={() => handleNavClick(link.id)}
+                href={routeToPath({ view: link.id })}
+                onClick={e => handleNavClick(link.id, e)}
+                aria-current={activeView === link.id ? 'page' : undefined}
                 className={`text-left py-2 border-b border-neutral-900 transition-colors uppercase ${
                   activeView === link.id
                     ? 'text-white font-black pl-2 border-l-2 border-white'
@@ -198,7 +219,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`}
               >
                 {link.label}
-              </button>
+              </a>
             ))}
 
             {/* Secondary Academic Area in Mobile Menu */}

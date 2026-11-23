@@ -473,7 +473,7 @@ export const AcademicDossier: React.FC = () => {
                   <span className="text-neutral-400 block">CELKOVÝ MĚSÍČNÍ ROZPOČET:</span>
                   <span className="text-xl font-bold text-white">10 000 CZK</span>
                 </div>
-                <div className="flex gap-6">
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
                   <div>
                     <span className="text-neutral-400 block">Awareness (25 %):</span>
                     <span className="text-white font-bold">2 500 Kč</span>
@@ -500,7 +500,7 @@ export const AcademicDossier: React.FC = () => {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-800 pb-3 mb-3">
                       <div>
                         <span className="text-white font-bold text-sm">{camp.name}</span>
-                        <span className="text-neutral-400 ml-2">({camp.stage})</span>
+                        <span className="text-neutral-400 ml-2 inline-block">({camp.stage})</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="text-neutral-400">Rozpočet: <strong className="text-white">{camp.budgetCZK} Kč</strong></span>

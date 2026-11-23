@@ -44,7 +44,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigateToShop, onNaviga
             <span>EST. 2026 BRNO</span>
           </div>
 
-          <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tighter text-white leading-none">
+          <h1 className="font-display font-black text-[clamp(1.75rem,8.5vw,2.25rem)] sm:text-6xl lg:text-7xl uppercase tracking-tighter text-white leading-none break-words">
             ŠTUDENTSKÁ KULTÚRA.<br />
             <span className="text-neutral-400">STREETWEAR PRE FAKULTU.</span>
           </h1>

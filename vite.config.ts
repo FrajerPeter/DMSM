@@ -2,13 +2,18 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { fileURLToPath } from 'node:url';
-import {defineConfig} from 'vite';
+import {defineConfig, loadEnv} from 'vite';
+import {analyticsHeadPlugin, resolveAnalyticsConfig} from './analytics.plugin';
 
 const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 
-export default defineConfig(() => {
+export default defineConfig(({mode}) => {
+  // Načíta .env, .env.local, .env.[mode] … (prázdny prefix = aj premenné bez VITE_).
+  const env = {...loadEnv(mode, projectRoot, ''), ...process.env} as Record<string, string>;
+  const analyticsConfig = resolveAnalyticsConfig(env);
+
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), analyticsHeadPlugin(analyticsConfig)],
     resolve: {
       alias: {
         '@': path.resolve(projectRoot),

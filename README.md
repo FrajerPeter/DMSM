@@ -26,7 +26,25 @@ To create a production build:
 npm run build
 ```
 
-GA4 and Microsoft Clarity are optional. Copy `.env.example` to `.env.local`, enter the measurement IDs, restart Vite, and allow analytics in the site's consent panel. Never commit `.env.local`.
+Production preview of the build (serves `dist/` with SPA fallback, so `/blog/...` URLs work):
+
+```bash
+npm run preview
+```
+
+### Routes
+
+Every main page has its own URL: `/`, `/shop`, `/drops`, `/lookbook`, `/news`, `/blog`, `/blog/<slug>`, `/about`, `/case-study`. The browser Back button and direct links work. Blog articles live in `src/data/blog.ts` (add a new object to `BLOG_POSTS` to publish another article).
+
+### Analytics (GA4 + Microsoft Clarity)
+
+1. Copy `.env.example` to `.env` (PowerShell: `Copy-Item .env.example .env`).
+2. Fill in `GA_MEASUREMENT_ID=G-XXXXXXXXXX` and `CLARITY_PROJECT_ID=xxxxxxxxxx`.
+3. Restart `npm run dev`.
+
+The Vite plugin in `analytics.plugin.ts` injects the official gtag.js and Clarity snippets into the `<head>` of every page, in dev (localhost) and in the production build. The app sends `page_view` on every URL change, `ui_click` for clicks on links and buttons, `scroll_depth` (25/50/75/90 %) and e-commerce/blog events (`view_item`, `add_to_cart`, `begin_checkout`, `blog_article_view`, …).
+
+Options: `ANALYTICS_REQUIRE_CONSENT=true` shows the consent banner (GA4 Consent Mode v2 sends cookieless pings until the visitor accepts); `false` assumes consent (local testing only). `ANALYTICS_DEBUG=true` turns on GA4 `debug_mode` so events appear in GA4 → Admin → DebugView. Never commit `.env`.
 
 ## Python mobile prototype
 
