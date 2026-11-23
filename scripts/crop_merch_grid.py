@@ -10,8 +10,13 @@ Postup pre každé políčko:
 
 Použitie (z koreňa projektu):
     pip install pillow numpy
-    python scripts/crop_merch_grid.py [cesta/k/mriezke] [vystupny/priecinok]
+    python scripts/crop_merch_grid.py [cesta/k/mriezke] [vystupny/priecinok] [--view front|back|detail]
 Predvolene: assets/merch_grid_winter26.webp -> public/products/winter26/
+
+Zadné a detailné fotky: priprav mriežku v rovnakom rozložení (6 × 4, rovnaké poradie 20–43)
+a spusti napr.  python scripts/crop_merch_grid.py assets/merch_grid_winter26_back.webp --view back
+Vzniknú súbory 20-…-back.jpg; potom ich doplň do src/data/productImages.ts ako `back:`
+(detail produktu potom automaticky zobrazí prepínače FRONT / BACK).
 """
 
 from __future__ import annotations
@@ -92,8 +97,17 @@ def label_bottom(cell: np.ndarray) -> int:
 
 
 def main() -> None:
-    src = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_INPUT
-    out_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_OUTPUT
+    args = sys.argv[1:]
+    view = "front"
+    if "--view" in args:
+        i = args.index("--view")
+        view = args[i + 1] if i + 1 < len(args) else ""
+        del args[i:i + 2]
+    if view not in ("front", "back", "detail"):
+        raise SystemExit("--view musí byť front, back alebo detail")
+    src = Path(args[0]) if len(args) > 0 else DEFAULT_INPUT
+    out_dir = Path(args[1]) if len(args) > 1 else DEFAULT_OUTPUT
+    suffix = "" if view == "front" else f"-{view}"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     image = Image.open(src).convert("RGB")
@@ -129,9 +143,10 @@ def main() -> None:
 
         canvas = Image.new("RGB", (OUTPUT_SIZE, OUTPUT_SIZE), tuple(int(v) for v in cell_bg))
         canvas.paste(product, ((OUTPUT_SIZE - product.width) // 2, (OUTPUT_SIZE - product.height) // 2))
-        target = out_dir / f"{number}-{slug}.jpg"
+        target = out_dir / f"{number}-{slug}{suffix}.jpg"
         canvas.save(target, "JPEG", quality=90, optimize=True, progressive=True)
-        print(f"{number}: {target.relative_to(ROOT)}  (produkt {bx1 - bx0}×{by1 - by0} px)")
+        shown = target.relative_to(ROOT) if target.is_relative_to(ROOT) else target
+        print(f"{number}: {shown}  (produkt {bx1 - bx0}x{by1 - by0} px)")
 
 
 if __name__ == "__main__":

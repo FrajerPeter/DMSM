@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite (normally `http://localhost:3000/`). In Windows PowerShell, use `npm.cmd` if script execution blocks `npm`:
+Open the local URL printed by Vite (normally `http://localhost:3000/`). In Windows PowerShell, use `npm.cmd` if script execution blocks `npm` (error *running scripts is disabled on this system*):
 
 ```powershell
 npm.cmd install
@@ -45,6 +45,8 @@ pip install pillow numpy
 python scripts/crop_merch_grid.py
 ```
 
+Back or detail photos: prepare a grid in the same 6×4 order and run `python scripts/crop_merch_grid.py <grid> --view back` (or `--view detail`), then add the files as `back:` / `detail:` in `src/data/productImages.ts`. The product detail shows the FRONT/BACK/DETAIL switch automatically.
+
 The script detects the grid lines, removes the caption above each tile and centres the product on a 1000×1000 canvas. The mapping to products is in `src/data/productImages.ts`.
 
 ### SEO
@@ -75,7 +77,7 @@ It opens the simulator at `http://localhost:5050/`. An optional Flet version is 
 ## Main folders
 
 - `src/` — React, TypeScript, and Vite website
-- `public/` and `product-assets/` — web and product images
+- `public/products/winter26/` — product photos 20–43 (cut from `assets/merch_grid_winter26.webp`)
 - `python_mobile_app/` — Python mobile simulator and optional Flet app
 - `assets/academic/` — project presentation visuals
 - `scripts/` — project asset and document generation utilities

@@ -4,25 +4,26 @@ import { PRODUCTS } from './data/products';
 import { Header, MainNavView } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomeView } from './components/HomeView';
-import { ShopView } from './components/ShopView';
-import { DropsView } from './components/DropsView';
-import { LookbookView } from './components/LookbookView';
-import { NewsView } from './components/NewsView';
-import { BlogView } from './components/BlogView';
-import { AboutView } from './components/AboutView';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { CartDrawer } from './components/CartDrawer';
-import { CheckoutModal } from './components/CheckoutModal';
 import { SearchModal } from './components/SearchModal';
-import { AccountModal } from './components/AccountModal';
 import { AnalyticsConsent } from './components/AnalyticsConsent';
 import { analytics, ga4Item } from './utils/analytics';
 import { pathToRoute, routeToPath, VIEW_DESCRIPTIONS, VIEW_TITLES } from './utils/router';
 import { setPageMeta } from './utils/seo';
-import { NotFoundView } from './components/NotFoundView';
 import { getBlogPost } from './data/blog';
 import { Home, Grid, Zap, BookOpen, ShoppingBag, CheckCircle2 } from 'lucide-react';
 
+// Stránky a menej používané okná sa načítajú až pri prvom otvorení (menší úvodný JavaScript).
+const ShopView = lazy(() => import('./components/ShopView').then(module => ({ default: module.ShopView })));
+const DropsView = lazy(() => import('./components/DropsView').then(module => ({ default: module.DropsView })));
+const LookbookView = lazy(() => import('./components/LookbookView').then(module => ({ default: module.LookbookView })));
+const NewsView = lazy(() => import('./components/NewsView').then(module => ({ default: module.NewsView })));
+const BlogView = lazy(() => import('./components/BlogView').then(module => ({ default: module.BlogView })));
+const AboutView = lazy(() => import('./components/AboutView').then(module => ({ default: module.AboutView })));
+const NotFoundView = lazy(() => import('./components/NotFoundView').then(module => ({ default: module.NotFoundView })));
+const CheckoutModal = lazy(() => import('./components/CheckoutModal').then(module => ({ default: module.CheckoutModal })));
+const AccountModal = lazy(() => import('./components/AccountModal').then(module => ({ default: module.AccountModal })));
 const CaseStudyHub = lazy(() => import('./components/CaseStudyHub').then(module => ({ default: module.CaseStudyHub })));
 const MobileAppSimulator = lazy(() => import('./components/MobileAppSimulator').then(module => ({ default: module.MobileAppSimulator })));
 const InstagramStoryModal = lazy(() => import('./components/InstagramStoryModal').then(module => ({ default: module.InstagramStoryModal })));
@@ -175,7 +176,10 @@ export default function App() {
   };
 
   const handleBuyNow = (product: Product, size: string, quantity: number = 1) => {
-    handleAddToCart(product, size, quantity);
+    // Rýchly nákup: ak je rovnaký kúsok v rovnakej veľkosti už v košíku (napr. po „Pridať do košíka“),
+    // nepridávame ho druhýkrát — rovno otvoríme objednávku.
+    const alreadyInCart = cart.some(item => item.product.id === product.id && item.size === size);
+    if (!alreadyInCart) handleAddToCart(product, size, quantity);
     setSelectedProduct(null);
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
@@ -259,6 +263,7 @@ export default function App() {
 
       {/* Main View Router */}
       <main className="flex-1 pb-16 md:pb-0">
+        <Suspense fallback={<div className="min-h-[60vh] bg-[#070707] p-8 font-mono text-xs text-neutral-500">Načítavam…</div>}>
         {activeView === 'home' && (
           <HomeView
             onSelectProduct={setSelectedProduct}
@@ -371,6 +376,7 @@ export default function App() {
             />
           </Suspense>
         )}
+        </Suspense>
       </main>
 
       {/* Footer */}
@@ -467,14 +473,18 @@ export default function App() {
         onAddProduct={handleAddToCart}
       />
 
-      <CheckoutModal
-        isOpen={isCheckoutOpen}
-        onClose={() => setIsCheckoutOpen(false)}
-        items={cart}
-        subtotal={cartSubtotal}
-        discount={0}
-        onOrderSuccess={handleOrderSuccess}
-      />
+      {isCheckoutOpen && (
+        <Suspense fallback={null}>
+          <CheckoutModal
+            isOpen={isCheckoutOpen}
+            onClose={() => setIsCheckoutOpen(false)}
+            items={cart}
+            subtotal={cartSubtotal}
+            discount={0}
+            onOrderSuccess={handleOrderSuccess}
+          />
+        </Suspense>
+      )}
 
       <SearchModal
         isOpen={isSearchOpen}
@@ -482,15 +492,19 @@ export default function App() {
         onSelectProduct={setSelectedProduct}
       />
 
-      <AccountModal
-        isOpen={isAccountOpen}
-        onClose={() => setIsAccountOpen(false)}
-        onNavigateToShop={() => {
-          setIsAccountOpen(false);
-          setActiveView('shop');
-        }}
-        wishlistCount={wishlistIds.length}
-      />
+      {isAccountOpen && (
+        <Suspense fallback={null}>
+          <AccountModal
+            isOpen={isAccountOpen}
+            onClose={() => setIsAccountOpen(false)}
+            onNavigateToShop={() => {
+              setIsAccountOpen(false);
+              setActiveView('shop');
+            }}
+            wishlistCount={wishlistIds.length}
+          />
+        </Suspense>
+      )}
 
       {isMobileAppOpen && (
         <Suspense fallback={null}>
