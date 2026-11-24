@@ -77,7 +77,7 @@ fig,ax=plt.subplots(figsize=(15,4.6),dpi=200); R=0.42
 def fmt(x): return f"{x:.2f}".replace('.',',')
 for (n,i,k) in edges:
     e=[q for q in edgeinfo if q['n']==n][0]
-    col='#C0392B' if e['crit'] else '#34495E'; lw=2.6 if e['crit'] else 1.4; ls='--' if n=='Fikt' else '-'
+    col='black' if e['crit'] else '#555555'; lw=2.6 if e['crit'] else 1.4; ls='--' if n=='Fikt' else '-'
     rad=-0.35 if n=='I' else 0
     a=FancyArrowPatch(pos[i],pos[k],connectionstyle=f'arc3,rad={rad}',arrowstyle='-|>',mutation_scale=16,color=col,lw=lw,linestyle=ls,shrinkA=R*72*0.95,shrinkB=R*72*0.95)
     ax.add_patch(a)
@@ -90,8 +90,8 @@ for (n,i,k) in edges:
             bbox=dict(fc='white',ec='none',pad=0.5))
 for nd,(x,y) in pos.items():
     c=t0[nd-1]==t1[nd-1]
-    ax.add_patch(Circle((x,y),R,fc='#FDEDEC' if c else 'white',ec='#C0392B' if c else '#34495E',lw=2))
-    ax.plot([x-R,x+R],[y,y],color='#34495E',lw=0.8); ax.plot([x,x],[y-R,y],color='#34495E',lw=0.8)
+    ax.add_patch(Circle((x,y),R,fc='#EEEEEE' if c else 'white',ec='black' if c else '#555555',lw=2))
+    ax.plot([x-R,x+R],[y,y],color='#555555',lw=0.8); ax.plot([x,x],[y-R,y],color='#555555',lw=0.8)
     ax.text(x,y+R*0.45,str(nd),ha='center',va='center',fontsize=11,fontweight='bold')
     ax.text(x-R*0.47,y-R*0.45,fmt(float(t0[nd-1])),ha='center',va='center',fontsize=7.5)
     ax.text(x+R*0.47,y-R*0.45,fmt(float(t1[nd-1])),ha='center',va='center',fontsize=7.5)
@@ -101,9 +101,9 @@ plt.tight_layout(); plt.savefig('graf_siet.png',bbox_inches='tight'); plt.close(
 # normal distribution chart
 mu=float(T); xs=np.linspace(mu-4*sd,mu+4*sd,400)
 fig,ax=plt.subplots(figsize=(8,3.4),dpi=200)
-ax.plot(xs,norm.pdf(xs,mu,sd),color='#2C3E50',lw=2)
-ax.fill_between(xs[xs<=20],norm.pdf(xs[xs<=20],mu,sd),color='#5DADE2',alpha=.35,label='P(T ≤ 20) = 92,79 %')
-ax.fill_between(xs[xs<=17],norm.pdf(xs[xs<=17],mu,sd),color='#C0392B',alpha=.7,label='P(T ≤ 17) = 3,39 %')
+ax.plot(xs,norm.pdf(xs,mu,sd),color='black',lw=2)
+ax.fill_between(xs[xs<=20],norm.pdf(xs[xs<=20],mu,sd),color='#BBBBBB',alpha=.35,label='P(T ≤ 20) = 92,79 %')
+ax.fill_between(xs[xs<=17],norm.pdf(xs[xs<=17],mu,sd),color='black',alpha=.7,label='P(T ≤ 17) = 3,39 %')
 for v,l in [(mu,'μ = 18,67'),(17,'17'),(20,'20'),(quant['0.95']['T'],'95 %: 20,17')]:
     ax.axvline(v,color='gray',ls=':',lw=1); ax.text(v,norm.pdf(mu,mu,sd)*1.03,l,ha='center',fontsize=8)
 ax.set_xlabel('Doba dokončenia projektu T [týždne]'); ax.set_ylabel('Hustota pravdepodobnosti')
@@ -115,7 +115,7 @@ res=['Elektrická sieť\n(kWh)','Chladenie\n(kW)','Priestor v rackoch\n(U)','Dá
 used=[3890,1082,409,15000]; cap=[12000,3000,600,15000]
 fig,ax=plt.subplots(figsize=(8,3.2),dpi=200)
 pct=[u/c*100 for u,c in zip(used,cap)]
-ax.barh(res,[100]*4,color='#EAECEE'); bars=ax.barh(res,pct,color=['#5DADE2','#5DADE2','#5DADE2','#C0392B'])
+ax.barh(res,[100]*4,color='#EAECEE'); bars=ax.barh(res,pct,color=['#BBBBBB','#BBBBBB','#BBBBBB','black'])
 for i,(p,u,c) in enumerate(zip(pct,used,cap)): ax.text(min(p,100)+1 if p<90 else p-1,i,f"{p:.1f} % ({u:,} / {c:,})".replace(',',' ').replace('.',','),va='center',ha='left' if p<90 else 'right',fontsize=8.5,color='black' if p<90 else 'white')
 ax.set_xlim(0,105); ax.invert_yaxis(); ax.set_xlabel('Využitie kapacity [%]'); ax.spines[['top','right']].set_visible(False)
 plt.tight_layout(); plt.savefig('graf_lp.png'); plt.close()

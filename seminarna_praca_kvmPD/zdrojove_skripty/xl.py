@@ -2,8 +2,8 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.workbook.defined_name import DefinedName
 wb=Workbook(); ws=wb.active; ws.title='Ukol1_LP'
-B=Font(bold=True); H=PatternFill('solid',fgColor='1F4E79'); HF=Font(bold=True,color='FFFFFF')
-Y=PatternFill('solid',fgColor='FFF2CC'); G=PatternFill('solid',fgColor='E2EFDA'); thin=Side(style='thin',color='999999')
+B=Font(bold=True); H=PatternFill('solid',fgColor='D9D9D9'); HF=Font(bold=True,color='000000')
+Y=PatternFill('solid',fgColor='F2F2F2'); G=PatternFill('solid',fgColor='E7E6E6'); thin=Side(style='thin',color='999999')
 def box(c): c.border=Border(left=thin,right=thin,top=thin,bottom=thin)
 ws['A1']='Úkol 1 – Optimalizace provozu datového centra (lineární programování)'; ws['A1'].font=Font(bold=True,size=14)
 hdr=['Ukazatel','x1','x2','x3','x4','x5','x6','Levá strana','Relace','Pravá strana','Rezerva / přebytek']

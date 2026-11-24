@@ -26,11 +26,11 @@ const bd={style:BorderStyle.SINGLE,size:4,color:'808080'}; const borders={top:bd
 function T(head,rows,widths,o={}){
   const sz=o.size||20; const sum=widths.reduce((a,b)=>a+b,0); widths=widths.map(w=>Math.floor(w*W/sum)); widths[widths.length-1]+=W-widths.reduce((a,b)=>a+b,0);
   const mk=(cells,isHead,ri)=>new TableRow({tableHeader:isHead,cantSplit:true,children:cells.map((c,j)=>{
-    let txt=c, hl=false, bold=isHead; if(c&&typeof c==='object'){txt=c.t;hl=c.hl;bold=bold||c.b;}
+    let txt=c, hl=false, bold=isHead; if(c&&typeof c==='object'){txt=c.t;hl=c.hl;bold=bold||c.b||c.hl;}
     return new TableCell({width:{size:widths[j],type:WidthType.DXA},borders,verticalAlign:VerticalAlign.CENTER,
-      shading:isHead?{fill:'1F4E79',type:ShadingType.CLEAR,color:'auto'}:hl?{fill:'FADBD8',type:ShadingType.CLEAR,color:'auto'}:(o.zebra&&ri%2)?{fill:'F2F2F2',type:ShadingType.CLEAR,color:'auto'}:undefined,
+      shading:isHead?{fill:'D9D9D9',type:ShadingType.CLEAR,color:'auto'}:hl?undefined:(o.zebra&&ri%2)?{fill:'F2F2F2',type:ShadingType.CLEAR,color:'auto'}:undefined,
       margins:{top:40,bottom:40,left:70,right:70},
-      children:[new Paragraph({alignment:(j<(o.leftCols??1))?AlignmentType.LEFT:AlignmentType.CENTER,children:[new TextRun({text:String(txt),bold,size:sz,color:isHead?'FFFFFF':undefined,font:o.mono?'Consolas':FONT})]})]});})});
+      children:[new Paragraph({alignment:(j<(o.leftCols??1))?AlignmentType.LEFT:AlignmentType.CENTER,children:[new TextRun({text:String(txt),bold,size:sz,color:'000000',font:o.mono?'Consolas':FONT})]})]});})});
   return new Table({width:{size:W,type:WidthType.DXA},columnWidths:widths,rows:[mk(head,true,0),...rows.map((r,i)=>mk(r,false,i))]});}
 const mr=t=>t;
 const EQ=(children,o={})=>new Paragraph({alignment:AlignmentType.CENTER,keepNext:o.kn,spacing:{before:80,after:80},children:[new TextRun({text:children.join(''),font:'Cambria Math',size:23})]});
@@ -43,9 +43,9 @@ const PB=()=>new Paragraph({children:[new PageBreak()]});
 const ctr=(t,sz,o={})=>new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:o.after??80,before:o.before??0},children:[new TextRun({text:t,size:sz,bold:o.b,allCaps:o.caps,color:o.color})]});
 const title=[
  ctr('VYSOKÉ UČENÍ TECHNICKÉ V BRNĚ',32,{b:true,before:600}),
- ctr('BRNO UNIVERSITY OF TECHNOLOGY',22,{color:'595959',after:400}),
+ ctr('BRNO UNIVERSITY OF TECHNOLOGY',22,{color:'000000',after:400}),
  ctr('FAKULTA PODNIKATELSKÁ',28,{b:true}),
- ctr('FACULTY OF BUSINESS AND MANAGEMENT',22,{color:'595959',after:1600}),
+ ctr('FACULTY OF BUSINESS AND MANAGEMENT',22,{color:'000000',after:1600}),
  ctr('SEMINÁRNA PRÁCA',40,{b:true,after:200}),
  ctr('Kvantitativní metody (kvmPD)',28,{after:500}),
  ctr('Optimalizácia prevádzky dátového centra metódou lineárneho programovania',24,{b:true}),
@@ -162,7 +162,7 @@ body.push(TCap('Vstupné údaje, stredné doby trvania a rozptyly činností'));
 body.push(T(['Čin.','Popis činnosti','Predch.','a','m','b','tₑ [týž.]','σ²'],K.map(k=>{const x=A[k];const c=D.crit.includes(k);const w=s=>c?{t:s,hl:true}:s;
   return [w(k),w(({A:'Průzkum trhu a prohlídky nemovitostí',B:'Finanční příprava a předschválení úvěru',C:'Právní audit, podpis smluv a katastr',D:'Zaměření a architektonický návrh',E:'Vyřízení ohlášky/povolení na úřadech',F:'Bourací práce a odvoz suti',G:'Hrubé instalace – voda, elektro',H:'Zednické práce, obklady a sanita',I:'Objednávka a výroba nábytku na míru',J:'Malířské práce a pokládka podlah',K:'Kompletace a montáž nábytku',L:'Finální úklid, homestaging a inzerce'})[k]),
   w(x.p.length?x.p.join(', '):'–'),w(x.a),w(x.m),w(x.b),w(f(x.te,3)+(x.te_s.includes('/')?' ('+x.te_s+')':'')),w(f(x.var,4)+' ('+x.var_s+')')];}),[0.6,4.2,0.9,0.45,0.45,0.45,1.45,1.3],{leftCols:2,size:18}));
-body.push(Src('vlastné výpočty; farebne sú zvýraznené činnosti, ktoré ležia na kritickej ceste'));
+body.push(Src('vlastné výpočty; tučným písmom sú zvýraznené činnosti, ktoré ležia na kritickej ceste'));
 body.push(P('Napríklad pre činnosť I platí tₑ = (3 + 4·4 + 6)/6 = 25/6 ≈ 4,167 týždňa a σ² = ((6 − 3)/6)² = 0,25. Najväčšiu neistotu (rozptyl 0,25) má práve výroba nábytku na mieru, ktorá má výrazne posunutý pesimistický odhad.'));
 
 body.push(H2('3.2  Hrano-hranová matice a metoda přeškrtávání hran'));
@@ -181,7 +181,7 @@ body.push(Src('vlastné spracovanie'));
 body.push(P('Činnosti sú rozdelené do **9 rádov (0. až 8. rád)**. Podľa rádov sú očíslované uzly sieťového grafu tak, aby každá hrana viedla z uzla s nižším číslom do uzla s vyšším číslom (i < j). Počiatočný uzol 1 je začiatkom činností 0. rádu A a B. Keďže činnosť C vyžaduje dokončenie A aj B, ale činnosť D iba A, musí byť zavedená **fiktívna činnosť** (2 → 3) s nulovou dobou trvania: A končí v uzle 2 (z ktorého vychádza D), B končí v uzle 3 a fiktívna hrana zabezpečí, že C (3 → 5) začne až po skončení A aj B. Ďalej D končí v uzle 4 (začiatok E a I), C a E sa stretávajú v uzle 5 (začiatok F) a postupne nasledujú uzly 6 až 11. Výsledný graf má **11 uzlov a 13 hrán** (12 reálnych a 1 fiktívnu).'));
 
 body.push(H2('3.3  Síťový graf'));
-body.push(P('Na Obrázku 2 je hranovo definovaný sieťový graf (AOA – activity on arrow). Činnosti sú znázornené hranami s uvedenou strednou dobou trvania, uzly predstavujú udalosti. V hornej časti uzla je jeho číslo, vľavo dole najskôr možný termín t⁽⁰⁾ a vpravo dole najneskôr prípustný termín t⁽¹⁾. Kritická cesta je vyznačená červenou farbou, fiktívna činnosť prerušovanou čiarou.',{keepNext:true}));
+body.push(P('Na Obrázku 2 je hranovo definovaný sieťový graf (AOA – activity on arrow). Činnosti sú znázornené hranami s uvedenou strednou dobou trvania, uzly predstavujú udalosti. V hornej časti uzla je jeho číslo, vľavo dole najskôr možný termín t⁽⁰⁾ a vpravo dole najneskôr prípustný termín t⁽¹⁾. Kritická cesta je vyznačená hrubou čiernou čiarou a kritické uzly sivou výplňou, fiktívna činnosť prerušovanou čiarou.',{keepNext:true}));
 body.push(IMG('graf_siet.png',605,180)); body.push(FCap('Hranovo definovaný sieťový graf projektu s výsledkami časovej analýzy (vlastné spracovanie)'));
 
 body.push(H2('3.4  Časová analýza'));
@@ -213,7 +213,7 @@ body.push(IMG('graf_normal.png',540,230)); body.push(FCap('Normálne rozdelenie 
 body.push(P(`Pri požadovanej spoľahlivosti 95 % je potrebné plánovať termín **20,17 týždňa**; v praxi je vhodné zmluvne sa zaviazať na **21 týždňov** (pravdepodobnosť 99,47 %). Pre kontrolu bola v Pythone vykonaná aj simulácia Monte Carlo (200 000 behov, beta-PERT rozdelenie všetkých 12 činností). Tá zohľadňuje aj takmer kritickú cestu B – C s rezervou 1 týždeň a dáva strednú dobu ${f(D.mc.mean,2)} týždňa, P(T ≤ 20) ≈ ${pct(D.mc.p20,1)} a 95 % kvantil ${f(D.mc.q95,2)} týždňa. Klasický PERT je teda mierne optimistický, odporúčaný termín 21 týždňov však obstojí aj pri tejto presnejšej analýze.`));
 
 body.push(H2('3.6  Incidenční matice'));
-body.push(P('Incidenčná matica S (uzly × hrany) má 11 riadkov a 13 stĺpcov. Prvok sᵢₖ = −1, ak hrana k z uzla i vychádza, sᵢₖ = +1, ak do uzla i vstupuje, inak 0. Každý stĺpec tak obsahuje práve jednu −1 (začiatočný uzol činnosti) a jednu +1 (koncový uzol). Kritické hrany sú zvýraznené.'));
+body.push(P('Incidenčná matica S (uzly × hrany) má 11 riadkov a 13 stĺpcov. Prvok sᵢₖ = −1, ak hrana k z uzla i vychádza, sᵢₖ = +1, ak do uzla i vstupuje, inak 0. Každý stĺpec tak obsahuje práve jednu −1 (začiatočný uzol činnosti) a jednu +1 (koncový uzol). Prvky kritických hrán sú zvýraznené tučným písmom.'));
 const nm=D.names.map(n=>n==='Fikt'?'fikt.':n);
 body.push(TCap('Incidenčná matica sieťového grafu (uzly × hrany)'));
 body.push(T(['Uzol',...nm],D.inc.map((row,i)=>[{t:String(i+1),b:true},...row.map((v,j)=>{const s=v===0?'':(v>0?'+1':'−1');return D.edges[j].crit&&v!==0?{t:s,hl:true,b:true}:s;})]).concat([[{t:'tₑ',b:true},...D.edges.map(e=>f(e.te,2))]]),[1.1,...Array(13).fill(1)],{size:17}));
@@ -257,8 +257,8 @@ const doc=new Document({
  creator:'Študent FP VUT',title:'Seminárna práca – Kvantitativní metody',
  styles:{default:{document:{run:{font:FONT,size:24},paragraph:{spacing:{line:276,lineRule:'auto'}}}},
   paragraphStyles:[
-   {id:'Heading1',name:'Heading 1',basedOn:'Normal',next:'Normal',quickFormat:true,run:{font:FONT,size:30,bold:true,color:'1F4E79'},paragraph:{spacing:{before:360,after:160},keepNext:true,outlineLevel:0}},
-   {id:'Heading2',name:'Heading 2',basedOn:'Normal',next:'Normal',quickFormat:true,run:{font:FONT,size:26,bold:true,color:'1F4E79'},paragraph:{spacing:{before:240,after:120},keepNext:true,outlineLevel:1}},
+   {id:'Heading1',name:'Heading 1',basedOn:'Normal',next:'Normal',quickFormat:true,run:{font:FONT,size:30,bold:true,color:'000000'},paragraph:{spacing:{before:360,after:160},keepNext:true,outlineLevel:0}},
+   {id:'Heading2',name:'Heading 2',basedOn:'Normal',next:'Normal',quickFormat:true,run:{font:FONT,size:26,bold:true,color:'000000'},paragraph:{spacing:{before:240,after:120},keepNext:true,outlineLevel:1}},
    {id:'Heading3',name:'Heading 3',basedOn:'Normal',next:'Normal',quickFormat:true,run:{font:FONT,size:24,bold:true},paragraph:{spacing:{before:160,after:80},keepNext:true,outlineLevel:2}}]},
  numbering:{config:[{reference:'bul',levels:[{level:0,format:LevelFormat.BULLET,text:'•',alignment:AlignmentType.LEFT,style:{paragraph:{indent:{left:567,hanging:283}}}}]},
   {reference:'num',levels:[{level:0,format:LevelFormat.DECIMAL,text:'%1.',alignment:AlignmentType.LEFT,style:{paragraph:{indent:{left:567,hanging:340}}}}]}]},
