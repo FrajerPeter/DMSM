@@ -55,7 +55,7 @@ acts=[('A','Průzkum trhu a prohlídky nemovitostí','-',2,3,4),('B','Finanční
 ('I','Objednávka a výroba nábytku na míru','D',3,4,6),('J','Malířské práce a pokládka podlah','H',1,2,3),
 ('K','Kompletace a montáž nábytku','I, J',1,2,3),('L','Finální úklid, homestaging a inzerce','K',1,1,2)]
 p['A1']='Úkol 2 – PERT: Nákup a rekonstrukce bytu k pronájmu'; p['A1'].font=Font(bold=True,size=14)
-hd=['Činnost','Popis','Předchůdci','a','m','b','t_e','σ²','ES','EF','LS','LF','Rc','Kritická']
+hd=['Činnost','Popis','Předchůdci','a_ij','m_ij','b_ij','y_ij','σ²_ij','ZM','KM','ZP','KP','RC','Kritická','RV']
 for j,h in enumerate(hd): c=p.cell(3,1+j,h); c.fill=H; c.font=HF; c.alignment=Alignment(horizontal='center'); box(c)
 row={a[0]:4+i for i,a in enumerate(acts)}
 pred={a[0]:[x.strip() for x in a[2].split(',')] if a[2]!='-' else [] for a in acts}
@@ -68,13 +68,14 @@ for i,(k,d,pr,a,m,b) in enumerate(acts):
     p.cell(r,10,f'=I{r}+G{r}')
     p.cell(r,12,'=$C$18' if not succ[k] else '=MIN('+','.join(f'K{row[q]}' for q in succ[k])+')')
     p.cell(r,11,f'=L{r}-G{r}'); p.cell(r,13,f'=ROUND(K{r}-I{r},6)'); p.cell(r,14,f'=IF(M{r}=0,"ANO","ne")')
-    for j in range(7,15): box(p.cell(r,j)); p.cell(r,j).number_format='0.000'
+    p.cell(r,15,'=ROUND('+('$C$18' if not succ[k] else 'MIN('+','.join(f'I{row[q]}' for q in succ[k])+')')+f'-J{r},6)')
+    for j in range(7,16): box(p.cell(r,j)); p.cell(r,j).number_format='0.000'
 p.column_dimensions['B'].width=42
 lab=[('Očekávaná doba projektu T [týdny]','=MAX(J4:J15)'),('Rozptyl kritické cesty σ²','=SUMIF(N4:N15,"ANO",H4:H15)'),('Směrodatná odchylka σ','=SQRT(C19)'),
 ('Plánovaný termín T1 [týdny]',17),('Z1','=(C21-C18)/C20'),('P(T ≤ T1)','=_xlfn.NORM.S.DIST(C22,TRUE)'),
 ('Plánovaný termín T2 [týdny]',20),('Z2','=(C24-C18)/C20'),('P(T ≤ T2)','=_xlfn.NORM.S.DIST(C25,TRUE)'),
 ('Požadovaná pravděpodobnost',0.95),('Z_p','=_xlfn.NORM.S.INV(C27)'),('Termín pro požadovanou pravděpodobnost','=C18+C28*C20'),
-('Požadovaná pravděpodobnost',0.90),('Z_p','=_xlfn.NORM.S.INV(C30)'),('Termín pro požadovanou pravděpodobnost','=C18+C31*C20')]
+('Riziko zpoždění 10 % → pravděpodobnost',0.90),('Z_p','=_xlfn.NORM.S.INV(C30)'),('Termín pro požadovanou pravděpodobnost','=C18+C31*C20'),('Zkrácení doby realizace o [týdny]',1),('Z (zkrácení)','=-C33/C20'),('P(zkrácení o C33 týdnů)','=_xlfn.NORM.S.DIST(C34,TRUE)')]
 for i,(l,f) in enumerate(lab):
     p.cell(18+i,1,l).font=B; p.merge_cells(start_row=18+i,start_column=1,end_row=18+i,end_column=2); c=p.cell(18+i,3,f); c.fill=G; c.number_format='0.0000'
 wb.save('Kvantitativni_metody_vypocty.xlsx')
