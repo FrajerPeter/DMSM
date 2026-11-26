@@ -64,8 +64,7 @@ set_text(starts('3.6  Plánovaný termín'),'3.6  Plánovaný termín realizáci
 set_text(starts('3.7  Pravdepodobnosť'),'3.7  Pravdepodobnosť kritickosti uzlov a činností pomocou incidenčnej matice')
 set_text(starts('3.8  Manažerská'),'3.8  Manažérska interpretácia výsledkov')
 set_text(starts('5  Seznam'),'5  Zoznam použitej literatúry')
-u=u.replace('<w:pPr><w:pStyle w:val="Nadpis1"/></w:pPr>'+run('5  Zoznam použitej literatúry'),'<w:pPr><w:pStyle w:val="Nadpis1"/><w:pageBreakBefore/></w:pPr>'+run('5  Zoznam použitej literatúry'))
-assert 'pageBreakBefore' in u
+
 delete(lambda t,x: t.strip()=='' and 'Nadpis2' in x)
 
 # ---------- 3. text fixes
@@ -131,12 +130,11 @@ def para2(t):
 def cap(t): return '<w:p>'+cap_ppr+run(t,cap_rpr)+'</w:p>'
 W=9070
 cols=[1630]+[1063]*7; cols[-1]=W-sum(cols[:-1])
-t11=table([['Tₚ [dni]','118','120','124','128','132','136','140'],['u','−1,86','−1,49','−0,74','0,00','0,74','1,49','2,23'],['F(u)','0,03','0,07','0,23','0,50','0,77','0,93','0,99']],cols)
-blk=para('Okrem skrátenia o 10 dní bola posúdená aj pravdepodobnosť dodržania ďalších plánovaných termínov. Výsledky sú uvedené v Tabuľke 11.')+cap('Tabuľka 11: Pravdepodobnosť dodržania vybraných plánovaných termínov')+t11+para2('Termíny kratšie ako 124 dní majú pravdepodobnosť dodržania nižšiu ako 25 % a sú pre investora príliš rizikové. Naopak termíny nad 136 dní sú dodržateľné takmer s istotou, ale zbytočne predlžujú dobu, počas ktorej byt neprináša nájomné.')
+cols=[1270]+[780]*10; cols[-1]=W-sum(cols[:-1])
+t11=table([['Tₚ [dni]','118','120','124','125','128','129','130','132','136','140'],['u','−1,86','−1,49','−0,74','−0,56','0,00','0,19','0,37','0,74','1,49','2,23'],['F(u)','0,03','0,07','0,23','0,29','0,50','0,57','0,64','0,77','0,93','0,99']],cols)
+blk=para('Pravdepodobnosť dodržania ďalších zvolených plánovaných termínov uvádza Tabuľka 11.')+cap('Tabuľka 11: Pravdepodobnosť dodržania vybraných plánovaných termínov')+t11
 insert_after(starts('Pravdepodobnosť, že sa doba realizácie projektu skráti'),blk)
-cols=[1630]+[1488]*5; cols[-1]=W-sum(cols[:-1])
-t12=table([['Tₚ [dni]','124','125','128','129','130'],['u','−0,74','−0,56','0,00','0,19','0,37'],['F(u)','0,23','0,29','0,50','0,57','0,64']],cols)
-blk=para('Podľa odporúčaných hodnôt by sa pravdepodobnosť dodržania plánovaného termínu mala pohybovať v intervale 0,25 až 0,60. Pri nižšej pravdepodobnosti hrozí vysoké riziko oneskorenia, pri vyššej sa zbytočne viažu rezervy času a zdrojov. Tomuto intervalu zodpovedajú termíny od 125 do 129 dní (Tabuľka 12).')+cap('Tabuľka 12: Plánované termíny v odporúčanom intervale pravdepodobnosti')+t12+para2('Ako postačujúci plánovaný termín s odporúčanou pravdepodobnosťou preto stanovujeme 129 dní, ktorý bude dodržaný s pravdepodobnosťou 0,57. Termín 135 dní pri 10 % riziku oneskorenia je vhodný ako bezpečný zmluvný termín voči nájomcovi.')
+blk=para('Podľa odporúčaných hodnôt by sa pravdepodobnosť dodržania plánovaného termínu mala pohybovať v intervale 0,25 až 0,60 – pri nižšej hrozí vysoké riziko oneskorenia, pri vyššej sa zbytočne viažu rezervy času a zdrojov. Tomuto intervalu zodpovedajú termíny od 125 do 129 dní (Tabuľka 11). Ako postačujúci plánovaný termín preto stanovujeme 129 dní (pravdepodobnosť 0,57), termín 135 dní je vhodný ako bezpečný zmluvný termín voči nájomcovi.')
 insert_after(starts('Pri 10 % riziku oneskorenia je plánovaný termín realizácie projektu 135'),blk)
 
 # ---------- 6. double spaces in body text (not headings)
@@ -153,6 +151,56 @@ mr=r'<m:r>(?:<m:rPr>(?:(?!</m:rPr>).)*</m:rPr>)?(?:<w:rPr>(?:(?!</w:rPr>).)*</w:
 pat=re.compile(mr%r'(-?\d+)'+mr%','+mr%r'(\d+)',re.S)
 u,ndec=pat.subn(lambda m:f'<m:r><m:rPr><m:nor/></m:rPr><w:rPr><w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/></w:rPr><m:t>{m.group(1)},{m.group(2)}</m:t></m:r>',u)
 
+
+
+# ---------- SHORTENING
+def delete_para(pred):
+    delete(pred)
+def delete_table_after_caption(prefix):
+    global u
+    mm=find(starts(prefix)); i=u.index('<w:tbl>',mm.end()); j=u.index('</w:tbl>',i)+8
+    assert u[mm.end():i].strip()=='' or '<w:p' not in u[mm.end():i], u[mm.end():i][:200]
+    u=u[:mm.start()]+u[j:]
+delete_table_after_caption('Tabuľka 1:')
+set_text(starts('Štrukturálne premenné x'),'Štrukturálne premenné x₁ až x₆ predstavujú počet nasadených jednotiek šiestich typov operácií: ťažba Bitcoinu (x₁, zisk 15 €/deň/ks), ťažba altcoinov (x₂, 12 €), komerčný cloud hosting (x₃, 20 €), trénovanie modelov umelej inteligencie (x₄, 35 €), validátorské uzly PoS (x₅, 8 €) a prenájom databázových serverov (x₆, 18 €). Keďže ide o fyzické zariadenia, premenné musia byť nezáporné a celočíselné.')
+delete_table_after_caption('Tabuľka 9:')
+set_text(starts('Citlivostná analýza z Riešiteľa'),'Citlivostná analýza z Riešiteľa ukázala, že najvýhodnejšou investíciou je rozšírenie dátovej linky – každý ďalší 1 Mbps by zvýšil denný zisk približne o 0,43 € (1 000 Mbps asi o 427 € denne), zatiaľ čo rozširovanie elektriny, chladenia či priestoru zisk nezvýši. AI servery vychádzajú lepšie ako ťažba Bitcoinu, pretože po započítaní povinných PoS uzlov prinášajú 0,427 € na 1 Mbps linky oproti 0,407 €. Ťažba Bitcoinu by sa oplatila až pri zisku aspoň 15,79 € denne na jeden miner, ťažba altcoinov pri 17,92 €. Každý webový server nad zmluvné minimum by znížil zisk asi o 36 € a každý databázový server asi o 30 € denne a zisk by znížilo aj sprísnenie ekologickej regulácie [4].')
+for p in ['Najviac sa oplatí','Prečo vyhrávajú','Kedy by sa ťažba','Zmluvy SLA firmu','Prísnejšia ekologická']: delete_para(starts(p))
+delete_para(lambda t,x: t.strip()=='Úlohy:')
+for p in ['Pomocou hranovo-hranovej matice zostavte','Pomocou metódy preškrtávania hrán očíslujte','Metódou PERT vykonajte','Určte pravdepodobnosť dodržania','Určte plánovaný termín realizácie','Pomocou incidenčnej matice určte']: delete_para(starts(p))
+delete_para(starts('Činnosti sú rozdelené do 9 rádov'))
+set_text(starts('Kvantitatívne metódy a operačný výskum'),'Kvantitatívne metódy a operačný výskum poskytujú manažérom exaktné nástroje, pomocou ktorých je možné rozhodovacie situácie previesť do podoby matematického modelu, nájsť optimálne riešenie a následne ho ekonomicky interpretovať. Cieľom tejto seminárnej práce je aplikovať dve základné metódy operačného výskumu na dva praktické problémy z podnikateľského prostredia, vyriešiť ich v súlade s metodikou predmetu Kvantitatívne metódy a výsledky interpretovať z pohľadu manažérskeho rozhodovania.')
+delete_para(starts('Cieľom tejto seminárnej práce'))
+set_text(starts('Realistický termín'),'Realistický termín: stredná doba realizácie projektu je 128 dní (približne 18 týždňov). Skrátenie o 10 dní je pravdepodobné len na 3,17 %. Plánovaný termín s odporúčanou pravdepodobnosťou je 129 dní, ako bezpečný zmluvný termín voči nájomcovi a pri plánovaní splátok úveru odporúčame 135 dní.')
+set_text(starts('V Úlohe 1 bol'),'V Úlohe 1 bol zostavený a v MS Excel (Riešiteľ) vyriešený model optimalizácie prevádzky dátového centra so 6 celočíselnými premennými a 5 štrukturálnymi obmedzeniami. Optimálne je prevádzkovať 50 webových, 76 AI GPU a 15 databázových serverov a 25 PoS validátorov s maximálnym denným ziskom 4 130 €. Kritickým (limitujúcim) zdrojom je dátová linka, preto manažmentu odporúčame orientovať sa na AI výpočty, opustiť ťažbu kryptomien a investovať do zvýšenia priepustnosti linky (tieňová cena približne 0,427 €/Mbps za deň).')
+set_text(starts('V Úlohe 2 bol'),'V Úlohe 2 bol metódou PERT analyzovaný projekt nákupu a rekonštrukcie bytu na prenájom s 12 činnosťami. Kritickú cestu tvoria činnosti A – D – E – F – G – H – J – K – L so strednou dobou trvania 128 dní a rozptylom 29. Skrátenie realizácie o 10 dní má pravdepodobnosť len 3,17 %, plánovaný termín s odporúčanou pravdepodobnosťou je 129 dní a pri 10 % riziku oneskorenia 135 dní. Nekritický uzol 3 a činnosti C a X0 sa stanú kritickými s pravdepodobnosťou približne 7 %.')
+
+# ---------- further shortening
+set_text(starts('Optimálne riešenie je x'),'Optimálne riešenie je x₁ = 0, x₂ = 0, x₃ = 50, x₄ = 76, x₅ = 25, x₆ = 15 s maximálnym denným ziskom Z = 4 130 €. Najväčšiu časť zisku prinášajú AI GPU servery (2 660 €), nasledujú webové servery (1 000 €), databázové servery (270 €) a PoS uzly (200 €). Ťažba Bitcoinu ani altcoinov sa za daných podmienok neoplatí.')
+set_text(starts('Obmedzenia:'),'Obmedzenia: spotreba elektriny, chladenia, priestoru a priepustnosti linky ≤ kapacita; podiel PoS uzlov ≥ 15 %; x₃ ≥ 50, x₄ ≥ 20, x₆ ≥ 15 (SLA); všetky premenné celé čísla.')
+for p in ['spotreba elektrickej energie, chladiaceho','podiel PoS validátorských uzlov musí','počty webových, AI a databázových','všetky premenné musia byť celé']: delete(starts(p))
+mm=find(starts('1) Do TM a σ²TM')); stp=ppr(find(starts('Incidenčná matica je štvorcová')).group(0)); srp=first_rpr(mm.group(0))
+set_text(starts('1) Do TM a σ²TM'),'Do TM a σ²TM prvého riadka sa zapíše 0. TMⱼ je najvyššia hodnota TMᵢ + yᵢⱼ v j-tom stĺpci a σ²TMⱼ najvyššia hodnota σ²TMᵢ + σ²ᵢⱼ v j-tom stĺpci. TM posledného uzla sa prepíše do TP posledného stĺpca a σ²TP posledného uzla je 0. TPᵢ je najnižšia hodnota TPⱼ − yᵢⱼ v i-tom riadku a σ²TPᵢ najvyššia hodnota σ²TPⱼ + σ²ᵢⱼ v i-tom riadku. Rezerva uzla je RIᵢ = TPᵢ − TMᵢ.')
+for p in ['2) Hodnota TM posledného','3) TPᵢ je najnižšia','4) Rezerva uzla']: delete(starts(p))
+set_text(starts('Výsledky sú zapísané v sieťovom grafe'),'Výsledky sú zapísané v sieťovom grafe (Obrázok 1). V uzle je hore jeho číslo, vľavo dole TMᵢ a vpravo dole TPᵢ. Nad šípkou je ZM, činnosť s dobou trvania y a KM, pod šípkou ZP, RC a KP (pri šikmých hranách v rámčeku). Údaje sa čítajú v smere šípky, kritická cesta je vyznačená hrubou čiarou.')
+set_text(starts('Kritické činnosti: 9 z 12'),'Kritické činnosti: 9 z 12 činností je kritických, projekt je teda časovo veľmi napätý. Najväčšiu neistotu majú vybavovanie ohlásenia na úradoch (E) a výroba nábytku (I) s rozptylom 9 – pri E je vhodné podať kompletnú dokumentáciu, pri murárskych prácach (H) zmluvne zaviazať dodávateľa termínom a sankciou za omeškanie.')
+
+# ---------- renumber tables sequentially and fix references
+caps=[]
+for mm in P.finditer(u):
+    m=re.match(r'Tabuľka (\d+):',txt(mm.group(0)))
+    if m: caps.append(int(m.group(1)))
+mp={old:new+1 for new,old in enumerate(caps)}
+def renp(mm):
+    x=mm.group(0); t=txt(x)
+    if not re.search(r'Tabuľk\w* \d+',t) or '<m:oMath' in x: return x
+    nt=re.sub(r'(Tabuľk(?:a|e|y|u)) (\d+)',lambda m:m.group(1)+' '+str(mp.get(int(m.group(2)),int(m.group(2)))),t)
+    if nt==t: return x
+    rpr=re.sub(r'<w:b/>|<w:bCs/>','',first_rpr(x))
+    return '<w:p>'+ppr(x)+run(nt,rpr)+'</w:p>'
+parts=re.split(r'(<w:tbl>.*?</w:tbl>)',u,flags=re.S)
+u=''.join(p if p.startswith('<w:tbl>') else P.sub(renp,p) for p in parts)
+print('table map',mp)
 
 # ---------- remove empty paragraphs before literature heading
 mm=find(lambda t,x: t.replace('\xa0',' ').startswith('5  Zoznam') and 'Nadpis1' in x)
